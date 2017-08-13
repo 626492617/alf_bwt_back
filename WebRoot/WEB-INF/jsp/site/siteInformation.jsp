@@ -28,15 +28,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <style type="text/css">
         a {
          color:black;
-         text-decoration:none;
-         <style type="text/css">
+         text-decoration:none;}
+        
 			* {margin:0;padding:0;}
+		.pwenzi{
+            font-size: 10px;
+            color: #787878;
+		}
+		.tr1{
+			width: 150px; 
+			text-align: center; 
+			font-size: 16px;
 			
-		</style>
+		}
+	</style>
          
       
     </head>
-<body>
+<body onload="" >
     
          <!-- 封装视频的url -->
          <input type="hidden" id="logourl1" >
@@ -44,108 +53,89 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div style="width: 820px; margin: 0 auto">
 		<div id="headerPanel" class="easyui-panel">
         <form id="form_edit1" name="form_edit" enctype="multipart/form-data">
-             <input type="hidden" id="contentid" name="id">
-            <table>
-                <tr>
-               		<td>站点名称:</td>
+             <input type="hidden" id="siteid" name="siteid">
+            <table style="text-align: content;margin: 10px;" >
+                <tr style="height: 55px"  >
+               		<td class="tr1" >站点名称:</td>
                     <td>
-						<select id="ipt_categorystatus1" name="locationnum" type="text" class="easyui-combobox"  style="width: 500px" panelheight="auto" editable="editable "/>
-        				</select>		
+						<input id="sitename" name="sitename" class="easyui-validatebox"  style="width: 250px;height: 25px"  />	
                     </td> 
-                </tr>   
-                
-                <tr>
-                    <td>
+                    <td rowspan="4" colspan="2" style="text-align: center;" align="center" >
+                        <span id="inputStr" style="display: none;"></span>
+                        <div style="width: 100%; position: relative; text-align: center; margin-top: 10px;">
+                            <img id="imgShow" style="width: 150px; height: 120px; cursor: pointer;" src="" />
+                            <input type="hidden" id="sitelogo" name="sitelogo"  />
+                            <p class="pwenzi"  > 封面图(150*194)</p>
+                        </div>
+                       	
+                    </td>
+                </tr>
+                <tr style="height: 55px" >
+                    <td class="tr1" >
                     	站点简称
                     </td>
                     <td>
-                        <input id="ipt_categoryname1" name="text" type="text"   style="width: 500px" onPropertyChange="showValue(this.value)"/>
+                       <input id="siteabbreviation" name="siteabbreviation" class="easyui-validatebox"   style="width: 250px;height: 25px"  />
                     </td>
                   
                 </tr>
-                <tr>
-                    <td>负责人姓名</td>
+                <tr style="height: 55px"  >
+                    <td class="tr1" >负责人姓名</td>
                     <td>
-						<input id="ipt_content1" name="content" type="text"    style="width: 500px" />
+						<input id="dutypeople" name="dutypeople" class="easyui-validatebox"  style="width: 250px;height: 25px"  />
                            
                     </td>
                 </tr>
-                <tr>
-                    <td>负责人电话</td> 
+                <tr style="height: 55px"  >
+                    <td class="tr1" >负责人电话</td> 
                     <td>
-						<input id="ipt_contentid1" name="contentid" type="text"    required="true"  style="width: 500px" />
+						<input id="dutyphone" name="dutyphone" class="easyui-validatebox"  style="width: 250px;height: 25px"  />
                            
                     </td>
                 </tr>                                                           
-                <tr>
-                     <td>站点账号</td> 
+                <tr style="height: 55px"  >
+                     <td class="tr1" >站点账号</td> 
                     <td>
-						<input id="ipt_newsurl" name="newurl" type="text"     style="width: 500px" />
+						<input id="count" class="easyui-validatebox" style="width: 250px;height: 25px"  disabled="disabled"  />
                            
                     </td>
-                </tr>
-                <tr>
-                     <td>站点密码</td> 
+                     <td class="tr1" >站点密码</td> 
                     <td>
-						<input id="ipt_newsurl" name="newurl" type="text"     style="width: 500px" />
+						<input id="pwd" class="easyui-validatebox" style="width: 250px;height: 25px"  disabled="disabled"  />
                            
                     </td>
                 </tr>
                 
-                <tr>
-                     <td>所在省份</td> 
+                <tr style="height: 55px" >
+                     <td class="tr1" >所在省份</td> 
                     <td>
-						<input id="ipt_newsurl" name="newurl" type="text"     style="width: 500px" />
-                           
+						<input id="province" name="province" class="easyui-combobox" style="width: 250px;height:27px;"  panelheight="100px" editable="editable"  />
+                    </td>
+                     <td class="tr1" >所在市级</td> 
+                    <td>
+						<input id="city" name="city" class="easyui-combobox" style="width: 250px;height:27px;" panelheight="100px" editable="editable" />
                     </td>
                 </tr>
-                 <tr>
-                     <td>所在市级</td> 
+                <tr style="height: 55px" >
+                     <td class="tr1" >所在地区</td> 
                     <td>
-						<select id="ipt_datasources" name="datasources" type="text" class="easyui-combobox"  style="width: 500px" panelheight="auto" editable="editable "/>
-        				   <option value="1">公司内部视频</option>
-        				   <option value="2">其他来源视频</option>
-        				</select>	
+						<input id="area" name="area" class="easyui-combobox" style="width: 250px;height:27px;" panelheight="100px" editable="editable" />
+                    </td>
+                     <td class="tr1" >所在街道</td> 
+                    <td>
+						<input id="street" name="street" class="easyui-combobox" style="width: 250px;height:27px;" panelheight="100px" editable="editable" />
                     </td>
                 </tr>
-                <tr>
-                     <td>所在地区</td> 
-                    <td>
-						<input id="ipt_newsurl" name="newurl" type="text"     style="width: 500px" />
-                           
+                <tr style="height: 110px"  >
+                    
+                     <td class="tr1" >详细地址</td> 
+                    <td colspan="3" >
+						<textarea id="address" name="address" class="easyui-validatebox" style="width: 660px;height: 85px"  >  </textarea> 
                     </td>
                 </tr>
-                <tr>
-                     <td>所在街道</td> 
-                    <td>
-						<input id="ipt_newsurl" name="newurl" type="text"     style="width: 500px" />
-                           
-                    </td>
-                </tr>
-                <tr>
-                     <td>所在街道</td> 
-                    <td>
-						<input id="ipt_newsurl" name="newurl" type="text"     style="width: 500px" />
-                           
-                    </td>
-                </tr>
-                 <tr>
-                     <td>详细地址</td> 
-                    <td>
-						<input id="ipt_newsurl" name="newurl" type="text"     style="width: 500px" />
-                           
-                    </td>
-                </tr>
-                <tr>
-					<td>站点logo</td>
-					<td colspan="3" style="text-align: left;"><textarea
-							id="articlecontent" name="articlecontent"></textarea>
-					</td>
-                </tr>
-               
-                <tr>
-					<td></td>
-					    <td colspan="3">
+                <tr style="height: 55px">
+					
+					    <td colspan="4">
 							<div style="width: 200px; margin: 0 auto;">
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 								<a href="javascript:;" class="easyui-linkbutton" onclick="Submit()" style="height: 30px; width: 60px;">
@@ -162,6 +152,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      </div>
      </div>
     <script type="text/javascript">
+	  //修改站点省
+	    function upDataQueryProvince(){
+			$('#province').combobox({
+	       	 	valueField: 'id',
+	            textField: 'name',
+	            url: 'selectAllLinkage.do?parentid=0',
+	            onSelect: function (record) {
+	            	upDataQueryCity(record.id);
+	            }
+	       });
+		}
+	    //修改站点市
+	    function upDataQueryCity(id){
+			$('#city').combobox({
+	       	 	valueField: 'id',
+	            textField: 'name',
+	            url: 'selectAllLinkage.do?parentid='+id,
+	            onSelect: function (record) {
+	            	upDataArea(record.id);
+	            }
+	       });
+		}
+	    //修改站点区县
+	    function upDataArea(id){
+			$('#area').combobox({
+	       	 	valueField: 'id',
+	            textField: 'name',
+	            url: 'selectAllLinkage.do?parentid='+id,
+	            onSelect: function (record) {
+	            	upDataStreet(record.id);
+	            }
+	       });
+		}
+	    //修改街道
+	    function upDataStreet(id){
+	    	$('#street').combobox({
+	       	 	valueField: 'id',
+	            textField: 'name',
+	            url: 'selectAllLinkage.do?parentid='+id,
+	            
+	       });
+	    }
 	function Submit(){
         
         var json = {};
@@ -186,7 +218,62 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              
    
     }
-	
+	//清空数据
+	function wipeData(){
+		$("#siteid").val("");
+		$("#province").combobox("getValue","");
+        $("#city").combobox("getValue","");
+        $("#area").combobox("getValue","");
+        $("#street").combobox("getValue","");
+        $("#sitename").val("");
+        $("#siteabbreviation").val("");
+        $("#dutypeople").val("");
+        $("#dutyphone").val("");
+        $("#address").val("");
+        document.getElementById("imgShow").src = "";
+        $("#sitelogo").val("");
+        
+        $('#count').val("");
+        $('#pwd').val("");
+	}
+	function dataLoad(){
+		var id = ${user.siteid}
+		$("#siteid").val(id);
+		 wipeData();
+		 $.post("selectBySiteidUpdatap.do", "siteid="+id, function (data) {
+			 if (data != "0") {
+                 var dataObj = eval("(" + data + ")");
+                 //修改站点省
+                 upDataQueryProvince();
+                 //修改站点市
+                 if(dataObj.province != null)
+                 upDataQueryCity(dataObj.province);
+                 //修改站点区县
+                 if(dataObj.city != null)
+                 upDataArea(dataObj.city);
+                 //修改街道
+                 if(dataObj.area != null)
+                 upDataStreet(dataObj.area);
+                 $("#province").combobox("setValue",dataObj.province);
+                 $("#city").combobox("setValue",dataObj.city);
+                 $("#area").combobox("setValue",dataObj.area);
+                 $("#street").combobox("setValue",dataObj.street);
+                 $("#sitename").val(dataObj.sitename);
+                 $("#siteabbreviation").val(dataObj.siteabbreviation);
+                 $("#dutypeople").val(dataObj.dutypeople);
+                 $("#dutyphone").val(dataObj.dutyphone);
+                 $("#address").val(dataObj.address);
+                 document.getElementById("imgShow").src = dataObj.sitelogo;
+                 $("#sitelogo").val(dataObj.sitelogo);
+                 
+                 $('#count').val(dataObj.siteaccount);
+                 $('#pwd').val(dataObj.sitepwd);
+             }
+             else {
+                 $.messager.alert('提示', '操作失败', 'error');
+             }
+	       });
+	}
 	
 	//跳回跳转过来的页面
 	function JumpPage() {
@@ -194,30 +281,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	
 	$(function(){
-		$("#contentid").val("");
-        $("#ipt_categoryname1").val("");
-        $("#ipt_content1").val("");
-       
-        $("#ipt_contentid1").val("");
-        $("#ipt_newsurl").val("");
-        $("#ipt_faceurl1").val("");
-        //加载位置列表
-        $('#ipt_categorystatus1').combobox({
-            url:'hotmodule_gethotlocationlist.do',
-            valueField:'status',
-            textField:'localname'
-            //加上当选择时候的函数
-        });
-        
-      //给百度编辑器的视频上传添加监听事件
-        ue.addListener('afterUpVideo',function(t, arg) {  
-            var url=arg[0].url;
-            //封装到隐藏域中
-            $("#logourl1").val(url);
-        });
-	
+		UploadFileInit();
+		dataLoad();
 	})
-       
+       //上传图片初始化
+        function UploadFileInit() {
+        
+            var options = {
+            	action: "nesw_UploadFile.do",
+                data: {
+                    "fileDirectory": 'UploadFiles/CompetitionFiles',
+                    "largeWidth": '200',
+                    "largeHeight": '200',
+                    "smallWidth": '80',
+                    "smallHeight": '80',
+                    "fileID": "imgFile",
+                    "iswarter": "false",
+                    "isoriginal": "false"
+                },
+                onComplete: function (data) {
+                    if (data != "") {
+                        var error = data.error;
+                        var largerUrl = data.largerUrl;
+                        var smallUrl = data.smallUrl;
+                        if (error == "1") {
+                            document.getElementById("imgShow").src = largerUrl;
+                            $("#sitelogo").val(largerUrl);
+                        }
+                        if (error == "0") {
+                            alert(largerUrl);
+                        }
+                    }
+                }
+            };
+            //上传图片初始化
+            $("#inputStr").InitUploadFile(options);
+            $("#imgShow").click(function () {
+                $("#inputStr").InitUploadFile("upload");
+            });
+        }
     </script>
 
 </body>
