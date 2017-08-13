@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<!-- 配置controller扫描包 -->
+	<context:component-scan base-package="com.alf.highest.*.controller" />
+    <context:property-placeholder location="classpath:*.properties"/> 
+	<!-- 配置注解驱动 -->
+	<mvc:annotation-driven conversion-service="myFormatter" />
+	<!-- 上传 文件的配置wuhoanan-->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8"/>
+		<property name="maxUploadSize" value="10485760000"/>
+		<property name="maxInMemorySize" value="40960"/>
+	</bean>
+	<!-- 配置视图解析器 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 配置视图的前缀和后缀 -->
+		<property name="prefix" value="/WEB-INF/jsp" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<!-- 全局日期处理－1 配置转换类 引入util类 -->
+	<bean id="myClass" class="com.alf.util.MyDateFormatter"/>
+	
+	<!-- 全局日期处理－2 配置转换器 -->
+	<bean id="myFormatter" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<set>
+				<!-- 引入 -->
+				<ref bean="myClass"/>
+			</set>
+		</property>
+	</bean>
+    <!-- <bean id="newsController" class="com.pq.huayu.controller.NewsController" scope="prototype"></bean> -->
+</beans>

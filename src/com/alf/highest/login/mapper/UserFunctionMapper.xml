@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.alf.highest.login.mapper.UserFunctionMapper" >
+  <resultMap id="BaseResultMap" type="com.alf.highest.login.pojo.UserFunction" >
+    <id column="fid" property="fid" jdbcType="INTEGER" />
+    <result column="fname" property="fname" jdbcType="VARCHAR" />
+    <result column="parentid" property="parentid" jdbcType="INTEGER" />
+    <result column="pageurl" property="pageurl" jdbcType="VARCHAR" />
+    <result column="imageurl" property="imageurl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fid, fname, parentid, pageurl, imageurl
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.alf.highest.login.pojo.UserFunctionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_function
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_function
+    where fid = #{fid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_function
+    where fid = #{fid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.alf.highest.login.pojo.UserFunctionExample" >
+    delete from user_function
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.alf.highest.login.pojo.UserFunction" >
+    insert into user_function (fid, fname, parentid, 
+      pageurl, imageurl)
+    values (#{fid,jdbcType=INTEGER}, #{fname,jdbcType=VARCHAR}, #{parentid,jdbcType=INTEGER}, 
+      #{pageurl,jdbcType=VARCHAR}, #{imageurl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.alf.highest.login.pojo.UserFunction" >
+    insert into user_function
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="fname != null" >
+        fname,
+      </if>
+      <if test="parentid != null" >
+        parentid,
+      </if>
+      <if test="pageurl != null" >
+        pageurl,
+      </if>
+      <if test="imageurl != null" >
+        imageurl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="fname != null" >
+        #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="pageurl != null" >
+        #{pageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="imageurl != null" >
+        #{imageurl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.alf.highest.login.pojo.UserFunctionExample" resultType="java.lang.Integer" >
+    select count(*) from user_function
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_function
+    <set >
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=INTEGER},
+      </if>
+      <if test="record.fname != null" >
+        fname = #{record.fname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentid != null" >
+        parentid = #{record.parentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pageurl != null" >
+        pageurl = #{record.pageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imageurl != null" >
+        imageurl = #{record.imageurl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_function
+    set fid = #{record.fid,jdbcType=INTEGER},
+      fname = #{record.fname,jdbcType=VARCHAR},
+      parentid = #{record.parentid,jdbcType=INTEGER},
+      pageurl = #{record.pageurl,jdbcType=VARCHAR},
+      imageurl = #{record.imageurl,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.alf.highest.login.pojo.UserFunction" >
+    update user_function
+    <set >
+      <if test="fname != null" >
+        fname = #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        parentid = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="pageurl != null" >
+        pageurl = #{pageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="imageurl != null" >
+        imageurl = #{imageurl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.alf.highest.login.pojo.UserFunction" >
+    update user_function
+    set fname = #{fname,jdbcType=VARCHAR},
+      parentid = #{parentid,jdbcType=INTEGER},
+      pageurl = #{pageurl,jdbcType=VARCHAR},
+      imageurl = #{imageurl,jdbcType=VARCHAR}
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+</mapper>

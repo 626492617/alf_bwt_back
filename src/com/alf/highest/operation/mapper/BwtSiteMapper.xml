@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.alf.highest.operation.mapper.BwtSiteMapper" >
+  <resultMap id="BaseResultMap" type="com.alf.highest.operation.pojo.BwtSite" >
+    <id column="siteid" property="siteid" jdbcType="INTEGER" />
+    <result column="sitename" property="sitename" jdbcType="VARCHAR" />
+    <result column="siteabbreviation" property="siteabbreviation" jdbcType="VARCHAR" />
+    <result column="dutypeople" property="dutypeople" jdbcType="VARCHAR" />
+    <result column="dutyphone" property="dutyphone" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="INTEGER" />
+    <result column="city" property="city" jdbcType="INTEGER" />
+    <result column="area" property="area" jdbcType="INTEGER" />
+    <result column="street" property="street" jdbcType="INTEGER" />
+    <result column="siteaccount" property="siteaccount" jdbcType="VARCHAR" />
+    <result column="sitepwd" property="sitepwd" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="sitelogo" property="sitelogo" jdbcType="VARCHAR" />
+    <result column="companyid" property="companyid" jdbcType="INTEGER" />
+    <result column="siterole" property="siterole" jdbcType="INTEGER" />
+    <result column="logoid" property="logoid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    siteid, sitename, siteabbreviation, dutypeople, dutyphone, province, city, area, 
+    street, siteaccount, sitepwd, address, sitelogo, companyid, siterole, logoid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.alf.highest.operation.pojo.BwtSiteExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bwt_site
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bwt_site
+    where siteid = #{siteid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bwt_site
+    where siteid = #{siteid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.alf.highest.operation.pojo.BwtSiteExample" >
+    delete from bwt_site
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.alf.highest.operation.pojo.BwtSite" >
+    insert into bwt_site (siteid, sitename, siteabbreviation, 
+      dutypeople, dutyphone, province, 
+      city, area, street, 
+      siteaccount, sitepwd, address, 
+      sitelogo, companyid, siterole, 
+      logoid)
+    values (#{siteid,jdbcType=INTEGER}, #{sitename,jdbcType=VARCHAR}, #{siteabbreviation,jdbcType=VARCHAR}, 
+      #{dutypeople,jdbcType=VARCHAR}, #{dutyphone,jdbcType=VARCHAR}, #{province,jdbcType=INTEGER}, 
+      #{city,jdbcType=INTEGER}, #{area,jdbcType=INTEGER}, #{street,jdbcType=INTEGER}, 
+      #{siteaccount,jdbcType=VARCHAR}, #{sitepwd,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{sitelogo,jdbcType=VARCHAR}, #{companyid,jdbcType=INTEGER}, #{siterole,jdbcType=INTEGER}, 
+      #{logoid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.alf.highest.operation.pojo.BwtSite" >
+    insert into bwt_site
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="siteid != null" >
+        siteid,
+      </if>
+      <if test="sitename != null" >
+        sitename,
+      </if>
+      <if test="siteabbreviation != null" >
+        siteabbreviation,
+      </if>
+      <if test="dutypeople != null" >
+        dutypeople,
+      </if>
+      <if test="dutyphone != null" >
+        dutyphone,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="street != null" >
+        street,
+      </if>
+      <if test="siteaccount != null" >
+        siteaccount,
+      </if>
+      <if test="sitepwd != null" >
+        sitepwd,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="sitelogo != null" >
+        sitelogo,
+      </if>
+      <if test="companyid != null" >
+        companyid,
+      </if>
+      <if test="siterole != null" >
+        siterole,
+      </if>
+      <if test="logoid != null" >
+        logoid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="siteid != null" >
+        #{siteid,jdbcType=INTEGER},
+      </if>
+      <if test="sitename != null" >
+        #{sitename,jdbcType=VARCHAR},
+      </if>
+      <if test="siteabbreviation != null" >
+        #{siteabbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="dutypeople != null" >
+        #{dutypeople,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyphone != null" >
+        #{dutyphone,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=INTEGER},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=INTEGER},
+      </if>
+      <if test="street != null" >
+        #{street,jdbcType=INTEGER},
+      </if>
+      <if test="siteaccount != null" >
+        #{siteaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="sitepwd != null" >
+        #{sitepwd,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="sitelogo != null" >
+        #{sitelogo,jdbcType=VARCHAR},
+      </if>
+      <if test="companyid != null" >
+        #{companyid,jdbcType=INTEGER},
+      </if>
+      <if test="siterole != null" >
+        #{siterole,jdbcType=INTEGER},
+      </if>
+      <if test="logoid != null" >
+        #{logoid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.alf.highest.operation.pojo.BwtSiteExample" resultType="java.lang.Integer" >
+    select count(*) from bwt_site
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bwt_site
+    <set >
+      <if test="record.siteid != null" >
+        siteid = #{record.siteid,jdbcType=INTEGER},
+      </if>
+      <if test="record.sitename != null" >
+        sitename = #{record.sitename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.siteabbreviation != null" >
+        siteabbreviation = #{record.siteabbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dutypeople != null" >
+        dutypeople = #{record.dutypeople,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dutyphone != null" >
+        dutyphone = #{record.dutyphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null" >
+        province = #{record.province,jdbcType=INTEGER},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=INTEGER},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=INTEGER},
+      </if>
+      <if test="record.street != null" >
+        street = #{record.street,jdbcType=INTEGER},
+      </if>
+      <if test="record.siteaccount != null" >
+        siteaccount = #{record.siteaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sitepwd != null" >
+        sitepwd = #{record.sitepwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sitelogo != null" >
+        sitelogo = #{record.sitelogo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyid != null" >
+        companyid = #{record.companyid,jdbcType=INTEGER},
+      </if>
+      <if test="record.siterole != null" >
+        siterole = #{record.siterole,jdbcType=INTEGER},
+      </if>
+      <if test="record.logoid != null" >
+        logoid = #{record.logoid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bwt_site
+    set siteid = #{record.siteid,jdbcType=INTEGER},
+      sitename = #{record.sitename,jdbcType=VARCHAR},
+      siteabbreviation = #{record.siteabbreviation,jdbcType=VARCHAR},
+      dutypeople = #{record.dutypeople,jdbcType=VARCHAR},
+      dutyphone = #{record.dutyphone,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=INTEGER},
+      city = #{record.city,jdbcType=INTEGER},
+      area = #{record.area,jdbcType=INTEGER},
+      street = #{record.street,jdbcType=INTEGER},
+      siteaccount = #{record.siteaccount,jdbcType=VARCHAR},
+      sitepwd = #{record.sitepwd,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      sitelogo = #{record.sitelogo,jdbcType=VARCHAR},
+      companyid = #{record.companyid,jdbcType=INTEGER},
+      siterole = #{record.siterole,jdbcType=INTEGER},
+      logoid = #{record.logoid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.alf.highest.operation.pojo.BwtSite" >
+    update bwt_site
+    <set >
+      <if test="sitename != null" >
+        sitename = #{sitename,jdbcType=VARCHAR},
+      </if>
+      <if test="siteabbreviation != null" >
+        siteabbreviation = #{siteabbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="dutypeople != null" >
+        dutypeople = #{dutypeople,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyphone != null" >
+        dutyphone = #{dutyphone,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=INTEGER},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=INTEGER},
+      </if>
+      <if test="street != null" >
+        street = #{street,jdbcType=INTEGER},
+      </if>
+      <if test="siteaccount != null" >
+        siteaccount = #{siteaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="sitepwd != null" >
+        sitepwd = #{sitepwd,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="sitelogo != null" >
+        sitelogo = #{sitelogo,jdbcType=VARCHAR},
+      </if>
+      <if test="companyid != null" >
+        companyid = #{companyid,jdbcType=INTEGER},
+      </if>
+      <if test="siterole != null" >
+        siterole = #{siterole,jdbcType=INTEGER},
+      </if>
+      <if test="logoid != null" >
+        logoid = #{logoid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where siteid = #{siteid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.alf.highest.operation.pojo.BwtSite" >
+    update bwt_site
+    set sitename = #{sitename,jdbcType=VARCHAR},
+      siteabbreviation = #{siteabbreviation,jdbcType=VARCHAR},
+      dutypeople = #{dutypeople,jdbcType=VARCHAR},
+      dutyphone = #{dutyphone,jdbcType=VARCHAR},
+      province = #{province,jdbcType=INTEGER},
+      city = #{city,jdbcType=INTEGER},
+      area = #{area,jdbcType=INTEGER},
+      street = #{street,jdbcType=INTEGER},
+      siteaccount = #{siteaccount,jdbcType=VARCHAR},
+      sitepwd = #{sitepwd,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      sitelogo = #{sitelogo,jdbcType=VARCHAR},
+      companyid = #{companyid,jdbcType=INTEGER},
+      siterole = #{siterole,jdbcType=INTEGER},
+      logoid = #{logoid,jdbcType=INTEGER}
+    where siteid = #{siteid,jdbcType=INTEGER}
+  </update>
+    <select id="selectAllSiteByCompanyid" resultType="com.alf.highest.operation.vo.BwtSiteVo" parameterType="com.alf.highest.operation.vo.BwtSiteVo">
+  	SELECT *,(SELECT areaname FROM `pb_area` p WHERE p.id = s.`province`)  AS provincevo,
+		(SELECT areaname FROM `pb_area` c WHERE c.id = s.city)  AS cityvo,
+		(SELECT areaname FROM `pb_area` a WHERE a.id = s.area)  AS areavo
+ 	FROM `bwt_site` s WHERE s.`companyid` = #{companyid} 
+  	<if test="province != null and province != ''">
+  		AND s.`province` = #{province} 
+  	</if>
+  	<if test="city != null and city != ''">
+  		AND s.`city` = #{city}
+  	</if>
+  	<if test="area != null and area != ''">
+  		AND s.`area` =#{area}
+  	</if>
+  </select>
+</mapper>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.alf.highest.site.mapper.BwtPersonalMapper" >
+  <resultMap id="BaseResultMap" type="com.alf.highest.site.pojo.BwtPersonal" >
+    <id column="personalid" property="personalid" jdbcType="INTEGER" />
+    <result column="siteid" property="siteid" jdbcType="INTEGER" />
+    <result column="personalname" property="personalname" jdbcType="VARCHAR" />
+    <result column="personalphone" property="personalphone" jdbcType="VARCHAR" />
+    <result column="personallogo" property="personallogo" jdbcType="VARCHAR" />
+    <result column="personalaccount" property="personalaccount" jdbcType="VARCHAR" />
+    <result column="personalpwd" property="personalpwd" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    personalid, siteid, personalname, personalphone, personallogo, personalaccount, personalpwd
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.alf.highest.site.pojo.BwtPersonalExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bwt_personal
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bwt_personal
+    where personalid = #{personalid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bwt_personal
+    where personalid = #{personalid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.alf.highest.site.pojo.BwtPersonalExample" >
+    delete from bwt_personal
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.alf.highest.site.pojo.BwtPersonal" >
+    insert into bwt_personal (personalid, siteid, personalname, 
+      personalphone, personallogo, personalaccount, 
+      personalpwd)
+    values (#{personalid,jdbcType=INTEGER}, #{siteid,jdbcType=INTEGER}, #{personalname,jdbcType=VARCHAR}, 
+      #{personalphone,jdbcType=VARCHAR}, #{personallogo,jdbcType=VARCHAR}, #{personalaccount,jdbcType=VARCHAR}, 
+      #{personalpwd,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.alf.highest.site.pojo.BwtPersonal" >
+    insert into bwt_personal
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="personalid != null" >
+        personalid,
+      </if>
+      <if test="siteid != null" >
+        siteid,
+      </if>
+      <if test="personalname != null" >
+        personalname,
+      </if>
+      <if test="personalphone != null" >
+        personalphone,
+      </if>
+      <if test="personallogo != null" >
+        personallogo,
+      </if>
+      <if test="personalaccount != null" >
+        personalaccount,
+      </if>
+      <if test="personalpwd != null" >
+        personalpwd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="personalid != null" >
+        #{personalid,jdbcType=INTEGER},
+      </if>
+      <if test="siteid != null" >
+        #{siteid,jdbcType=INTEGER},
+      </if>
+      <if test="personalname != null" >
+        #{personalname,jdbcType=VARCHAR},
+      </if>
+      <if test="personalphone != null" >
+        #{personalphone,jdbcType=VARCHAR},
+      </if>
+      <if test="personallogo != null" >
+        #{personallogo,jdbcType=VARCHAR},
+      </if>
+      <if test="personalaccount != null" >
+        #{personalaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="personalpwd != null" >
+        #{personalpwd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.alf.highest.site.pojo.BwtPersonalExample" resultType="java.lang.Integer" >
+    select count(*) from bwt_personal
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bwt_personal
+    <set >
+      <if test="record.personalid != null" >
+        personalid = #{record.personalid,jdbcType=INTEGER},
+      </if>
+      <if test="record.siteid != null" >
+        siteid = #{record.siteid,jdbcType=INTEGER},
+      </if>
+      <if test="record.personalname != null" >
+        personalname = #{record.personalname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.personalphone != null" >
+        personalphone = #{record.personalphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.personallogo != null" >
+        personallogo = #{record.personallogo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.personalaccount != null" >
+        personalaccount = #{record.personalaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.personalpwd != null" >
+        personalpwd = #{record.personalpwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bwt_personal
+    set personalid = #{record.personalid,jdbcType=INTEGER},
+      siteid = #{record.siteid,jdbcType=INTEGER},
+      personalname = #{record.personalname,jdbcType=VARCHAR},
+      personalphone = #{record.personalphone,jdbcType=VARCHAR},
+      personallogo = #{record.personallogo,jdbcType=VARCHAR},
+      personalaccount = #{record.personalaccount,jdbcType=VARCHAR},
+      personalpwd = #{record.personalpwd,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.alf.highest.site.pojo.BwtPersonal" >
+    update bwt_personal
+    <set >
+      <if test="siteid != null" >
+        siteid = #{siteid,jdbcType=INTEGER},
+      </if>
+      <if test="personalname != null" >
+        personalname = #{personalname,jdbcType=VARCHAR},
+      </if>
+      <if test="personalphone != null" >
+        personalphone = #{personalphone,jdbcType=VARCHAR},
+      </if>
+      <if test="personallogo != null" >
+        personallogo = #{personallogo,jdbcType=VARCHAR},
+      </if>
+      <if test="personalaccount != null" >
+        personalaccount = #{personalaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="personalpwd != null" >
+        personalpwd = #{personalpwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where personalid = #{personalid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.alf.highest.site.pojo.BwtPersonal" >
+    update bwt_personal
+    set siteid = #{siteid,jdbcType=INTEGER},
+      personalname = #{personalname,jdbcType=VARCHAR},
+      personalphone = #{personalphone,jdbcType=VARCHAR},
+      personallogo = #{personallogo,jdbcType=VARCHAR},
+      personalaccount = #{personalaccount,jdbcType=VARCHAR},
+      personalpwd = #{personalpwd,jdbcType=VARCHAR}
+    where personalid = #{personalid,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllPersonalBySiteid" resultType="com.alf.highest.site.pojo.BwtPersonal" parameterType="com.alf.highest.site.pojo.BwtPersonal">
+	SELECT 
+	  *,
+	  (SELECT 
+	    sitename 
+	  FROM
+	    bwt_site s 
+	  WHERE s.siteid = b.`siteid`) AS sitename 
+	FROM
+	  bwt_personal b 
+	WHERE b.siteid = #{siteid} 
+	<if test="personalname != null and personalname != ''">
+	  AND b.`personalname` LIKE #{personalname}
+	</if>
+  </select>
+</mapper>

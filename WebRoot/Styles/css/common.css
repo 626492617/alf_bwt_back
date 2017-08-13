@@ -1,0 +1,390 @@
+@font-face {
+	font-family: pm;
+	src: url("../fonts/PINGFANG MEDIUM.TTF")
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.mui-bar-nav {
+	display: none;
+}
+
+.mui-bar {
+	height: 0;
+}
+
+.mui-bar-nav~.mui-content {
+	padding-top: 0;
+}
+
+.mui-bar {
+	background: #9c0202;
+	background-size: 100%;
+}
+
+.mui-title {
+	font-size: 1.25em;
+	color: #FFF;
+	font-family: simhei;
+}
+
+.mui-content {
+	background-color: transparent;
+}
+
+.mui-action-back {
+	color: #fff;
+}
+
+.mui-bar-transparent~ .mui-content {
+	padding-top: 44px;
+}
+
+.mui-bar-footer~ .mui-content {
+	padding-bottom: 44px;
+}
+
+.mui-bar-tab~ .mui-content {
+	padding-bottom: 50px;
+}
+
+.mui-content>.mui-table-view:first-child {
+	margin-top: 15px;
+}
+
+.mui-bar-transparent {
+	background: rgba(156, 2, 2, 0);
+}
+
+.mui-plus.mui-android>.mui-progressbar {
+	top: 0
+}
+
+
+/*弹窗css*/
+
+
+/* 去除android4.0以下 a/button/input标签被点击时产生的边框 因为边框引起了不少bug */
+
+a,
+button,
+input,
+label {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+
+/* Android4.0下不识别选择器-webkit-transform-3d 使用它可做Android4.0下版本兼容 */
+
+@media all and (-webkit-transform-3d) {
+	/* android4.0+ ios4+ 恢复按钮被点击时产生的效果 */
+	a,
+	button,
+	input,
+	label {
+		-webkit-tap-highlight-color: rgba(130, 130, 130, .52);
+		outline: none;
+	}
+}
+
+.c-float-modePop {
+	text-align: center;
+	background-color: #FAFAFC;
+}
+
+.c-float-modePop .warnMsg {
+	padding: 20px 10px 10px 10px;
+	color: #fff
+}
+
+.c-float-modePop .doBtn {
+	width: 100%;
+	margin: 0 auto;
+}
+
+.c-float-modePop button {
+	padding: 6px 9px 6px 9px;
+	color: #949494;
+	border: 0;
+}
+
+.c-float-shade {
+	width: 100%;
+	display: block;
+	position: absolute;
+	z-index: 99;
+	background-color: #000;
+	opacity: .5;
+	top: 0;
+	left: 0
+}
+
+.c-float-shade.hide {
+	display: none
+}
+
+.c-float-popWrap {
+	width: 85%;
+	z-index: 9999;
+	position: absolute;
+	border-radius: 3px;
+}
+
+.c-float-popWrap .c-float-modePop {
+	overflow: hidden;
+	border-radius: 6px;
+}
+
+.c-float-popWrap .c-float-modePop .warnMsg {
+	padding: 0.8em 0 0.8em;
+	font-size: 1.2em;
+	color: #333;
+}
+
+.c-float-popWrap .c-float-modePop .content {
+	padding: 0 20px;
+	font-size: 14px;
+	color: #888;
+	word-wrap: break-word;
+	word-break: break-all;
+	text-align: left;
+}
+
+.c-float-popWrap .c-float-modePop .doBtn {
+	width: 100%;
+	margin-top: 15px;
+	position: relative;
+}
+
+.c-float-popWrap .c-float-modePop .doBtn:after {
+	content: " ";
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 1px;
+	border-top: 1px solid #D5D5D6;
+	color: #D5D5D6;
+	-webkit-transform-origin: 0 0;
+	transform-origin: 0 0;
+	-webkit-transform: scaleY(0.5);
+	transform: scaleY(0.5);
+}
+
+.c-float-popWrap .c-float-modePop button {
+	background-color: #FAFAFC;
+	width: 50%;
+	height: 42px;
+	line-height: 42px;
+	color: #444;
+	font-size: 17px;
+	border: 0;
+	padding: 0;
+}
+
+.c-float-popWrap .c-float-modePop button.ok {
+	color: #9c0202;
+}
+
+.c-float-popWrap .c-float-modePop button.cancel {
+	position: relative;
+}
+
+.c-float-popWrap .c-float-modePop button.cancel:after {
+	content: " ";
+	position: absolute;
+	right: -1px;
+	top: 0;
+	width: 1px;
+	height: 100%;
+	border-left: 1px solid #D5D5D6;
+	color: #D5D5D6;
+	-webkit-transform-origin: 0 0;
+	transform-origin: 0 0;
+	-webkit-transform: scaleX(0.5);
+	transform: scaleX(0.5);
+}
+
+.c-float-popWrap.hide {
+	display: none;
+	-webkit-box-shadow: none
+}
+
+.c-float-popWrap.show {
+	display: block;
+}
+
+.c-float-popWrap.msgMode .c-float-modePop .content,
+.c-float-popWrap.msgMode .c-float-modePop .doBtn {
+	display: none
+}
+
+.c-float-popWrap.alertMode .c-float-modePop .doBtn .cancel {
+	display: none
+}
+
+.c-float-popWrap.confirmMode .c-float-modePop .content,
+.c-float-popWrap.confirmMode .c-float-modePop .doBtn {
+	display: block
+}
+
+.confirm_input {
+	border: 1px solid #D5D5D6;
+	padding: 10px;
+	width: 70%;
+	width: 100%;
+	font-family: simhei;
+	font-size: 1.2em;
+}
+
+.weui_mask_transparent {
+	position: fixed;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.6);
+}
+
+.cx_mask_transparent {
+	position: fixed;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: rgba(255, 255, 255, 0.1);
+}
+
+.web_toast {
+	position: fixed;
+	margin: 0 10px;
+	z-index: 9999;
+	display: none;
+	display: block;
+	padding: 10px;
+	color: #FFFFFF;
+	background: rgba(0, 0, 0, 0.7);
+	font-size: 0.8rem;
+	text-align: center;
+	border-radius: 4px;
+}
+
+.demo {
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #D5D5D6;
+	border-radius: 3px;
+	padding: 12px;
+	font-size: 20px;
+	color: #666;
+	text-align: center;
+}
+
+
+/*弹窗css结束*/
+
+.mui-bar-nav~.mui-content .mui-pull-top-pocket {
+	top: 0;
+}
+
+
+/*上拉刷新*/
+
+.mui-bar~.mui-content .mui-fullscreen {
+	top: 0px;
+	height: auto;
+}
+
+.mui-pull-top-tips {
+	position: absolute;
+	top: -20px;
+	left: 50%;
+	margin-left: -25px;
+	width: 40px;
+	height: 40px;
+	border-radius: 100%;
+	z-index: 9999999;
+}
+
+.mui-bar~.mui-pull-top-tips {
+	top: 24px;
+}
+
+.mui-pull-top-wrapper {
+	width: 42px;
+	height: 42px;
+	display: block;
+	text-align: center;
+	background-color: #ddd;
+	border: 1px solid #ddd;
+	border-radius: 25px;
+	background-clip: padding-box;
+	box-shadow: 0 4px 10px #ddd;
+	overflow: hidden;
+}
+
+.mui-pull-top-tips.mui-transitioning {
+	-webkit-transition-duration: 200ms;
+	transition-duration: 200ms;
+}
+
+.mui-pull-top-tips .mui-pull-loading {
+	/*-webkit-backface-visibility: hidden;
+				-webkit-transition-duration: 400ms;
+				transition-duration: 400ms;*/
+	margin: 0;
+}
+
+.mui-pull-top-wrapper .mui-icon,
+.mui-pull-top-wrapper .mui-spinner {
+	margin-top: 7px;
+}
+
+.mui-pull-top-wrapper .mui-icon.mui-reverse {
+	/*-webkit-transform: rotate(180deg) translateZ(0);*/
+}
+
+.mui-pull-bottom-tips {
+	text-align: center;
+	background-color: #ddd;
+	font-size: 15px;
+	line-height: 40px;
+	color: #ddd;
+}
+
+.mui-pull-top-canvas {
+	overflow: hidden;
+	background-color: #ddd;
+	border-radius: 40px;
+	box-shadow: 0 4px 10px #ddd;
+	width: 40px;
+	height: 40px;
+	margin: 0 auto;
+}
+
+.mui-pull-top-canvas canvas {
+	width: 40px;
+}
+
+.mui-slider-indicator.mui-segmented-control {
+	background-color: #ddd;
+}
+
+
+/*上拉刷新结束*/
+/*社团球队赛季分享按钮*/
+#forward{
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    width: 2em;
+    height: 2em;
+    padding: 0.5em;
+}
+#forward img{
+	max-width: 100%;
+}

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.alf.highest.login.mapper.BwtCompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.alf.highest.login.pojo.BwtCompany" >
+    <id column="companyid" property="companyid" jdbcType="INTEGER" />
+    <result column="companyname" property="companyname" jdbcType="VARCHAR" />
+    <result column="abbreviation" property="abbreviation" jdbcType="VARCHAR" />
+    <result column="companyaccount" property="companyaccount" jdbcType="VARCHAR" />
+    <result column="companypwd" property="companypwd" jdbcType="VARCHAR" />
+    <result column="companyrole" property="companyrole" jdbcType="INTEGER" />
+    <result column="companylogo" property="companylogo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    companyid, companyname, abbreviation, companyaccount, companypwd, companyrole, companylogo
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.alf.highest.login.pojo.BwtCompanyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bwt_company
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bwt_company
+    where companyid = #{companyid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bwt_company
+    where companyid = #{companyid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.alf.highest.login.pojo.BwtCompanyExample" >
+    delete from bwt_company
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.alf.highest.login.pojo.BwtCompany" >
+    insert into bwt_company (companyid, companyname, abbreviation, 
+      companyaccount, companypwd, companyrole, 
+      companylogo)
+    values (#{companyid,jdbcType=INTEGER}, #{companyname,jdbcType=VARCHAR}, #{abbreviation,jdbcType=VARCHAR}, 
+      #{companyaccount,jdbcType=VARCHAR}, #{companypwd,jdbcType=VARCHAR}, #{companyrole,jdbcType=INTEGER}, 
+      #{companylogo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.alf.highest.login.pojo.BwtCompany" >
+    insert into bwt_company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="companyid != null" >
+        companyid,
+      </if>
+      <if test="companyname != null" >
+        companyname,
+      </if>
+      <if test="abbreviation != null" >
+        abbreviation,
+      </if>
+      <if test="companyaccount != null" >
+        companyaccount,
+      </if>
+      <if test="companypwd != null" >
+        companypwd,
+      </if>
+      <if test="companyrole != null" >
+        companyrole,
+      </if>
+      <if test="companylogo != null" >
+        companylogo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="companyid != null" >
+        #{companyid,jdbcType=INTEGER},
+      </if>
+      <if test="companyname != null" >
+        #{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="abbreviation != null" >
+        #{abbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="companyaccount != null" >
+        #{companyaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="companypwd != null" >
+        #{companypwd,jdbcType=VARCHAR},
+      </if>
+      <if test="companyrole != null" >
+        #{companyrole,jdbcType=INTEGER},
+      </if>
+      <if test="companylogo != null" >
+        #{companylogo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.alf.highest.login.pojo.BwtCompanyExample" resultType="java.lang.Integer" >
+    select count(*) from bwt_company
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bwt_company
+    <set >
+      <if test="record.companyid != null" >
+        companyid = #{record.companyid,jdbcType=INTEGER},
+      </if>
+      <if test="record.companyname != null" >
+        companyname = #{record.companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.abbreviation != null" >
+        abbreviation = #{record.abbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyaccount != null" >
+        companyaccount = #{record.companyaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companypwd != null" >
+        companypwd = #{record.companypwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyrole != null" >
+        companyrole = #{record.companyrole,jdbcType=INTEGER},
+      </if>
+      <if test="record.companylogo != null" >
+        companylogo = #{record.companylogo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bwt_company
+    set companyid = #{record.companyid,jdbcType=INTEGER},
+      companyname = #{record.companyname,jdbcType=VARCHAR},
+      abbreviation = #{record.abbreviation,jdbcType=VARCHAR},
+      companyaccount = #{record.companyaccount,jdbcType=VARCHAR},
+      companypwd = #{record.companypwd,jdbcType=VARCHAR},
+      companyrole = #{record.companyrole,jdbcType=INTEGER},
+      companylogo = #{record.companylogo,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.alf.highest.login.pojo.BwtCompany" >
+    update bwt_company
+    <set >
+      <if test="companyname != null" >
+        companyname = #{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="abbreviation != null" >
+        abbreviation = #{abbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="companyaccount != null" >
+        companyaccount = #{companyaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="companypwd != null" >
+        companypwd = #{companypwd,jdbcType=VARCHAR},
+      </if>
+      <if test="companyrole != null" >
+        companyrole = #{companyrole,jdbcType=INTEGER},
+      </if>
+      <if test="companylogo != null" >
+        companylogo = #{companylogo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where companyid = #{companyid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.alf.highest.login.pojo.BwtCompany" >
+    update bwt_company
+    set companyname = #{companyname,jdbcType=VARCHAR},
+      abbreviation = #{abbreviation,jdbcType=VARCHAR},
+      companyaccount = #{companyaccount,jdbcType=VARCHAR},
+      companypwd = #{companypwd,jdbcType=VARCHAR},
+      companyrole = #{companyrole,jdbcType=INTEGER},
+      companylogo = #{companylogo,jdbcType=VARCHAR}
+    where companyid = #{companyid,jdbcType=INTEGER}
+  </update>
+  <select id="findUser" resultType="com.alf.highest.login.vo.BwtCompanyVo" parameterType="com.alf.highest.login.vo.BwtCompanyVo">
+  	SELECT * FROM bwt_company c WHERE c.`companyaccount` = #{companyaccount} AND c.`companypwd` = #{companypwd}
+  </select>
+  <select id="siteUser" resultType="com.alf.highest.operation.vo.BwtSiteVo" parameterType="com.alf.highest.operation.vo.BwtSiteVo">
+  	SELECT * FROM `bwt_site` b WHERE b.`siteaccount` = ${siteaccount} AND b.`sitepwd` = ${sitepwd}
+  </select>
+</mapper>

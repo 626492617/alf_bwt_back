@@ -1,0 +1,324 @@
+﻿@charset "utf-8";
+
+body{
+	font-family: Arial;
+	background-color: #ededed;
+	font-size: 0.875em;
+	line-height: 18px;
+}
+.picture{
+	padding-top: 2%;
+	width: 6em;
+	height: 6em;
+	overflow: hidden;
+	text-align: center;	
+}
+.picture img{
+	max-width: 100%;
+	vertical-align: middle;
+}
+.picture span{
+	height: 100%;
+	display: inline-block;
+	vertical-align: middle;
+}
+.teamname{
+	margin-top: 2%;
+	font-size: 1em;
+}
+.attention{
+	border: 1px solid #9C0202;
+	padding: 3px 14px; 
+	color: #9C0202;
+	border-radius: 4px; 
+	font-size: 0.75em;
+}
+.teaminfo{
+	width: 84%;
+	margin-top: 2%;
+	overflow: hidden;	
+	font-size: 0.875em;
+	color: #585858;
+	text-align: justify;
+}
+.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{
+    color: #666666;
+    font-size: .75em;
+    margin-top: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.memberinfo{
+	color: #999;
+    font-size: .75em;
+    overflow: hidden;
+    padding-top: 0.4em;
+}
+.member1{
+	float: left;
+	margin-left: 10px;
+	font-size: 1.125em;
+	height: 1.625em;
+    margin-top: 0.5em;	
+}
+.member{
+	margin-top: 2%;
+}
+.mui-table-view .mui-media-object.mui-pull-left{
+	margin-right: 0em;
+	margin: 0.1125em 0.1125em 0.1125em 0.1125em;
+}
+.mui-table-view.mui-grid-view .mui-table-view-cell{
+	width: 32.2%;
+	height: 8.45em;
+	background-color: white;
+	margin: 0.1em;
+    padding: 11px 0;
+}
+.mui-grid-view.mui-grid-9{
+	left: 0.5em;
+}
+.more>img{
+	margin-left: 0.25em;
+	width: 12%;
+}
+.Info{
+	background-color: white;
+	padding: 6px 0px ;
+}
+
+.member2{
+	width: 80%;
+	border: 0.0625em solid #000000;
+	background-color: white;
+}
+
+.more{
+	float: right;
+	margin-right: 10px;
+	color: #b2b2b2;
+	font-size: 1.125em;
+    margin-top: 0.5em;
+}
+.exploitsA{
+	float: left;
+}
+.head{
+	height: 5em;
+	color: #666666;
+	font-size: 1.125em;
+	display: none;
+}
+.headz{
+	height: 5em;
+	width: 1px;
+	background-color: #CCCCCC;
+	float: left;
+}
+.headl{
+	float: left;
+	width: 48%;
+	background-color: white;
+	height: 5em;
+}
+.headr{
+	float: right;
+	width: 48%;
+	background-color: white;
+	height: 5em;
+}
+.head1{
+	margin-top: 10%;
+	text-align: center;
+}
+.head2{
+	margin-top: 10%;
+	text-align: center;
+}
+.head3{
+	text-align: center;
+}
+.head4{
+	text-align: center;
+}
+.red{
+	color: #9C0202;
+}
+
+.mui-grid-view.mui-grid-9{
+	background-color: #ededed;
+	border-top:0px ;
+	border-left:0px ;
+	padding: 0px 0px 0px 4px;
+}
+
+.picturep1{
+	width: 5em;
+	height: 4em;
+	overflow: hidden;
+	text-align: center;
+}
+.picturep1 span{
+	height: 100%;
+	display: inline-block;
+	vertical-align: middle;
+}
+.picturep2{
+	height: 100%;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.content{
+	height: 9.8em;
+	background: white;
+	padding: 2% 2%;
+	margin-bottom: 0.2em;	
+}
+.contents>div{
+	float: left;
+}
+.Team{
+	width: 26%;
+}
+.Team>div:nth-child(1){
+	width: 4em;
+	height: 4em;
+	overflow: hidden;
+	margin: 0 auto;
+	line-height: 4em !important;
+}
+.Team>div:nth-child(1)>img{
+	width: 100%;
+    vertical-align: middle;
+	border-radius: 8px;
+}
+.Team>div:nth-child(2){
+	width: 80%;
+	font-size: 0.875em;
+	line-height: 4em;
+	color: #666666;
+	text-align: center;
+	margin: -0.6em 0 0 0.8em;
+}
+.bf{
+	width: 12%;
+	line-height: 4em;
+	height: 2em;
+	font-size: 1.6em;
+	text-align: center;
+	font-weight: bold;
+}
+.bft{
+	line-height: 7.2em;
+	width: 48%;
+	text-align: center;
+}
+.bft>img{
+	width: 30%;
+}
+.Score{
+	width: 18%;
+	line-height: 4em;
+	height: 2em;
+	font-size: 1.6em;
+	text-align: center;
+	font-weight: bold;
+}
+.tm{
+	display:block;
+	white-space:nowrap; 
+	overflow:hidden; 
+	text-overflow:ellipsis;
+	color: #666;
+}
+.match{
+	font-size: 0.875em;
+}
+.time{
+	font-size: 0.75em;
+	width: 100%;
+	margin: -0.8em 0 0 0;
+	text-align: center;
+}
+.dataName{
+    margin-left: 10px;
+    font-size: 1.125em;
+    height: 1.625em;
+    margin-top: 0.5em;
+}
+.dataRow{
+	background: #fff;
+}
+.dataRow div{
+	width: 25%;
+	display: inline-block;
+	text-align: center;
+    padding: 0.5em 0;
+}
+.dataRow div center:first-child{
+    font-size: 1.35em;
+    font-weight: 500;
+    padding: 0.5em 0;
+}
+.dataRow div center:nth-child(2){
+    font-size: 0.75em;
+    font-weight: 500;
+    padding-bottom: 0.5em;
+}
+#loads{
+	position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    background: rgba(0,0,0,.7);
+    height: 40px;
+    line-height: 40px;
+    font-size: 20px;
+    z-index: 9999;
+}
+#loads img{
+    float: left;
+    margin: 6px;
+    width:28px;
+}
+#loads .title{
+    float: left;
+    font-size: 0.75em;
+}
+#loads .download{
+    margin: 6px;
+    padding: 2px 6px;
+    font-size: 0.75em;
+    float: right;
+    margin-right: 2em;
+}
+.dataName{
+    margin-left: 10px;
+    font-size: 1.125em;
+    height: 1.625em;
+    margin-top: 0.5em;
+}
+.dataRow{
+	background: #fff;
+}
+.dataRow div {
+    width: 25%;
+    text-align: center;
+    padding: 0.5em 0;
+    float: left;
+    background: #fff;
+}
+.dataRow div>center:first-child{
+    font-size: 1.35em;
+    font-weight: 500;
+    padding: 0.5em 0;
+}
+.dataRow div>center:nth-child(2){
+    font-size: 0.75em;
+    font-weight: 500;
+    padding-bottom: 0.5em;
+}

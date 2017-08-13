@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/aop
+						http://www.springframework.org/schema/aop/spring-aop.xsd
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx.xsd"> 
+						
+	<!-- <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean" depends-on="Filter">		
+		<property name="securityManager" ref="securityManager" />	
+		<property name="loginUrl" value="/index.jsp" /> 
+		<property name="unauthorizedUrl" value="/error.jsp" />
+		<property name="successUrl" value="/main.jsp"></property>
+	    <property name="filters">
+	    	<map>
+	    	    <entry key="perms" value-ref="Filter"/>
+	    	</map>
+	    </property> 
+		<property name="filterChainDefinitions">
+			<value>					
+				
+				/grade_*.do=perms["多级分类"]
+				/article_*.do=perms["文章管理"]
+				/act_*.do=perms["竞猜活动设定"]
+				/vote_*.do=perms["征集活动设定"]
+				/bel_*.do=perms["线下活动详情管理"]
+				/bm_*.do=perms["活动报名管理"]
+				/z_*.do=perms["场馆管理","场馆预约管理"]
+				/error.jsp = anon	
+				/index.jsp	= anon	
+				/getvalidate.do= anon
+				/login.do= anon
+				/loadmain.do=user
+				/out.do=user
+				/*.jsp = authc	
+				/*.do =authc		
+					
+			</value>
+		</property>
+	</bean> -->
+	
+	<!-- <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		 <property name="realm" ref="Realm"></property>
+	</bean>
+	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+       <constructor-arg value="rememberMe" />
+       <property name="httpOnly" value="true" />
+       毫秒
+       <property name="maxAge" value="6" />
+   </bean>
+   rememberMe管理器
+   <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+       <property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}" />
+       <property name="cookie" ref="rememberMeCookie" />
+   </bean>
+	<bean id="sessionManager"
+        class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        单位毫秒
+        <property name="globalSessionTimeout" value="10000" />
+        删除失效的session
+        <property name="deleteInvalidSessions" value="true" />
+    </bean>
+	<bean id="Realm" class="com.huayu.pw.usermanager.controller.Realm">
+		
+	</bean>
+	
+	<bean id="Filter" class="com.huayu.pw.usermanager.controller.Filter"></bean>
+	
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+			depends-on="lifecycleBeanPostProcessor" >
+		<property name="proxyTargetClass" value="true" />
+	</bean>	
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>	
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>  -->
+	
+</beans>

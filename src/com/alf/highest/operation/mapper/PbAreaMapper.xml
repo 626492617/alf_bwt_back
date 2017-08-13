@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.alf.highest.operation.mapper.PbAreaMapper" >
+  <resultMap id="BaseResultMap" type="com.alf.highest.operation.pojo.PbArea" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="areaname" property="areaname" jdbcType="VARCHAR" />
+    <result column="parentid" property="parentid" jdbcType="INTEGER" />
+    <result column="shortname" property="shortname" jdbcType="VARCHAR" />
+    <result column="areacode" property="areacode" jdbcType="INTEGER" />
+    <result column="zipcode" property="zipcode" jdbcType="INTEGER" />
+    <result column="pinyin" property="pinyin" jdbcType="VARCHAR" />
+    <result column="lng" property="lng" jdbcType="VARCHAR" />
+    <result column="lat" property="lat" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="BIT" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, areaname, parentid, shortname, areacode, zipcode, pinyin, lng, lat, level, position, 
+    sort
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.alf.highest.operation.pojo.PbAreaExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pb_area
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pb_area
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pb_area
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.alf.highest.operation.pojo.PbAreaExample" >
+    delete from pb_area
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.alf.highest.operation.pojo.PbArea" >
+    insert into pb_area (id, areaname, parentid, 
+      shortname, areacode, zipcode, 
+      pinyin, lng, lat, level, 
+      position, sort)
+    values (#{id,jdbcType=INTEGER}, #{areaname,jdbcType=VARCHAR}, #{parentid,jdbcType=INTEGER}, 
+      #{shortname,jdbcType=VARCHAR}, #{areacode,jdbcType=INTEGER}, #{zipcode,jdbcType=INTEGER}, 
+      #{pinyin,jdbcType=VARCHAR}, #{lng,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, #{level,jdbcType=BIT}, 
+      #{position,jdbcType=VARCHAR}, #{sort,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.alf.highest.operation.pojo.PbArea" >
+    insert into pb_area
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="areaname != null" >
+        areaname,
+      </if>
+      <if test="parentid != null" >
+        parentid,
+      </if>
+      <if test="shortname != null" >
+        shortname,
+      </if>
+      <if test="areacode != null" >
+        areacode,
+      </if>
+      <if test="zipcode != null" >
+        zipcode,
+      </if>
+      <if test="pinyin != null" >
+        pinyin,
+      </if>
+      <if test="lng != null" >
+        lng,
+      </if>
+      <if test="lat != null" >
+        lat,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="position != null" >
+        position,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="areaname != null" >
+        #{areaname,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="shortname != null" >
+        #{shortname,jdbcType=VARCHAR},
+      </if>
+      <if test="areacode != null" >
+        #{areacode,jdbcType=INTEGER},
+      </if>
+      <if test="zipcode != null" >
+        #{zipcode,jdbcType=INTEGER},
+      </if>
+      <if test="pinyin != null" >
+        #{pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null" >
+        #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=BIT},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.alf.highest.operation.pojo.PbAreaExample" resultType="java.lang.Integer" >
+    select count(*) from pb_area
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pb_area
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.areaname != null" >
+        areaname = #{record.areaname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentid != null" >
+        parentid = #{record.parentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.shortname != null" >
+        shortname = #{record.shortname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areacode != null" >
+        areacode = #{record.areacode,jdbcType=INTEGER},
+      </if>
+      <if test="record.zipcode != null" >
+        zipcode = #{record.zipcode,jdbcType=INTEGER},
+      </if>
+      <if test="record.pinyin != null" >
+        pinyin = #{record.pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lng != null" >
+        lng = #{record.lng,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lat != null" >
+        lat = #{record.lat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=BIT},
+      </if>
+      <if test="record.position != null" >
+        position = #{record.position,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sort != null" >
+        sort = #{record.sort,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pb_area
+    set id = #{record.id,jdbcType=INTEGER},
+      areaname = #{record.areaname,jdbcType=VARCHAR},
+      parentid = #{record.parentid,jdbcType=INTEGER},
+      shortname = #{record.shortname,jdbcType=VARCHAR},
+      areacode = #{record.areacode,jdbcType=INTEGER},
+      zipcode = #{record.zipcode,jdbcType=INTEGER},
+      pinyin = #{record.pinyin,jdbcType=VARCHAR},
+      lng = #{record.lng,jdbcType=VARCHAR},
+      lat = #{record.lat,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=BIT},
+      position = #{record.position,jdbcType=VARCHAR},
+      sort = #{record.sort,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.alf.highest.operation.pojo.PbArea" >
+    update pb_area
+    <set >
+      <if test="areaname != null" >
+        areaname = #{areaname,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        parentid = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="shortname != null" >
+        shortname = #{shortname,jdbcType=VARCHAR},
+      </if>
+      <if test="areacode != null" >
+        areacode = #{areacode,jdbcType=INTEGER},
+      </if>
+      <if test="zipcode != null" >
+        zipcode = #{zipcode,jdbcType=INTEGER},
+      </if>
+      <if test="pinyin != null" >
+        pinyin = #{pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null" >
+        lng = #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=BIT},
+      </if>
+      <if test="position != null" >
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.alf.highest.operation.pojo.PbArea" >
+    update pb_area
+    set areaname = #{areaname,jdbcType=VARCHAR},
+      parentid = #{parentid,jdbcType=INTEGER},
+      shortname = #{shortname,jdbcType=VARCHAR},
+      areacode = #{areacode,jdbcType=INTEGER},
+      zipcode = #{zipcode,jdbcType=INTEGER},
+      pinyin = #{pinyin,jdbcType=VARCHAR},
+      lng = #{lng,jdbcType=VARCHAR},
+      lat = #{lat,jdbcType=VARCHAR},
+      level = #{level,jdbcType=BIT},
+      position = #{position,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllLinkage" resultType="com.alf.highest.operation.vo.LinkageDown" parameterType="java.lang.Integer">
+  	SELECT id,areaname AS name FROM `pb_area` WHERE parentid = #{parentid}
+  </select>
+</mapper>
