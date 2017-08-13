@@ -7,8 +7,8 @@ package com.alf.util;
 import java.util.*;
 public class EasyUIDataPage {
 	
-	private List<?> rows;//定义结果�?//
-	private Long total; //总条�?//
+	private List<?> rows;//定义结果�?
+	private Long total; //总条�?
 	public List<?> getRows() {
 		return rows;
 	}
