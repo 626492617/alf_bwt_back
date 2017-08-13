@@ -8,7 +8,7 @@ import java.util.*;
 public class EasyUIDataPage {
 	
 	private List<?> rows;//定义结果�?//
-	private Long total; //总条�?
+	private Long total; //总条�?//
 	public List<?> getRows() {
 		return rows;
 	}
