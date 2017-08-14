@@ -240,10 +240,16 @@
       companylogo = #{companylogo,jdbcType=VARCHAR}
     where companyid = #{companyid,jdbcType=INTEGER}
   </update>
+  <!-- 查询集团 -->
   <select id="findUser" resultType="com.alf.highest.login.vo.BwtCompanyVo" parameterType="com.alf.highest.login.vo.BwtCompanyVo">
   	SELECT * FROM bwt_company c WHERE c.`companyaccount` = #{companyaccount} AND c.`companypwd` = #{companypwd}
   </select>
+  <!-- 查询站点 -->
   <select id="siteUser" resultType="com.alf.highest.operation.vo.BwtSiteVo" parameterType="com.alf.highest.operation.vo.BwtSiteVo">
   	SELECT * FROM `bwt_site` b WHERE b.`siteaccount` = ${siteaccount} AND b.`sitepwd` = ${sitepwd}
+  </select>
+  <!-- 查询个人 -->
+  <select id="personalUser" resultType="com.alf.highest.site.pojo.BwtPersonal" parameterType="com.alf.highest.site.pojo.BwtPersonal">
+  	SELECT * FROM `bwt_personal` p  WHERE p.`personalaccount` = ${personalaccount}  AND p.`personalpwd` =${personalpwd}
   </select>
 </mapper>

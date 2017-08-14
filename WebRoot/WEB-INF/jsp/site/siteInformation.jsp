@@ -136,12 +136,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <tr style="height: 55px">
 					
 					    <td colspan="4">
-							<div style="width: 200px; margin: 0 auto;">
+							<div style="width: 400px; margin: 0 auto;margin-left: 250px;">
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-								<a href="javascript:;" class="easyui-linkbutton" onclick="Submit()" style="height: 30px; width: 60px;">
-								<span style="font-size: 26px; color: #F08833">提交</span></a>
-							    <a  href="javascript:;" class="easyui-linkbutton" onclick="JumpPage()" style="height: 30px; width: 60px;">
-								<span style="font-size: 26px; color: #F08833">返回</span> </a>
+								<a href="javascript:;" class="easyui-linkbutton" onclick="Submit()" style="height: 30px; width: 120px;">
+								<span style="font-size: 26px; color: #F08833">保存资料</span></a>
+							    <a  href="javascript:;" class="easyui-linkbutton" onclick="JumpPage()" style="height: 30px; width: 120px;">
+								<span style="font-size: 26px; color: #F08833">修改密码</span> </a>
 									
 							</div>
 						</td>
@@ -149,6 +149,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </table>
         
         </form>
+        <div id="dialogInfopwd" class="easyui-dialog" title="修改密码" style="width: 350px; height: 180px;" data-options="modal:true,closed:true,buttons:'#btnFightTypepwd'"   closable="false">
+			<form id="formFight">
+				<table style="margin: 10px;" class="ticketTable" >
+	                 <tr>
+	                     <td>新密码</td>
+	                     <td>
+	                          <input id="newpwd" name="newpwd" class="easyui-validatebox" style="width: 196px" data-options="required:'True'"/>
+	                     </td>
+	                 </tr>
+	                 <tr>
+	                     <td>确认新密码</td>
+	                     <td>
+	                     	<input id="newtopwd" name="newtopwd" class="easyui-validatebox" style="width: 196px"  data-options="required:'True'"  />
+	                     </td>
+	                 </tr>      
+			     </table>
+			</form>
+			 <div id="btnFightTypepwd">
+		         <a href="javascript:void;" class="easyui-linkbutton" onclick="addBodypwd()">提交</a>
+		         <a href="javascript:void;" class="easyui-linkbutton" onclick="$('#dialogInfopwd').dialog('close'); return false;">取消</a>
+		     </div>
+		 </div>
      </div>
      </div>
     <script type="text/javascript">
@@ -196,21 +218,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
 	function Submit(){
         
-        var json = {};
-        
-        json.locationnum=$("#ipt_categorystatus1").combobox("getValue");
-        json.text=$("#ipt_categoryname1").val();
-        json.content=$("#ipt_content1").val();
-        json.contentid=$("#ipt_contentid1").val();
-        json.newurl=$("#ipt_newsurl").val();
-        json.logourl=$("#logourl1").val();
-        json.datasources=$("#ipt_datasources").combobox("getValue");
-         $("#contentedit").dialog("close");
+        var json = {}; 
+        json.siteid=$("#siteid").val();
+        json.province=$("#province").combobox("getValue");
+        json.city=$("#city").combobox("getValue");
+        json.area=$("#area").combobox("getValue");
+        json.street=$("#street").combobox("getValue");
+        json.sitename=$("#sitename").val();
+        json.siteabbreviation=$("#siteabbreviation").val();
+        json.dutypeople=$("#dutypeople").val();
+        json.dutyphone=$("#dutyphone").val();
+        json.address=$("#address").val();
+        json.sitelogo=$("#sitelogo").val();
            
-         $.post("article_addZArticleVideo.do", json, function (msg) {
+         $.post("updataBySiteId.do", json, function (msg) {
          	if (msg == "1") {
          	   $.messager.alert('提示', '操作成功', 'info');
-         	    history.go(-1);
+         	  dataLoad();
              }else {
                  $.messager.alert('提示', '操作失败', 'error');
              }
@@ -237,9 +261,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         $('#pwd').val("");
 	}
 	function dataLoad(){
+		wipeData();
 		var id = ${user.siteid}
 		$("#siteid").val(id);
-		 wipeData();
 		 $.post("selectBySiteidUpdatap.do", "siteid="+id, function (data) {
 			 if (data != "0") {
                  var dataObj = eval("(" + data + ")");
@@ -277,9 +301,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	//跳回跳转过来的页面
 	function JumpPage() {
-		history.go(-1);
+		$("#newpwd").val("");
+		$("#newtopwd").val("");
+		$("#dialogInfopwd").dialog("open");
 	}
-	
+	function addBodypwd(){
+		var newpwd = $("#newpwd").val();
+		var newtopwd = $("#newtopwd").val();
+		if (!$("#formFight").form("validate")) {
+            return;
+        }else{
+        	if(newpwd == newtopwd){
+        		var json = {};
+        		json.siteid = $("#siteid").val();
+        		json.sitepwd =  newtopwd;
+        		$.post("updataBySiteId.do", json, function (msg) {
+	                if (msg == "1") {
+	                 	$.messager.alert('提示', '操作成功', 'info');
+	                 	$("#dialogInfopwd").dialog("close");
+	                 	dataLoad();
+	                }else {
+	                	$.messager.alert('提示', '操作失败', 'error');
+	                }
+                });
+        	}else{
+   				$.messager.alert('提示', '密码不一致', 'error');
+   			}
+        }
+			
+		
+	}
 	$(function(){
 		UploadFileInit();
 		dataLoad();

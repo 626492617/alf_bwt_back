@@ -51,6 +51,7 @@ public class OperationSiteServiceImpl implements OperationSiteService{
 			String siteaccount = str.toString()+seq;
 			BwtSiteVo vos = new BwtSiteVo();
 			BeanUtils.copyProperties(vo, vos);
+			vos.setSiterole(2);
 			vos.setSiteaccount(siteaccount);
 			vos.setSitepwd("123456");
 			bwtSiteMapper.insertSelective(vos);

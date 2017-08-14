@@ -573,6 +573,66 @@ public class BwtPersonalExample {
             addCriterion("personalpwd not between", value1, value2, "personalpwd");
             return (Criteria) this;
         }
+
+        public Criteria andPersonalroleIsNull() {
+            addCriterion("personalrole is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPersonalroleIsNotNull() {
+            addCriterion("personalrole is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPersonalroleEqualTo(Integer value) {
+            addCriterion("personalrole =", value, "personalrole");
+            return (Criteria) this;
+        }
+
+        public Criteria andPersonalroleNotEqualTo(Integer value) {
+            addCriterion("personalrole <>", value, "personalrole");
+            return (Criteria) this;
+        }
+
+        public Criteria andPersonalroleGreaterThan(Integer value) {
+            addCriterion("personalrole >", value, "personalrole");
+            return (Criteria) this;
+        }
+
+        public Criteria andPersonalroleGreaterThanOrEqualTo(Integer value) {
+            addCriterion("personalrole >=", value, "personalrole");
+            return (Criteria) this;
+        }
+
+        public Criteria andPersonalroleLessThan(Integer value) {
+            addCriterion("personalrole <", value, "personalrole");
+            return (Criteria) this;
+        }
+
+        public Criteria andPersonalroleLessThanOrEqualTo(Integer value) {
+            addCriterion("personalrole <=", value, "personalrole");
+            return (Criteria) this;
+        }
+
+        public Criteria andPersonalroleIn(List<Integer> values) {
+            addCriterion("personalrole in", values, "personalrole");
+            return (Criteria) this;
+        }
+
+        public Criteria andPersonalroleNotIn(List<Integer> values) {
+            addCriterion("personalrole not in", values, "personalrole");
+            return (Criteria) this;
+        }
+
+        public Criteria andPersonalroleBetween(Integer value1, Integer value2) {
+            addCriterion("personalrole between", value1, value2, "personalrole");
+            return (Criteria) this;
+        }
+
+        public Criteria andPersonalroleNotBetween(Integer value1, Integer value2) {
+            addCriterion("personalrole not between", value1, value2, "personalrole");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

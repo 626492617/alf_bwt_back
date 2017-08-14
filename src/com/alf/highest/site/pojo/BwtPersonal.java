@@ -17,6 +17,8 @@ public class BwtPersonal extends BwtPersonalVo{
 
     private String personalpwd;
 
+    private Integer personalrole;
+
     public Integer getPersonalid() {
         return personalid;
     }
@@ -71,5 +73,13 @@ public class BwtPersonal extends BwtPersonalVo{
 
     public void setPersonalpwd(String personalpwd) {
         this.personalpwd = personalpwd == null ? null : personalpwd.trim();
+    }
+
+    public Integer getPersonalrole() {
+        return personalrole;
+    }
+
+    public void setPersonalrole(Integer personalrole) {
+        this.personalrole = personalrole;
     }
 }

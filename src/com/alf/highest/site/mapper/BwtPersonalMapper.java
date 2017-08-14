@@ -2,10 +2,7 @@ package com.alf.highest.site.mapper;
 
 import com.alf.highest.site.pojo.BwtPersonal;
 import com.alf.highest.site.pojo.BwtPersonalExample;
-import com.alf.util.EasyUIDataPage;
-
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 
 public interface BwtPersonalMapper {

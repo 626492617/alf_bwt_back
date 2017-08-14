@@ -9,6 +9,7 @@
     <result column="personallogo" property="personallogo" jdbcType="VARCHAR" />
     <result column="personalaccount" property="personalaccount" jdbcType="VARCHAR" />
     <result column="personalpwd" property="personalpwd" jdbcType="VARCHAR" />
+    <result column="personalrole" property="personalrole" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,7 +70,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    personalid, siteid, personalname, personalphone, personallogo, personalaccount, personalpwd
+    personalid, siteid, personalname, personalphone, personallogo, personalaccount, personalpwd, 
+    personalrole
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.alf.highest.site.pojo.BwtPersonalExample" >
     select
@@ -104,10 +106,10 @@
   <insert id="insert" parameterType="com.alf.highest.site.pojo.BwtPersonal" >
     insert into bwt_personal (personalid, siteid, personalname, 
       personalphone, personallogo, personalaccount, 
-      personalpwd)
+      personalpwd, personalrole)
     values (#{personalid,jdbcType=INTEGER}, #{siteid,jdbcType=INTEGER}, #{personalname,jdbcType=VARCHAR}, 
       #{personalphone,jdbcType=VARCHAR}, #{personallogo,jdbcType=VARCHAR}, #{personalaccount,jdbcType=VARCHAR}, 
-      #{personalpwd,jdbcType=VARCHAR})
+      #{personalpwd,jdbcType=VARCHAR}, #{personalrole,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.alf.highest.site.pojo.BwtPersonal" >
     insert into bwt_personal
@@ -133,6 +135,9 @@
       <if test="personalpwd != null" >
         personalpwd,
       </if>
+      <if test="personalrole != null" >
+        personalrole,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="personalid != null" >
@@ -155,6 +160,9 @@
       </if>
       <if test="personalpwd != null" >
         #{personalpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="personalrole != null" >
+        #{personalrole,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -188,6 +196,9 @@
       <if test="record.personalpwd != null" >
         personalpwd = #{record.personalpwd,jdbcType=VARCHAR},
       </if>
+      <if test="record.personalrole != null" >
+        personalrole = #{record.personalrole,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -201,7 +212,8 @@
       personalphone = #{record.personalphone,jdbcType=VARCHAR},
       personallogo = #{record.personallogo,jdbcType=VARCHAR},
       personalaccount = #{record.personalaccount,jdbcType=VARCHAR},
-      personalpwd = #{record.personalpwd,jdbcType=VARCHAR}
+      personalpwd = #{record.personalpwd,jdbcType=VARCHAR},
+      personalrole = #{record.personalrole,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -227,6 +239,9 @@
       <if test="personalpwd != null" >
         personalpwd = #{personalpwd,jdbcType=VARCHAR},
       </if>
+      <if test="personalrole != null" >
+        personalrole = #{personalrole,jdbcType=INTEGER},
+      </if>
     </set>
     where personalid = #{personalid,jdbcType=INTEGER}
   </update>
@@ -237,22 +252,23 @@
       personalphone = #{personalphone,jdbcType=VARCHAR},
       personallogo = #{personallogo,jdbcType=VARCHAR},
       personalaccount = #{personalaccount,jdbcType=VARCHAR},
-      personalpwd = #{personalpwd,jdbcType=VARCHAR}
+      personalpwd = #{personalpwd,jdbcType=VARCHAR},
+      personalrole = #{personalrole,jdbcType=INTEGER}
     where personalid = #{personalid,jdbcType=INTEGER}
   </update>
-  <select id="selectAllPersonalBySiteid" resultType="com.alf.highest.site.pojo.BwtPersonal" parameterType="com.alf.highest.site.pojo.BwtPersonal">
-	SELECT 
-	  *,
-	  (SELECT 
-	    sitename 
-	  FROM
-	    bwt_site s 
-	  WHERE s.siteid = b.`siteid`) AS sitename 
-	FROM
-	  bwt_personal b 
-	WHERE b.siteid = #{siteid} 
-	<if test="personalname != null and personalname != ''">
-	  AND b.`personalname` LIKE #{personalname}
-	</if>
-  </select>
+    <select id="selectAllPersonalBySiteid" resultType="com.alf.highest.site.pojo.BwtPersonal" parameterType="com.alf.highest.site.pojo.BwtPersonal">
+		SELECT 
+		  *,
+		  (SELECT 
+		    sitename 
+		  FROM
+		    bwt_site s 
+		  WHERE s.siteid = b.`siteid`) AS sitename 
+		FROM
+		  bwt_personal b 
+		WHERE b.siteid = #{siteid} 
+		<if test="personalname != null and personalname != ''">
+		  AND b.`personalname` LIKE #{personalname}
+		</if>
+	  </select>
 </mapper>

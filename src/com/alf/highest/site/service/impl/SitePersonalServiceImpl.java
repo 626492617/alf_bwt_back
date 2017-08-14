@@ -43,6 +43,7 @@ public class SitePersonalServiceImpl implements SitePersonalService {
 			String siteaccount = str.toString()+seq;
 			BwtPersonal bp = new BwtPersonal();
 			bp.setPersonalaccount(siteaccount);
+			bp.setPersonalrole(3);
 			bp.setPersonalpwd("123456");
 			bp.setSiteid(siteid);
 			bwtPersonalMapper.insertSelective(bp);

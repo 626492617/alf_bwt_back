@@ -5,9 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.poi.ss.formula.functions.T;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -20,6 +17,7 @@ import com.alf.highest.login.service.LoginService;
 import com.alf.highest.login.vo.BwtCompanyVo;
 import com.alf.highest.login.vo.MenuInfo;
 import com.alf.highest.operation.vo.BwtSiteVo;
+import com.alf.highest.site.pojo.BwtPersonal;
 import com.alf.util.JsonUtils;
 
 @Controller
@@ -83,6 +81,22 @@ public class LoginController {
 					i = true;
 				}
 				break;
+			case 3:
+				BwtPersonal bp = new BwtPersonal();
+				//登录操作判断用户名密码书否正确
+				bp.setPersonalaccount(sysNumber);
+				bp.setPersonalpwd(sysPwd);
+				BwtPersonal bpv=loginService.personalUser(bp);
+				if (!(bpv == null)) {
+					session.setAttribute("user", bpv);
+					session.setAttribute("logintype", logintype);
+					if(bpv.getPersonalname() != null && bpv.getPersonalname().length() > 0)
+						session.setAttribute("name", bpv.getPersonalname());
+					else
+						session.setAttribute("name", "小锋提醒您完善(个人)资料");
+					i = true;
+				}
+				break;
 			default:
 				return "0";
 		}
@@ -125,6 +139,9 @@ public class LoginController {
 		}else if(logintype == 2){
 			BwtSiteVo user = (BwtSiteVo) session.getAttribute("user");
 			role = user.getSiterole();
+		}else if(logintype == 3){
+			BwtPersonal user = (BwtPersonal) session.getAttribute("user");
+			role = user.getPersonalrole();
 		}
 		
 		//根据用户加载用户的资源

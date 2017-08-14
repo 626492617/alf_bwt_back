@@ -17,6 +17,7 @@ import com.alf.highest.login.service.LoginService;
 import com.alf.highest.login.vo.BwtCompanyVo;
 import com.alf.highest.login.vo.MenuInfo;
 import com.alf.highest.operation.vo.BwtSiteVo;
+import com.alf.highest.site.pojo.BwtPersonal;
 @Service
 public class LoginServiceImpl implements LoginService {
 	@Autowired
@@ -39,6 +40,10 @@ public class LoginServiceImpl implements LoginService {
 	public BwtSiteVo siteUser(BwtSiteVo svo){
 		return bwtCompanyMapper.siteUser(svo);
 		
+		
+	}
+	public BwtPersonal personalUser(BwtPersonal vo){
+		return bwtCompanyMapper.personalUser(vo);
 		
 	}
 	/**

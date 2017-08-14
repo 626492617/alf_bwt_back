@@ -6,6 +6,7 @@ import com.alf.highest.login.pojo.BwtCompany;
 import com.alf.highest.login.vo.BwtCompanyVo;
 import com.alf.highest.login.vo.MenuInfo;
 import com.alf.highest.operation.vo.BwtSiteVo;
+import com.alf.highest.site.pojo.BwtPersonal;
 
 public interface LoginService {
 	/**
@@ -19,6 +20,12 @@ public interface LoginService {
 	 * @return
 	 */
 	public List<MenuInfo> loadmainjsp(Integer user);
+	/**
+	 * 个人登录
+	 * @param vo
+	 * @return
+	 */
+	public BwtPersonal personalUser(BwtPersonal vo);
 	
 	/**
 	 *站点 判断用户名密码是否正确
