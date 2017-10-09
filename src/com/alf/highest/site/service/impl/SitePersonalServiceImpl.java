@@ -38,7 +38,7 @@ public class SitePersonalServiceImpl implements SitePersonalService {
 		Random ran = new Random();
 		Integer seq = sequence.getIdvalue();
 		for (int i = 0; i < amount; i++) {
-			seq++;
+			
 			Integer str = ran.nextInt(90000) + 10000;
 			String siteaccount = str.toString()+seq;
 			BwtPersonal bp = new BwtPersonal();
@@ -46,6 +46,7 @@ public class SitePersonalServiceImpl implements SitePersonalService {
 			bp.setPersonalrole(3);
 			bp.setPersonalpwd("123456");
 			bp.setSiteid(siteid);
+			seq++;
 			bwtPersonalMapper.insertSelective(bp);
 		}
 		sequence.setIdvalue(seq);
