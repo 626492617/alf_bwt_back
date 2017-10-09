@@ -46,7 +46,7 @@ public class OperationSiteServiceImpl implements OperationSiteService{
 		Random ran = new Random();
 		Integer seq = sequence.getIdvalue();
 		for (int i = 0; i < vo.getAmount(); i++) {
-			seq++;
+			
 			Integer str = ran.nextInt(9000) + 1000;
 			String siteaccount = str.toString()+seq;
 			BwtSiteVo vos = new BwtSiteVo();
@@ -54,6 +54,7 @@ public class OperationSiteServiceImpl implements OperationSiteService{
 			vos.setSiterole(2);
 			vos.setSiteaccount(siteaccount);
 			vos.setSitepwd("123456");
+			seq++;
 			bwtSiteMapper.insertSelective(vos);
 		}
 		sequence.setIdvalue(seq);
