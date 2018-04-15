@@ -30,7 +30,7 @@ public class PictureServiceImpl implements PictureService{
 		String name = uuid+filename.substring(filename.lastIndexOf("."));
 		File files = new File(path,name);
 		FileUtils.writeByteArrayToFile(files, originalFile);
-		String xiangmu = session.getServletContext().getContextPath();
+		//String xiangmu = session.getServletContext().getContextPath();
 		String ip = "http://192.168.3.122:8080";
 		/*uf.setLargerUrl(ip+xiangmu+"/uploadfiles/"+name);
 		uf.setSmallUrl(ip+xiangmu+"/uploadfiles/"+name);*/
