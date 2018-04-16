@@ -7,14 +7,18 @@
     <result column="city" property="city" jdbcType="INTEGER" />
     <result column="area" property="area" jdbcType="INTEGER" />
     <result column="street" property="street" jdbcType="INTEGER" />
-    <result column="price" property="price" jdbcType="INTEGER" />
-    <result column="describe" property="describe" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="VARCHAR" />
+    <result column="describes" property="describes" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="dateset" property="dateset" jdbcType="TIMESTAMP" />
+    <result column="personalid" property="personalid" jdbcType="INTEGER" />
+    <result column="istemplate" property="istemplate" jdbcType="INTEGER" />
     <result column="updataset" property="updataset" jdbcType="TIMESTAMP" />
+    <result column="accurate" property="accurate" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    addressid, province, city, area, street, price, describe, phone, dateset, updataset
+    addressid, province, city, area, street, price, describes, phone, dateset, personalid, 
+    istemplate, updataset, accurate
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -29,12 +33,14 @@
   <insert id="insert" parameterType="com.alf.highest.personal.pojo.BwtConnectorAddress" >
     insert into bwt_connector_address (addressid, province, city, 
       area, street, price, 
-      describe, phone, dateset, 
-      updataset)
+      describes, phone, dateset, 
+      personalid, istemplate, updataset, 
+      accurate)
     values (#{addressid,jdbcType=INTEGER}, #{province,jdbcType=INTEGER}, #{city,jdbcType=INTEGER}, 
-      #{area,jdbcType=INTEGER}, #{street,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, 
-      #{describe,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{dateset,jdbcType=TIMESTAMP}, 
-      #{updataset,jdbcType=TIMESTAMP})
+      #{area,jdbcType=INTEGER}, #{street,jdbcType=INTEGER}, #{price,jdbcType=VARCHAR}, 
+      #{describes,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{dateset,jdbcType=TIMESTAMP}, 
+      #{personalid,jdbcType=INTEGER}, #{istemplate,jdbcType=INTEGER}, #{updataset,jdbcType=TIMESTAMP}, 
+      #{accurate,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.alf.highest.personal.pojo.BwtConnectorAddress" >
     insert into bwt_connector_address
@@ -57,8 +63,8 @@
       <if test="price != null" >
         price,
       </if>
-      <if test="describe != null" >
-        describe,
+      <if test="describes != null" >
+        describes,
       </if>
       <if test="phone != null" >
         phone,
@@ -66,8 +72,17 @@
       <if test="dateset != null" >
         dateset,
       </if>
+      <if test="personalid != null" >
+        personalid,
+      </if>
+      <if test="istemplate != null" >
+        istemplate,
+      </if>
       <if test="updataset != null" >
         updataset,
+      </if>
+      <if test="accurate != null" >
+        accurate,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -87,10 +102,10 @@
         #{street,jdbcType=INTEGER},
       </if>
       <if test="price != null" >
-        #{price,jdbcType=INTEGER},
+        #{price,jdbcType=VARCHAR},
       </if>
-      <if test="describe != null" >
-        #{describe,jdbcType=VARCHAR},
+      <if test="describes != null" >
+        #{describes,jdbcType=VARCHAR},
       </if>
       <if test="phone != null" >
         #{phone,jdbcType=VARCHAR},
@@ -98,8 +113,17 @@
       <if test="dateset != null" >
         #{dateset,jdbcType=TIMESTAMP},
       </if>
+      <if test="personalid != null" >
+        #{personalid,jdbcType=INTEGER},
+      </if>
+      <if test="istemplate != null" >
+        #{istemplate,jdbcType=INTEGER},
+      </if>
       <if test="updataset != null" >
         #{updataset,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accurate != null" >
+        #{accurate,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -119,10 +143,10 @@
         street = #{street,jdbcType=INTEGER},
       </if>
       <if test="price != null" >
-        price = #{price,jdbcType=INTEGER},
+        price = #{price,jdbcType=VARCHAR},
       </if>
-      <if test="describe != null" >
-        describe = #{describe,jdbcType=VARCHAR},
+      <if test="describes != null" >
+        describes = #{describes,jdbcType=VARCHAR},
       </if>
       <if test="phone != null" >
         phone = #{phone,jdbcType=VARCHAR},
@@ -130,8 +154,17 @@
       <if test="dateset != null" >
         dateset = #{dateset,jdbcType=TIMESTAMP},
       </if>
+      <if test="personalid != null" >
+        personalid = #{personalid,jdbcType=INTEGER},
+      </if>
+      <if test="istemplate != null" >
+        istemplate = #{istemplate,jdbcType=INTEGER},
+      </if>
       <if test="updataset != null" >
         updataset = #{updataset,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accurate != null" >
+        accurate = #{accurate,jdbcType=VARCHAR},
       </if>
     </set>
     where addressid = #{addressid,jdbcType=INTEGER}
@@ -142,11 +175,22 @@
       city = #{city,jdbcType=INTEGER},
       area = #{area,jdbcType=INTEGER},
       street = #{street,jdbcType=INTEGER},
-      price = #{price,jdbcType=INTEGER},
-      describe = #{describe,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      describes = #{describes,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       dateset = #{dateset,jdbcType=TIMESTAMP},
-      updataset = #{updataset,jdbcType=TIMESTAMP}
+      personalid = #{personalid,jdbcType=INTEGER},
+      istemplate = #{istemplate,jdbcType=INTEGER},
+      updataset = #{updataset,jdbcType=TIMESTAMP},
+      accurate = #{accurate,jdbcType=VARCHAR}
     where addressid = #{addressid,jdbcType=INTEGER}
   </update>
+  <select id="selectAllPrsonalRegion" parameterType="java.lang.Integer" resultType="com.alf.highest.personal.pojo.BwtConnectorAddress">
+  	SELECT 
+		(SELECT p.areaname FROM `pb_area` p WHERE p.`id` = b.province) provincename,
+		(SELECT p.areaname FROM `pb_area` p WHERE p.`id` = b.city) cityname,
+		(SELECT p.areaname FROM `pb_area` p WHERE p.`id` = b.area) areaname,
+		(SELECT p.areaname FROM `pb_area` p WHERE p.`id` = b.street) streetname,
+	b.* FROM `bwt_connector_address` b WHERE b.`personalid` = ${personalid}
+  </select>
 </mapper>
