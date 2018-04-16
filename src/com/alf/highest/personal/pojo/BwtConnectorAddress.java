@@ -2,7 +2,9 @@ package com.alf.highest.personal.pojo;
 
 import java.util.Date;
 
-public class BwtConnectorAddress {
+import com.alf.highest.personal.vo.BwtConnectorAddressVo;
+
+public class BwtConnectorAddress extends BwtConnectorAddressVo{
     private Integer addressid;
 
     private Integer province;
@@ -13,15 +15,21 @@ public class BwtConnectorAddress {
 
     private Integer street;
 
-    private Integer price;
+    private String price;
 
-    private String describe;
+    private String describes;
 
     private String phone;
 
     private Date dateset;
 
+    private Integer personalid;
+
+    private Integer istemplate;
+
     private Date updataset;
+
+    private String accurate;
 
     public Integer getAddressid() {
         return addressid;
@@ -63,20 +71,20 @@ public class BwtConnectorAddress {
         this.street = street;
     }
 
-    public Integer getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
-        this.price = price;
+    public void setPrice(String price) {
+        this.price = price == null ? null : price.trim();
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getDescribes() {
+        return describes;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe == null ? null : describe.trim();
+    public void setDescribes(String describes) {
+        this.describes = describes == null ? null : describes.trim();
     }
 
     public String getPhone() {
@@ -95,11 +103,35 @@ public class BwtConnectorAddress {
         this.dateset = dateset;
     }
 
+    public Integer getPersonalid() {
+        return personalid;
+    }
+
+    public void setPersonalid(Integer personalid) {
+        this.personalid = personalid;
+    }
+
+    public Integer getIstemplate() {
+        return istemplate;
+    }
+
+    public void setIstemplate(Integer istemplate) {
+        this.istemplate = istemplate;
+    }
+
     public Date getUpdataset() {
         return updataset;
     }
 
     public void setUpdataset(Date updataset) {
         this.updataset = updataset;
+    }
+
+    public String getAccurate() {
+        return accurate;
+    }
+
+    public void setAccurate(String accurate) {
+        this.accurate = accurate == null ? null : accurate.trim();
     }
 }
