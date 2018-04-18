@@ -106,7 +106,52 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     <!--数据列表-->
     <table id="tbPrsonalRegion"></table>
-    
+    <div id="dialgAlonelPricePage" class="easyui-dialog" title="" style="width: 760px; height: 570px; padding: 10px; " data-options="modal:true,closed:true,vcenter:true">
+    	<table id="tbAlonelPrice"></table>
+    	<div id="dialgAlonelPrice" class="easyui-dialog" title="添加价格区域" style="width: 660px; height: 470px; padding: 10px; " data-options="modal:true,closed:true,vcenter:true,buttons:'#btnAlonelPrice'">
+	        <form id="formAlonelPrice">
+	            <table style="text-align: center;  margin: 10px;"  width="100%" height="110%" >
+					<tr  >
+	                    <td>首重</td>
+	                    <td>
+	                     	<input id="alonegoodsykg" name="alonegoodsykg" class="easyui-numberbox" style="width: 200px" 
+	                     		data-options="min:0,precision:2,suffix:'kg'"  />
+	                    </td>
+	                    <td>首重价格</td>
+	                    <td >
+	                     	<input id="alonegoodsykgprice" name="alonegoodsykgprice" class="easyui-numberbox" style="width: 200px" 
+	                     		data-options="min:0,precision:2,suffix:'元'" />
+	                    </td>
+	                </tr>
+	                <tr >
+	                    <td>超出首重价格</td>
+	                    <td  >
+	                     	<input id="aloneoverload" name="aloneoverload" class="easyui-numberbox" style="width: 200px;" placeholder="每公斤收取多少元"
+	                     		data-options="min:0,precision:2,suffix:'元/kg'" />
+	                    </td>
+	                </tr>
+	                <tr  >
+	                    <td>包装说明</td>
+	                    <td colspan="3"  >
+	                     	<textarea id="accurate" name="accurate" style="width:500px; height:60px;"  placeholder="示例：自费，或免费，可自行说明 200字以内"></textarea>
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>选择省份</td>
+	                    <td colspan="3"   >
+	                     	<table style="  margin: 10px; width:500px; height:150px;"  id="middleArea"  >
+	                     		
+	                     	</table>
+	                    </td>
+	                </tr>
+	            </table>
+	        </form>
+	        <div id="btnAlonelPrice">
+	            <a href="javascript:void;" class="easyui-linkbutton" onclick="SubmitAlonelPrice()">提交</a>
+	            <a href="javascript:void;" class="easyui-linkbutton" onclick="$('#dialgAlonelPrice').dialog('close'); return false;">取消</a>
+	        </div>
+    	</div>
+    </div>
    
     <link href="layer/skin/layer.css" rel="stylesheet" />
     <script src="layer/layer.js"></script>
@@ -239,10 +284,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         title: '操作', field: 'addressid', width: 150, align: 'center', formatter: function (value, rec) {
                         	var  operation = '';
                         	if(rec.istemplate == 1){
-                        		operation =  '<a class="a_edit" href="javascript:;" onclick="EditData(' + value + ');$(this).parent().click();return false;">选择价格模板</a>';
+                        		operation =  '<a class="a_edit" href="javascript:;" onclick="EditDatas(' + value + ');$(this).parent().click();return false;">选择价格模板</a>';
                         		
                         	}else{
-                        		operation =  '<a class="a_edit" href="javascript:;" onclick="EditData(' + value + ');$(this).parent().click();return false;">填写价格</a>';
+                        		operation =  '<a class="a_edit" href="javascript:;" onclick="selectAlonelPricePage(' + value + ');$(this).parent().click();return false;">填写价格</a>';
                         	}
                         	operation +=  '<a class="a_edit" href="javascript:;" onclick="EditData(' + value + ');$(this).parent().click();return false;">修改</a>';
                             return operation;
@@ -391,6 +436,157 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             $("#tbPrsonalRegion").datagrid("unselectAll");
             $("#tbPrsonalRegion").datagrid("reload");
         }
+        /*****************价格******************/
+        function selectAlonelPricePage (id){
+        	$('#addressid').val("");
+        	$('#addressid').val(id);
+        	$("#dialgAlonelPricePage").dialog("open");
+        	selectAlonelPriceData();
+        }
+      //数据列表
+        function selectAlonelPriceData() {
+        	var addressid = $('#addressid').val();
+            $('#tbAlonelPrice').datagrid({
+                title: '价格区域信息',//文本标题
+                url: 'selectAllAlonelPrice.do',//访问路径
+                width: '100%',//显示宽度
+                height: $(parent.document).find("#mainPanel").height() - 100 > 0 ? $(parent.document).find("#mainPanel").height() - 150 : 500, //高度
+                nowrap: true,//在一行显示
+                striped: true,//显示虚线在外框
+                collapsible: false,//可折叠的
+                remoteSort: true,//从服务器对数据进行排序
+                fitColumns: true,//自动展开/收缩列的大小
+                columns: [[
+                    { field: 'cbx', checkbox: true },
+                    { title: '省份', field: 'provincename', width: 100, align: 'center' },
+					{ title: '市区', field: 'cityname', width: 100, align: 'center' },
+					{ title: '区域', field: 'areaname', width: 100, align: 'center' },
+					{ title: '街道', field: 'streetname', width: 100, align: 'center' },
+					{
+                        title: '接管地区', field: 'accurate', width: 220, align: 'center', formatter: function (value) {
+                            value = decodeURIComponent(value);
+                            if (value.length > 15) {
+                                value = value.substr(0, 15) + "...";
+                            }
+                            if(value == 'null'){
+                            	 return "";
+                            }
+                            return value;
+                        }
+                    },
+                    {
+                        title: '联系电话', field: 'phone', width: 100, align: 'center', formatter: function (value) {
+                            return value;
+                        }
+                    },
+                    {
+                        title: '活动描述', field: 'describes', width: 250, align: 'center', formatter: function (value) {
+                            value = decodeURIComponent(value);
+                            if (value.length > 15) {
+                                value = value.substr(0, 15) + "...";
+                            }
+                            if(value == 'null'){
+                            	 return "";
+                            }
+                            return value;
+                        }
+                    },
+                    {
+                        title: '价格模板操作', field: 'istemplate', width: 150, align: 'center', formatter: function (value, rec) {
+                        	var  operation = '';
+                        	if(value == 1){
+                        		operation = '<a class="a_edit" href="javascript:;" onclick="TemplateOperationData(2,'+rec.addressid+');$(this).parent().click();return false;">取消模板</a>';
+                        	}else{
+                        		operation = '<a class="a_edit" href="javascript:;" onclick="TemplateOperationData(1,'+rec.addressid+');$(this).parent().click();return false;">启用</a>';
+                        	}
+                            return operation;
+                        }
+                    },
+                    {
+                        title: '操作', field: 'addressid', width: 150, align: 'center', formatter: function (value, rec) {
+                        	var  operation = '';
+                        	if(rec.istemplate == 1){
+                        		operation =  '<a class="a_edit" href="javascript:;" onclick="EditDatas(' + value + ');$(this).parent().click();return false;">选择价格模板</a>';
+                        		
+                        	}else{
+                        		operation =  '<a class="a_edit" href="javascript:;" onclick="selectAlonelPricePage(' + value + ');$(this).parent().click();return false;">填写价格</a>';
+                        	}
+                        	operation +=  '<a class="a_edit" href="javascript:;" onclick="EditData(' + value + ');$(this).parent().click();return false;">修改</a>';
+                            return operation;
+                        }
+                    }
+                ]],
+                toolbar: [
+                   {
+                       id: 'btnadd',
+                       text: '新增',
+                       iconCls: 'icon-add',
+                       handler: function () {
+                           AddAlonelPriceData();
+                       }
+                   },
+                   {
+                       id: 'btndel',
+                       text: '删除',
+                       iconCls: 'icon-cancel',
+                       handler: function () {
+                           DelData();
+                       }
+                   }
+                ],
+                queryParams : {"addressid" : addressid},
+                pagination: true,
+                pageNumber: 1,
+                pageSize: 30,
+                rownumbers: true
+            });
+        }
+      	//dialgAlonelPrice
+		function AddAlonelPriceData(){
+			$('#aloneprice').val('');
+        	$('#alonegoodsykgprice').numberbox('setValue','');
+        	$('#alonegoodsykg').numberbox('setValue','');
+            $('#aloneoverload').numberbox('setValue','');
+            $('#alonepacking').val('');
+            TemplateOperationData();
+            $("#dialgAlonelPrice").dialog("open");
+		}
+		function TemplateOperationData(){
+			$("#middleArea").html("")
+        	$.post("selectAllLinkage.do","parentid=0", function(data){
+        		operation = '';
+        		operations = '';
+        		$(data).each(function(index,list){     //第一个是系统的次数   第二个是对象middleArea
+        			if(index == 0){
+        				operations += '<tr><td colspan="2" style="text-align: center; "  ><input type="button" style="width: 88px;" value="全选"   onclick="AreaSelect()" id="select" /></td>';
+        				operations += '<td colspan="2" style="text-align: center; "  ><input type="button" style="width: 88px;"  value="反选" onclick="reverseSelect()" id="reverse"  /></td></tr>';
+        			}
+        			
+        			if(index % 4 == 0 ){
+        				operation += '</tr><tr>';
+        			}
+        			
+        			operation += '<td><input type="checkbox" name="province" value="'+list.id+'" />'+list.name+'</td>';
+        					
+            	});
+        		operation = operations+operation.substring(5)
+        		$("#middleArea").append(operation);
+        		//$("#middleArea").append(operation);
+        	});
+		}
+		function AreaSelect(){ 
+			$("input[name='province']").attr("checked","true"); 
+		}
+		function reverseSelect(){ 
+			$("input[name='province']").each(function(){ 
+					if($(this).attr("checked")) { 
+						$(this).removeAttr("checked"); 
+					}else { 
+						$(this).attr("checked","true"); 
+					} 
+			}) 
+			//$("input[name='province']").attr("checked","true"); 
+		}
     </script>
 
 </body>
