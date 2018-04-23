@@ -13,10 +13,11 @@ import com.alf.highest.personal.service.AlonePriceService;
  *
  */
 import com.alf.util.EasyUIDataPage;
+import com.alf.util.JsonUtils;
 @Controller
 public class AlonePriceController {
 	@Autowired
-	private AlonePriceService AlonePriceService;
+	private AlonePriceService alonePriceService;
 	/**
 	 * 添加与修改
 	 * @param bcap
@@ -26,7 +27,7 @@ public class AlonePriceController {
 	@ResponseBody
 	public String addIsUpdataAlonelPrice(BwtConnectorAlonePrice bcap) {
 		try {
-			AlonePriceService.addIsUpdataAlonelPrice(bcap);
+			alonePriceService.addIsUpdataAlonelPrice(bcap);
 		} catch (Exception e) {
 			// TODO: handle exception.
 			e.printStackTrace();
@@ -45,7 +46,7 @@ public class AlonePriceController {
 	@RequestMapping("selectAllAlonelPrice")
 	@ResponseBody
 	public EasyUIDataPage selectAllAlonelPrice(Integer page,Integer rows,Integer addressid) {
-		return AlonePriceService.selectAllAlonelPrice(page, rows, addressid);
+		return alonePriceService.selectAllAlonelPrice(page, rows, addressid);
 		
 	}
 	/**
@@ -53,8 +54,27 @@ public class AlonePriceController {
 	 * @param aloneprice
 	 * @return
 	 */
+	@RequestMapping(value="upDateAlonelPricePage",produces = "text/html;charset=UTF-8")
+	@ResponseBody
 	public String upDateAlonelPricePage(Integer aloneprice) {
-		return null;
+		return JsonUtils.objectToJson(alonePriceService.upDateAlonelPricePage(aloneprice));
+		
+	}
+	/**
+	 * 删除个人价格
+	 * @param aloneprice
+	 * @return
+	 */
+	@RequestMapping("deleteByAlonelPrice")
+	@ResponseBody
+	public String deleteByAlonelPrice(Integer[] aloneprice) {
+		try {
+			alonePriceService.deleteByAlonelPrice(aloneprice);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "0";
+		}
+		return "1";
 		
 	}
 }

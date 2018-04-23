@@ -107,7 +107,7 @@
     where aloneprice = #{aloneprice,jdbcType=INTEGER}
   </update>
   <delete id="deleteMiddleByAloneprice" parameterType="java.lang.Integer" >
-  	delete * from bwt_alone_middle_area where aloneprice = ${aloneprice};
+  	delete  from bwt_alone_middle_area where aloneprice = ${aloneprice};
   </delete>
   <insert id="addUpMiddle" >
   	INSERT INTO bwt_alone_middle_area VALUES

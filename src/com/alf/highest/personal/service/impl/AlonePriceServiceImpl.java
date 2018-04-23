@@ -89,4 +89,15 @@ public class AlonePriceServiceImpl implements AlonePriceService{
 		return bap;
 		
 	}
+	/**
+	 * 删除个人价格
+	 * @param aloneprice
+	 * @return
+	 */
+	public void deleteByAlonelPrice(Integer[] aloneprice) {
+		for (Integer integer : aloneprice) {
+			BwtConnectorAlonePriceMapper.deleteByPrimaryKey(integer);
+			BwtConnectorAlonePriceMapper.deleteMiddleByAloneprice(integer);
+		}
+	}
 }

@@ -542,7 +542,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        text: '删除',
                        iconCls: 'icon-cancel',
                        handler: function () {
-                           DelData();
+                           DelAlonelPriceData();
                        }
                    }
                 ],
@@ -578,7 +578,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         				operation += '</tr><tr>';
         			}
         			
-        			operation += '<td><input type="checkbox" name="province" value="'+list.id+'" />'+list.name+'</td>';
+        			operation += '<td><input type="checkbox" name="provinces" value="'+list.id+'" />'+list.name+'</td>';
         					
             	});
         		operation = operations+operation.substring(5)
@@ -587,10 +587,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	});
 		}
 		function AreaSelect(){ 
-			$("input[name='province']").attr("checked","true"); 
+			$("input[name='provinces']").attr("checked","true"); 
 		}
 		function reverseSelect(){ 
-			$("input[name='province']").each(function(){ 
+			$("input[name='provinces']").each(function(){ 
 					if($(this).attr("checked")) { 
 						$(this).removeAttr("checked"); 
 					}else { 
@@ -607,7 +607,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        if(obj[k].checked)
 		        	check_val += obj[k].value+",";
 		    }
-		    return check_val.substring(1,check_val.length - 1);
+		    return check_val.substring(0,check_val.length - 1);
+		   // return check_val;
 		}
 		//提交数据
         function SubmitAlonelPrice() {
@@ -621,8 +622,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 json.alonegoodsykg = $('#alonegoodsykg').numberbox('getValue');
                 json.aloneoverload = $('#aloneoverload').numberbox('getValue');
                 json.alonepacking = $('#alonepacking').val();
-                json.provincial = show("province");
+                json.provincial = show("provinces");
                 json.addressid =  $('#addressid').val();
+                console.log(json.provincial);
                  $.post("addIsUpdataAlonelPrice.do",json, function(data){
                 	 AlonelPriceData();
                     if (data == "1") {
@@ -638,10 +640,74 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         }
 		//修改
 		 function EditDataAlonelPricePage(aloneprice){
-			 $.post("upDateAlonelPricePage.do","aloneprice="aloneprice, function(data){
-            	
-            	}); 
+			 $.post("upDateAlonelPricePage.do","aloneprice="+aloneprice, function(data){
+				 if (data != "0") {
+	                    var dataObj = eval("(" + data + ")");
+						$('#aloneprice').val(dataObj.aloneprice);
+			        	$('#alonegoodsykgprice').numberbox('setValue',dataObj.alonegoodsykgprice);
+			        	$('#alonegoodsykg').numberbox('setValue',dataObj.alonegoodsykg);
+			            $('#aloneoverload').numberbox('setValue',dataObj.aloneoverload);
+			            $('#alonepacking').val(dataObj.alonepacking);
+			            $('#addressid').val(dataObj.addressid);
+			            console.log(dataObj.listDown);
+			            $("#middleArea").html("")
+			        	$.post("selectAllLinkage.do","parentid=0", function(data){
+			        		operation = '';
+			        		operations = '';
+			        		$(data).each(function(index,list){     //第一个是系统的次数   第二个是对象middleArea
+			        			if(index == 0){
+			        				operations += '<tr><td colspan="2" style="text-align: center; "  ><input type="button" style="width: 88px;" value="全选"   onclick="AreaSelect()" id="select" /></td>';
+			        				operations += '<td colspan="2" style="text-align: center; "  ><input type="button" style="width: 88px;"  value="反选" onclick="reverseSelect()" id="reverse"  /></td></tr>';
+			        			}
+			        			
+			        			if(index % 4 == 0 ){
+			        				operation += '</tr><tr>';
+			        			}
+			        			 var judge = false;
+			        			$(dataObj.listDown).each(function(index,lists){
+			        				if(lists.id == list.id){
+			        					judge = true;
+			        				}
+			        			});
+			        			if(judge){
+		        					operation += '<td><input type="checkbox" name="provinces" checked="checked"  value="'+list.id+'" />'+list.name+'</td>';
+		        				}else{
+		        					operation += '<td><input type="checkbox" name="provinces" value="'+list.id+'" />'+list.name+'</td>';
+		        				}
+			            	});
+			        		operation = operations+operation.substring(5)
+			        		$("#middleArea").append(operation);
+				 		});
+			            $("#dialgAlonelPrice").dialog("open");
+				 }else{
+					 
+				 }
+            }); 
 		} 
+		function DelAlonelPriceData(){
+			var selected = "";
+            $($('#tbAlonelPrice').datagrid('getSelections')).each(function () {
+                selected += this.aloneprice + ",";
+            });
+            selected = selected.substr(0, selected.length - 1);
+            if (selected == "") {
+                $.messager.alert('提示', '请选择要删除的数据！', 'info');
+                return;
+            }
+            $.messager.confirm('提示', '确认删除？', function (r) {
+                if (r) {
+                    $.post("deleteByAlonelPrice.do", "aloneprice="+selected, function (msg) {
+                    	AlonelPriceData();
+                        if (msg != "0") {
+                            $.messager.alert('提示', '删除成功', 'info');
+                        }
+                        else {
+                            $.messager.alert('提示', '删除失败', 'error');
+                        }
+                    });
+                }
+            });
+		}
 		//刷新价钱
         function AlonelPriceData() {
             $("#tbAlonelPrice").datagrid("uncheckAll");

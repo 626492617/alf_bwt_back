@@ -30,4 +30,10 @@ public interface AlonePriceService {
 	 * @return
 	 */
 	public BwtConnectorAlonePrice upDateAlonelPricePage(Integer aloneprice);
+	/**
+	 * 删除个人价格
+	 * @param aloneprice
+	 * @return
+	 */
+	public void deleteByAlonelPrice(Integer[] aloneprice);
 }

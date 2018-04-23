@@ -8,7 +8,16 @@ public class BwtConnectorAlonePriceVo {
 	private String provincial;  //传过来的 区域  用逗号分隔
 	private List<String> province; //返回的区域名称
 	private List<LinkageDown>  listDown;//修改时个人区域集合
+	private Integer id ; //区域id
 	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public List<LinkageDown> getListDown() {
 		return listDown;
 	}
