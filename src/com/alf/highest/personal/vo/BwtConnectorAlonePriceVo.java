@@ -2,10 +2,21 @@ package com.alf.highest.personal.vo;
 
 import java.util.List;
 
+import com.alf.highest.operation.vo.LinkageDown;
+
 public class BwtConnectorAlonePriceVo {
-	private String provincial;
-	private List<String> province;
+	private String provincial;  //传过来的 区域  用逗号分隔
+	private List<String> province; //返回的区域名称
+	private List<LinkageDown>  listDown;//修改时个人区域集合
 	
+	public List<LinkageDown> getListDown() {
+		return listDown;
+	}
+
+	public void setListDown(List<LinkageDown> listDown) {
+		this.listDown = listDown;
+	}
+
 	public List<String> getProvince() {
 		return province;
 	}

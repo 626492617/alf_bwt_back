@@ -37,122 +37,124 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         }
     </style>
     </head>
-<body>
-    <input type="hidden" id="addressid" name ="addressid" value="${addressid}" >
-    <!--查询条件-->
-    <div id="headerSearchPanel" class="easyui-panel">
-        <form id="fromSearch">
-            <table style="text-align: center;  margin: 10px;"  width="100%" height="100%"  >
-                <tr>
-                    <td ><h4>更好的填写信息 会让用户更好找到你！因为他们需要你</h4></td>
-                </tr>
-            </table>
-        </form>
-    </div>
-<!--员工添加-->
-    <div id="dialgPrsonalAddress" class="easyui-dialog" title="添加个人地址" style="width: 660px; height: 470px; padding: 10px; " data-options="modal:true,closed:true,vcenter:true,buttons:'#btnPrsonalAddress'">
-        <form id="formPrsonalAddress">
-            <table style="text-align: center;  margin: 10px;"  width="100%" height="100%" >
-				<tr >
-                    <td>省份</td>
-                    <td>
-                     	<input id="province" name="province" class="easyui-combobox" style="width: 200px"   />
-                    </td>
-                    <td>市区</td>
-                    <td>
-                     	<input id="city" name="city" class="easyui-combobox" style="width: 200px"  />
-                    </td>
-                </tr>
-                <tr  >
-                    <td>区域</td>
-                    <td>
-                     	<input id="area" name="area" class="easyui-combobox" style="width: 200px"  />
-                    </td>
-                    <td>街道</td>
-                    <td>
-                     	<input id="street" name="street" class="easyui-combobox" style="width: 200px"  />
-                    </td>
-                </tr>
-                <tr  >
-                    <td>小区(镇,乡,村)</td>
-                    <td colspan="3" >
-                     	<textarea id="accurate" name="accurate" style="width:500px; height:80px;"  placeholder="示例：xxx小区，xxx小区（xxx村，xxx镇）"></textarea>
-                    </td>
-                </tr>
-                <tr  >
-                    <td>价格区域</td>
-                    <td>
-                     	<input id="price" name="price" class="easyui-validatebox" style="width: 200px" placeholder="示例：10-100"
-                     		 data-options="required:true,missingMessage:'示例：10-100',validateOnBlur:true"  />
-                    </td>
-                    <td>电话号码</td>
-                    <td>
-                     	<input id="phone" name="phone" class="easyui-validatebox" style="width: 200px"  />
-                    </td>
-                </tr><!-- colspan="2" -->
-                <tr>
-                    <td>描述</td>
-                    <td colspan="3" >
-                     	<textarea id="accurate" name="accurate" style="width:500px; height:80px;"  placeholder="这里可以写自己的活动：比如（超出1kg赠送1kg，邮五个免费一个）"></textarea>
-                    </td>
-                </tr>
-            </table>
-        </form>
-        <div id="btnPrsonalAddress">
-            <a href="javascript:void;" class="easyui-linkbutton" onclick="Submit()">提交</a>
-            <a href="javascript:void;" class="easyui-linkbutton" onclick="$('#dialgPrsonalAddress').dialog('close'); return false;">取消</a>
-        </div>
-    </div>
-
-    <!--数据列表-->
-    <table id="tbPrsonalRegion"></table>
-    <div id="dialgAlonelPricePage" class="easyui-dialog" title="" style="width: 960px; height: 570px; padding: 10px; " data-options="modal:true,closed:true,vcenter:true">
-    	<table id="tbAlonelPrice"></table>
-    	<div id="dialgAlonelPrice" class="easyui-dialog" title="添加价格区域" style="width: 860px; height: 470px; padding: 10px; " data-options="modal:true,closed:true,vcenter:true,buttons:'#btnAlonelPrice'">
-	        <form id="formAlonelPrice">
-	        <input type="hidden" id="aloneprice" name="aloneprice" >
-	            <table style="text-align: center;  margin: 10px;"  width="100%" height="110%" >
-					<tr  >
-	                    <td>首重</td>
-	                    <td>
-	                     	<input id="alonegoodsykg" name="alonegoodsykg" class="easyui-numberbox" style="width: 200px" 
-	                     		data-options="min:0,precision:2,suffix:'kg'"  />
-	                    </td>
-	                    <td>首重价格</td>
-	                    <td >
-	                     	<input id="alonegoodsykgprice" name="alonegoodsykgprice" class="easyui-numberbox" style="width: 200px" 
-	                     		data-options="min:0,precision:2,suffix:'元'" />
-	                    </td>
+<body class="easyui-layout" >
+	<div data-options="region:'center'" style="padding:5px;">
+		<input type="hidden" id="addressid" name ="addressid" value="${addressid}" >
+	    <!--查询条件-->
+	    <div id="headerSearchPanel" class="easyui-panel">
+	        <form id="fromSearch">
+	            <table style="text-align: center;  margin: 10px;"  width="100%" height="100%"  >
+	                <tr>
+	                    <td ><h4>更好的填写信息 会让用户更好找到你！因为他们需要你</h4></td>
 	                </tr>
-	                <tr >
-	                    <td>超出首重价格</td>
-	                    <td  >
-	                     	<input id="aloneoverload" name="aloneoverload" class="easyui-numberbox" style="width: 200px;" placeholder="每公斤收取多少元"
-	                     		data-options="min:0,precision:2,suffix:'元/kg'" />
+	            </table>
+	        </form>
+	    </div>
+		<!--员工添加-->
+	    <div id="dialgPrsonalAddress" class="easyui-dialog" title="添加个人地址" style="width: 690px; height: 470px; padding: 10px; " data-options="modal:true,closed:true,vcenter:true,buttons:'#btnPrsonalAddress'">
+	        <form id="formPrsonalAddress">
+	            <table style="text-align: center;  margin: 10px;"  width="100%" height="100%" >
+					<tr >
+	                    <td>省份</td>
+	                    <td>
+	                     	<input id="province" name="province" class="easyui-combobox" style="width: 200px"   />
+	                    </td>
+	                    <td>市区</td>
+	                    <td>
+	                     	<input id="city" name="city" class="easyui-combobox" style="width: 200px"  />
 	                    </td>
 	                </tr>
 	                <tr  >
-	                    <td>包装说明</td>
-	                    <td colspan="3"  >
-	                     	<textarea id="alonepacking" name="alonepacking" style="width:500px; height:60px;"  placeholder="示例：自费，或免费，可自行说明 200字以内"></textarea>
+	                    <td>区域</td>
+	                    <td>
+	                     	<input id="area" name="area" class="easyui-combobox" style="width: 200px"  />
+	                    </td>
+	                    <td>街道</td>
+	                    <td>
+	                     	<input id="street" name="street" class="easyui-combobox" style="width: 200px"  />
 	                    </td>
 	                </tr>
+	                <tr  >
+	                    <td>小区(镇,乡,村)</td>
+	                    <td colspan="3" >
+	                     	<textarea id="accurate" name="accurate" style="width:500px; height:80px;"  placeholder="示例：xxx小区，xxx小区（xxx村，xxx镇）"></textarea>
+	                    </td>
+	                </tr>
+	                <tr  >
+	                    <td>价格区域</td>
+	                    <td>
+	                     	<input id="price" name="price" class="easyui-validatebox" style="width: 200px" placeholder="示例：10-100"
+	                     		 data-options="required:true,missingMessage:'示例：10-100',validateOnBlur:true"  />
+	                    </td>
+	                    <td>电话号码</td>
+	                    <td>
+	                     	<input id="phone" name="phone" class="easyui-validatebox" style="width: 200px"  />
+	                    </td>
+	                </tr><!-- colspan="2" -->
 	                <tr>
-	                    <td>选择省份</td>
-	                    <td colspan="3"   >
-	                     	<table style="  margin: 10px; width:500px; height:150px;"  id="middleArea"  >
-	                     		
-	                     	</table>
+	                    <td>描述</td>
+	                    <td colspan="3" >
+	                     	<textarea id="accurate" name="accurate" style="width:500px; height:80px;"  placeholder="这里可以写自己的活动：比如（超出1kg赠送1kg，邮五个免费一个）"></textarea>
 	                    </td>
 	                </tr>
 	            </table>
 	        </form>
-	        <div id="btnAlonelPrice">
-	            <a href="javascript:void;" class="easyui-linkbutton" onclick="SubmitAlonelPrice()">提交</a>
-	            <a href="javascript:void;" class="easyui-linkbutton" onclick="$('#dialgAlonelPrice').dialog('close'); return false;">取消</a>
+	        <div id="btnPrsonalAddress">
+	            <a href="javascript:void;" class="easyui-linkbutton" onclick="Submit()">提交</a>
+	            <a href="javascript:void;" class="easyui-linkbutton" onclick="$('#dialgPrsonalAddress').dialog('close'); return false;">取消</a>
 	        </div>
-    	</div>
-    </div>
+	    </div>
+		<div id="dialgAlonelPricePage" class="easyui-dialog" title="价格区域信息" style="width: 1250px; height: 620px; padding: 10px; " data-options="modal:true,closed:true,vcenter:true">
+	    	<table id="tbAlonelPrice"></table>
+	    	<div id="dialgAlonelPrice" class="easyui-dialog" title="添加价格区域" style="width: 670px; height: 470px; padding: 10px; " data-options="modal:true,closed:true,vcenter:true,buttons:'#btnAlonelPrice'">
+		        <form id="formAlonelPrice">
+		        <input type="hidden" id="aloneprice" name="aloneprice" >
+		            <table style="text-align: center;  margin: 10px;"  width="100%" height="110%" >
+						<tr  >
+		                    <td>首重</td>
+		                    <td>
+		                     	<input id="alonegoodsykg" name="alonegoodsykg" class="easyui-numberbox" style="width: 200px" 
+		                     		data-options="min:0,precision:2,suffix:'kg'"  />
+		                    </td>
+		                    <td>首重价格</td>
+		                    <td >
+		                     	<input id="alonegoodsykgprice" name="alonegoodsykgprice" class="easyui-numberbox" style="width: 200px" 
+		                     		data-options="min:0,precision:2,suffix:'元'" />
+		                    </td>
+		                </tr>
+		                <tr >
+		                    <td>超出首重价格</td>
+		                    <td  >
+		                     	<input id="aloneoverload" name="aloneoverload" class="easyui-numberbox" style="width: 200px;" placeholder="每公斤收取多少元"
+		                     		data-options="min:0,precision:2,suffix:'元/kg'" />
+		                    </td>
+		                </tr>
+		                <tr  >
+		                    <td>包装说明</td>
+		                    <td colspan="3"  >
+		                     	<textarea id="alonepacking" name="alonepacking" style="width:500px; height:60px;"  placeholder="示例：自费，或免费，可自行说明 200字以内"></textarea>
+		                    </td>
+		                </tr>
+		                <tr>
+		                    <td>选择省份</td>
+		                    <td colspan="3"   >
+		                     	<table style="  margin: 10px; width:500px; height:150px;"  id="middleArea"  >
+		                     		
+		                     	</table>
+		                    </td>
+		                </tr>
+		            </table>
+		        </form>
+		        <div id="btnAlonelPrice">
+		            <a href="javascript:void;" class="easyui-linkbutton" onclick="SubmitAlonelPrice()">提交</a>
+		            <a href="javascript:void;" class="easyui-linkbutton" onclick="$('#dialgAlonelPrice').dialog('close'); return false;">取消</a>
+		        </div>
+	    	</div>
+	    </div>
+	    <!--数据列表-->
+	    <table id="tbPrsonalRegion"></table>
+	</div> 
+    
    
     <link href="layer/skin/layer.css" rel="stylesheet" />
     <script src="layer/layer.js"></script>
@@ -448,10 +450,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         function selectAlonelPriceData() {
         	var addressid = $('#addressid').val();
             $('#tbAlonelPrice').datagrid({
-                title: '价格区域信息',//文本标题
+                //title: '价格区域信息',//文本标题
                 url: 'selectAllAlonelPrice.do',//访问路径
                 width: '100%',//显示宽度
-                height: $(parent.document).find("#mainPanel").height() - 100 > 0 ? $(parent.document).find("#mainPanel").height() - 130 : 500, //高度
+                height: $(parent.document).find("#mainPanel").height() - 100 > 0 ? $(parent.document).find("#mainPanel").height() - 350 : 400, //高度
+                //height:400,
                 nowrap: true,//在一行显示
                 striped: true,//显示虚线在外框
                 collapsible: false,//可折叠的
@@ -459,14 +462,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 fitColumns: true,//自动展开/收缩列的大小
                 columns: [[
                     { field: 'cbx', checkbox: true },
-                    { title: '首重', field: 'alonegoodsykg', width: 80, align: 'center' ,formatter: function (value) {
+                    { title: '首重', field: 'alonegoodsykg', width: 70, align: 'center' ,formatter: function (value) {
                         if(value > 0){
                         	return value+"kg";
                         }else{
                         	return "0kg";
                         }
                     }},
-					{ title: '价格', field: 'alonegoodsykgprice', width: 80, align: 'center', formatter:function (value) {
+					{ title: '价格', field: 'alonegoodsykgprice', width: 70, align: 'center', formatter:function (value) {
                         if(value > 0){
                         	return value+"元";
                         }else{
@@ -474,7 +477,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         }
                         
                     }},
-					{ title: '超出首重', field: 'aloneoverload', width: 80, align: 'center' ,formatter:function (value) {
+					{ title: '超出首重', field: 'aloneoverload', width: 70, align: 'center' ,formatter:function (value) {
                         if(value > 0){
                         	return value+"元/kg";
                         }else{
@@ -483,32 +486,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         
                     }},
 					{
-                        title: '说明', field: 'alonepacking', width: 170, align: 'center', formatter: function (value) {
+                        title: '说明', field: 'alonepacking', width: 300, align: 'center', formatter: function (value) {
                             value = decodeURIComponent(value);
-                            if (value.length > 15) {
+                            /* if (value.length % 22 == 0) {
                                 value = value.substr(0, 15) + "...";
+                            } */
+                            if (value.length > 60) {
+                                value = value.substr(0, 60) + "...";
                             }
                             if(value == 'null'){
-                            	 return "";
-                            }
-                            return value;
+                           	 return "";
+                           }
+                            var operation = '<div style="width:98%;white-space:normal;"   >'+value+'<div>';
+                            return operation;
                         }
                     },
                     {
-                        title: '接管地区', field: 'province', width: 300, align: 'center', formatter: function (value) {
-                        	console.log(value)
-                        	console.log(value.length)
+                        title: '接管地区', field: 'province', width: 670, align: 'center', height:200, formatter: function (value,rec) {
+                        	/* console.log(value)
+                        	console.log(value.length) */
                         	var  operation = '';
-                        	operation += '<table style="  margin: 10px;"  width="100%" height="100%" id="" ></table>';
+                        	var operationTable = '<table style="  margin: 10px;"  width="100%" height="100%"  >';
                         	
-                            return value;
+                        	$(value).each(function(index,list){     //第一个是系统的次数   第二个是对象middleArea
+                    			if(index % 6 == 0 ){
+                    				operation += '</tr><tr>';
+                    			}
+                    			operation += '<td>'+list+'</td>';
+                    					
+                        	});
+                        	operation = operationTable + operation.substring(5) +"</table>";
+                            return operation;
                         }
                     },
                     {
-                        title: '操作', field: 'addressid', width: 130, align: 'center', formatter: function (value, rec) {
+                        title: '操作', field: 'aloneprice', width: 70, align: 'center', formatter: function (value, rec) {
                         	var  operation = '';
                         	
-                        	operation +=  '<a class="a_edit" href="javascript:;" onclick="EditData(' + value + ');$(this).parent().click();return false;">修改</a>';
+                        	operation +=  '<a class="a_edit" href="javascript:;" onclick="EditDataAlonelPricePage(' + value + ');$(this).parent().click();return false;">修改</a>';
                             return operation;
                         }
                     }
@@ -621,6 +636,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 }); 
             }
         }
+		//修改
+		 function EditDataAlonelPricePage(aloneprice){
+			 $.post("upDateAlonelPricePage.do","aloneprice="aloneprice, function(data){
+            	
+            	}); 
+		} 
 		//刷新价钱
         function AlonelPriceData() {
             $("#tbAlonelPrice").datagrid("uncheckAll");

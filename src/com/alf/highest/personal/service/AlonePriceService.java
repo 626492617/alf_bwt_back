@@ -1,6 +1,7 @@
 package com.alf.highest.personal.service;
 
 import com.alf.highest.personal.pojo.BwtConnectorAlonePrice;
+import com.alf.highest.personal.pojo.bwtAloneMiddleArea;
 import com.alf.util.EasyUIDataPage;
 
 /**
@@ -23,4 +24,10 @@ public interface AlonePriceService {
 	 * @return
 	 */
 	public EasyUIDataPage selectAllAlonelPrice(Integer page,Integer rows,Integer addressid);
+	/**
+	 * 修改个人地址价格
+	 * @param aloneprice
+	 * @return
+	 */
+	public BwtConnectorAlonePrice upDateAlonelPricePage(Integer aloneprice);
 }

@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alf.highest.operation.vo.LinkageDown;
 import com.alf.highest.personal.mapper.BwtConnectorAlonePriceMapper;
-import com.alf.highest.personal.pojo.BwtConnectorAddress;
 import com.alf.highest.personal.pojo.BwtConnectorAlonePrice;
 import com.alf.highest.personal.pojo.bwtAloneMiddleArea;
 import com.alf.highest.personal.service.AlonePriceService;
@@ -76,6 +76,17 @@ public class AlonePriceServiceImpl implements AlonePriceService{
 		easy.setRows(list);
 		easy.setTotal(info.getTotal());
 		return easy;
+		
+	}
+	/**
+	 * 修改个人地址价格
+	 * @param aloneprice
+	 * @return
+	 */
+	public BwtConnectorAlonePrice upDateAlonelPricePage(Integer aloneprice) {
+		BwtConnectorAlonePrice bap = BwtConnectorAlonePriceMapper.selectByPrimaryKey(aloneprice);
+		bap.setListDown(BwtConnectorAlonePriceMapper.selectAlonepriceByIdAreaName(aloneprice));
+		return bap;
 		
 	}
 }

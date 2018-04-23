@@ -48,4 +48,13 @@ public class AlonePriceController {
 		return AlonePriceService.selectAllAlonelPrice(page, rows, addressid);
 		
 	}
+	/**
+	 * 修改个人地址价格
+	 * @param aloneprice
+	 * @return
+	 */
+	public String upDateAlonelPricePage(Integer aloneprice) {
+		return null;
+		
+	}
 }

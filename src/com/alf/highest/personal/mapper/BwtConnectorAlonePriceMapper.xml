@@ -121,4 +121,7 @@
   <select id="selectByAlonepriceAreaname" parameterType="java.lang.Integer" resultType="java.lang.String">
   	SELECT areaname FROM `bwt_alone_middle_area` m LEFT JOIN `pb_area` a ON (m.`id` = a.`id`) WHERE m.aloneprice = ${aloneprice}
   </select>
+  <select id="selectAlonepriceByIdAreaName" parameterType="java.lang.Integer" resultType="com.alf.highest.operation.vo.LinkageDown">
+  	SELECT a.id,a.areaname FROM `bwt_alone_middle_area` m LEFT JOIN `pb_area` a ON (m.`id` = a.`id`)  WHERE m.aloneprice = ${aloneprice}
+  </select>
 </mapper>
