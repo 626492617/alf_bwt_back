@@ -23,4 +23,10 @@ public interface BwtConnectorAddressMapper {
 	 * @return
 	 */
     public List<BwtConnectorAddress> selectAllPrsonalRegion(@Param("personalid")Integer personalid);
+    /**
+     * 个人下地址所有条数
+     * @param personalid
+     * @return
+     */
+    public Integer selectAllAddressSum(@Param("personalid")Integer personalid);
 }

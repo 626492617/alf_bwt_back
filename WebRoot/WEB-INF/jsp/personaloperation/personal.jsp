@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                <tr>
 	                    <td>描述</td>
 	                    <td colspan="3" >
-	                     	<textarea id="accurate" name="accurate" style="width:500px; height:80px;"  placeholder="这里可以写自己的活动：比如（超出1kg赠送1kg，邮五个免费一个）"></textarea>
+	                     	<textarea id="describes" name="describes" style="width:500px; height:80px;"  placeholder="这里可以写自己的活动：比如（超出1kg赠送1kg，邮五个免费一个）"></textarea>
 	                    </td>
 	                </tr>
 	            </table>
@@ -339,7 +339,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         function DelData() {
             var selected = "";
             $($('#tbPrsonalRegion').datagrid('getSelections')).each(function () {
-                selected += this.personalid + ",";
+                selected += this.addressid + ",";
             });
             selected = selected.substr(0, selected.length - 1);
             if (selected == "") {
@@ -348,7 +348,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             }
             $.messager.confirm('提示', '确认删除？', function (r) {
                 if (r) {
-                    $.post("deleteByPersonalid.do", "personalid="+selected, function (msg) {
+                    $.post("deleteByAddressid.do", "addressid="+selected, function (msg) {
                         ReloadClearData();
                         if (msg != "0") {
                             $.messager.alert('提示', '删除成功', 'info');
@@ -391,14 +391,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 json.price = $('#price').val();
                 json.phone = $('#phone').val();
                 json.describes = $('#describes').val();
-                
+                console.log(json.describes)
                 $.post("addPrsonalAddress.do",json, function(data){
                     ReloadClearData();
                     if (data == "1") {
                         $.messager.alert('提示', '操作成功', 'info');
                         $("#dialgPrsonalAddress").dialog("close");
-                    }
-                    else {
+                    }else if(data == "2"){
+                    	$.messager.alert('提示', '大王小编说不能添加太多！个人是有限的', 'info');
+                        $("#dialgPrsonalAddress").dialog("close");
+                    }else {
                         $.messager.alert('提示', '操作失败', 'error');
                         $("#dialgPrsonalAddress").dialog("open");
                     }
@@ -407,16 +409,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         }
         //修改数据,先读取数据
         function EditData(id) {
-            $("#dialgPrsonalAddressSite").dialog("open");
-            $.post("selectByPersonalid.do","personalid="+id, function (data) {
-            	
+            $.post("selectByAddressid.do","addressid="+id, function (data) {
                 if (data != "0") {
                     var dataObj = eval("(" + data + ")");
-                    $("#personalname").val(dataObj.personalname);
-                    $("#personalphone").val(dataObj.personalphone);
-                    $("#personalaccount").val(dataObj.personalaccount);
-                    $("#personalpwd").val(dataObj.personalpwd);
-                    document.getElementById("imgShow").src = dataObj.personallogo;
+                    $('#addressid').val(dataObj.addressid);
+                    //省
+                    DataQueryProvince();
+                    $('#province').combobox('setValue', dataObj.province);
+                     //市
+                    DataQueryCity(dataObj.province)
+                    $('#city').combobox('setValue', dataObj.city);
+                    //区县
+                    DataArea(dataObj.city) 
+                    $('#area').combobox('setValue', dataObj.area);
+                    //街道
+                    DataStreet(dataObj.area) 
+                	$('#street').combobox('setValue', dataObj.street);
+                	 
+                    $('#accurate').val(dataObj.accurate);
+                    $('#price').val(dataObj.price);
+                    $('#phone').val(dataObj.phone);
+                    $('#describes').val(dataObj.describes);
+                    $("#dialgPrsonalAddress").dialog("open");
                 }
                 else {
                     $.messager.alert('提示', '操作失败', 'error');
@@ -560,10 +574,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	$('#alonegoodsykg').numberbox('setValue','');
             $('#aloneoverload').numberbox('setValue','');
             $('#alonepacking').val('');
-            TemplateOperationData();
+            TemplateOperationProvinceData();
             $("#dialgAlonelPrice").dialog("open");
 		}
-		function TemplateOperationData(){
+		function TemplateOperationProvinceData(){
 			$("#middleArea").html("")
         	$.post("selectAllLinkage.do","parentid=0", function(data){
         		operation = '';
@@ -715,6 +729,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             $("#tbAlonelPrice").datagrid("reload");
         }
     </script>
-
 </body>
 </html>

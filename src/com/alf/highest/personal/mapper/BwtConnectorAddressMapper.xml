@@ -193,4 +193,7 @@
 		(SELECT p.areaname FROM `pb_area` p WHERE p.`id` = b.street) streetname,
 	b.* FROM `bwt_connector_address` b WHERE b.`personalid` = ${personalid}
   </select>
+  <select id="selectAllAddressSum" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+  	SELECT COUNT(*) FROM `bwt_connector_address` WHERE personalid = ${personalid}
+  </select>
 </mapper>
