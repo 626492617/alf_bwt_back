@@ -10,14 +10,14 @@ public interface PersonalPlaceService {
 	 * @return
 	 * @throws Exception 
 	 */
-	public String addPrsonalAddress(BwtConnectorAddress ba) throws Exception;
+	public String addPersonalAddress(BwtConnectorAddress ba) throws Exception;
 	/**
 	 * 查询所有人的地址 管理区域
 	 * @param page
 	 * @param rows
 	 * @return
 	 */
-	public EasyUIDataPage selectAllPrsonalRegion(Integer page,Integer rows,Integer personalid);
+	public EasyUIDataPage selectAllPersonalRegion(Integer page,Integer rows,Integer personalid);
 
 	/**
 	 * 查询一条 接件人地址

@@ -29,7 +29,7 @@ public class AlonePriceServiceImpl implements AlonePriceService{
 	 * @param bcap
 	 * @return
 	 */
-	public void addIsUpdataAlonelPrice(BwtConnectorAlonePrice bcap) {
+	public void addIsUpdataAlonePrice(BwtConnectorAlonePrice bcap) {
 		if(bcap.getAloneprice() != null && bcap.getAloneprice() > 0) {
 			BwtConnectorAlonePriceMapper.updateByPrimaryKeySelective(bcap);
 			BwtConnectorAlonePriceMapper.deleteMiddleByAloneprice(bcap.getAloneprice());
@@ -64,9 +64,9 @@ public class AlonePriceServiceImpl implements AlonePriceService{
 	 * @param addressid
 	 * @return
 	 */
-	public EasyUIDataPage selectAllAlonelPrice(Integer page,Integer rows,Integer addressid) {
+	public EasyUIDataPage selectAllAlonePrice(Integer page,Integer rows,Integer addressid) {
 		PageHelper.startPage(page, rows);
-		List<BwtConnectorAlonePrice>  list = BwtConnectorAlonePriceMapper.selectAllAlonelPrice(addressid);
+		List<BwtConnectorAlonePrice>  list = BwtConnectorAlonePriceMapper.selectAllAlonePrice(addressid);
 		for (BwtConnectorAlonePrice bwtConnectorAlonePrice : list) {
 			List<String> areanameList = BwtConnectorAlonePriceMapper.selectByAlonepriceAreaname(bwtConnectorAlonePrice.getAloneprice());
 			bwtConnectorAlonePrice.setProvince(areanameList);
@@ -83,7 +83,7 @@ public class AlonePriceServiceImpl implements AlonePriceService{
 	 * @param aloneprice
 	 * @return
 	 */
-	public BwtConnectorAlonePrice upDateAlonelPricePage(Integer aloneprice) {
+	public BwtConnectorAlonePrice upDateAlonePricePage(Integer aloneprice) {
 		BwtConnectorAlonePrice bap = BwtConnectorAlonePriceMapper.selectByPrimaryKey(aloneprice);
 		bap.setListDown(BwtConnectorAlonePriceMapper.selectAlonepriceByIdAreaName(aloneprice));
 		return bap;
@@ -94,7 +94,7 @@ public class AlonePriceServiceImpl implements AlonePriceService{
 	 * @param aloneprice
 	 * @return
 	 */
-	public void deleteByAlonelPrice(Integer[] aloneprice) {
+	public void deleteByAlonePrice(Integer[] aloneprice) {
 		for (Integer integer : aloneprice) {
 			BwtConnectorAlonePriceMapper.deleteByPrimaryKey(integer);
 			BwtConnectorAlonePriceMapper.deleteMiddleByAloneprice(integer);

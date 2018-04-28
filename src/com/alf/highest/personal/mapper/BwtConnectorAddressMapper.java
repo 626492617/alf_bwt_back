@@ -22,7 +22,7 @@ public interface BwtConnectorAddressMapper {
 	 * 查询所有人的地址 管理区域
 	 * @return
 	 */
-    public List<BwtConnectorAddress> selectAllPrsonalRegion(@Param("personalid")Integer personalid);
+    public List<BwtConnectorAddress> selectAllPersonalRegion(@Param("personalid")Integer personalid);
     /**
      * 个人下地址所有条数
      * @param personalid

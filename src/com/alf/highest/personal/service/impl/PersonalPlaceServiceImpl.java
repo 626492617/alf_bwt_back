@@ -25,7 +25,7 @@ public class PersonalPlaceServiceImpl implements PersonalPlaceService{
 	 * @param ba
 	 * @return
 	 */
-	public String addPrsonalAddress(BwtConnectorAddress ba) throws Exception{
+	public String addPersonalAddress(BwtConnectorAddress ba) throws Exception{
 		
 		if(ba.getAddressid() != null && ba.getAddressid() > 0) {
 			
@@ -45,9 +45,9 @@ public class PersonalPlaceServiceImpl implements PersonalPlaceService{
 	 * @param rows
 	 * @return
 	 */
-	public EasyUIDataPage selectAllPrsonalRegion(Integer page,Integer rows,Integer personalid) {
+	public EasyUIDataPage selectAllPersonalRegion(Integer page,Integer rows,Integer personalid) {
 		PageHelper.startPage(page, rows);
-		List<BwtConnectorAddress>  list = bwtConnectorAddressMapper.selectAllPrsonalRegion(personalid);
+		List<BwtConnectorAddress>  list = bwtConnectorAddressMapper.selectAllPersonalRegion(personalid);
 		PageInfo info = new PageInfo(list);
 		EasyUIDataPage easy = new EasyUIDataPage();
 		easy.setRows(list);

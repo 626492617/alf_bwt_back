@@ -23,11 +23,11 @@ public class AlonePriceController {
 	 * @param bcap
 	 * @return
 	 */
-	@RequestMapping("addIsUpdataAlonelPrice")
+	@RequestMapping("addIsUpdataAlonePrice")
 	@ResponseBody
-	public String addIsUpdataAlonelPrice(BwtConnectorAlonePrice bcap) {
+	public String addIsUpdataAlonePrice(BwtConnectorAlonePrice bcap) {
 		try {
-			alonePriceService.addIsUpdataAlonelPrice(bcap);
+			alonePriceService.addIsUpdataAlonePrice(bcap);
 		} catch (Exception e) {
 			// TODO: handle exception.
 			e.printStackTrace();
@@ -43,10 +43,10 @@ public class AlonePriceController {
 	 * @param addressid
 	 * @return
 	 */
-	@RequestMapping("selectAllAlonelPrice")
+	@RequestMapping("selectAllAlonePrice")
 	@ResponseBody
-	public EasyUIDataPage selectAllAlonelPrice(Integer page,Integer rows,Integer addressid) {
-		return alonePriceService.selectAllAlonelPrice(page, rows, addressid);
+	public EasyUIDataPage selectAllAlonePrice(Integer page,Integer rows,Integer addressid) {
+		return alonePriceService.selectAllAlonePrice(page, rows, addressid);
 		
 	}
 	/**
@@ -54,10 +54,10 @@ public class AlonePriceController {
 	 * @param aloneprice
 	 * @return
 	 */
-	@RequestMapping(value="upDateAlonelPricePage",produces = "text/html;charset=UTF-8")
+	@RequestMapping(value="upDateAlonePricePage",produces = "text/html;charset=UTF-8")
 	@ResponseBody
-	public String upDateAlonelPricePage(Integer aloneprice) {
-		return JsonUtils.objectToJson(alonePriceService.upDateAlonelPricePage(aloneprice));
+	public String upDateAlonePricePage(Integer aloneprice) {
+		return JsonUtils.objectToJson(alonePriceService.upDateAlonePricePage(aloneprice));
 		
 	}
 	/**
@@ -65,11 +65,11 @@ public class AlonePriceController {
 	 * @param aloneprice
 	 * @return
 	 */
-	@RequestMapping("deleteByAlonelPrice")
+	@RequestMapping("deleteByAlonePrice")
 	@ResponseBody
-	public String deleteByAlonelPrice(Integer[] aloneprice) {
+	public String deleteByAlonePrice(Integer[] aloneprice) {
 		try {
-			alonePriceService.deleteByAlonelPrice(aloneprice);
+			alonePriceService.deleteByAlonePrice(aloneprice);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "0";

@@ -35,7 +35,7 @@ public interface BwtConnectorAlonePriceMapper {
      * @param addressid
      * @return
      */
-    public List<BwtConnectorAlonePrice> selectAllAlonelPrice(@Param("addressid")Integer addressid);
+    public List<BwtConnectorAlonePrice> selectAllAlonePrice(@Param("addressid")Integer addressid);
     /**
      * 查询所有地点价格的 省份
      * @param aloneprice

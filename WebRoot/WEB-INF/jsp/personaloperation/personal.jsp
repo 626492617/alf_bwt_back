@@ -51,8 +51,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        </form>
 	    </div>
 		<!--员工添加-->
-	    <div id="dialgPrsonalAddress" class="easyui-dialog" title="添加个人地址" style="width: 690px; height: 470px; padding: 10px; " data-options="modal:true,closed:true,vcenter:true,buttons:'#btnPrsonalAddress'">
-	        <form id="formPrsonalAddress">
+	    <div id="dialgPersonalAddress" class="easyui-dialog" title="添加个人地址" style="width: 690px; height: 470px; padding: 10px; " data-options="modal:true,closed:true,vcenter:true,buttons:'#btnPersonalAddress'">
+	        <form id="formPersonalAddress">
 	            <table style="text-align: center;  margin: 10px;"  width="100%" height="100%" >
 					<tr >
 	                    <td>省份</td>
@@ -99,15 +99,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                </tr>
 	            </table>
 	        </form>
-	        <div id="btnPrsonalAddress">
+	        <div id="btnPersonalAddress">
 	            <a href="javascript:void;" class="easyui-linkbutton" onclick="Submit()">提交</a>
-	            <a href="javascript:void;" class="easyui-linkbutton" onclick="$('#dialgPrsonalAddress').dialog('close'); return false;">取消</a>
+	            <a href="javascript:void;" class="easyui-linkbutton" onclick="$('#dialgPersonalAddress').dialog('close'); return false;">取消</a>
 	        </div>
 	    </div>
-		<div id="dialgAlonelPricePage" class="easyui-dialog" title="价格区域信息" style="width: 1250px; height: 620px; padding: 10px; " data-options="modal:true,closed:true,vcenter:true">
-	    	<table id="tbAlonelPrice"></table>
-	    	<div id="dialgAlonelPrice" class="easyui-dialog" title="添加价格区域" style="width: 670px; height: 470px; padding: 10px; " data-options="modal:true,closed:true,vcenter:true,buttons:'#btnAlonelPrice'">
-		        <form id="formAlonelPrice">
+		<div id="dialgAlonePricePage" class="easyui-dialog" title="价格区域信息" style="width: 1250px; height: 620px; padding: 10px; " data-options="modal:true,closed:true,vcenter:true">
+	    	<table id="tbAlonePrice"></table>
+	    	<div id="dialgAlonePrice" class="easyui-dialog" title="添加价格区域" style="width: 670px; height: 470px; padding: 10px; " data-options="modal:true,closed:true,vcenter:true,buttons:'#btnAlonePrice'">
+		        <form id="formAlonePrice">
 		        <input type="hidden" id="aloneprice" name="aloneprice" >
 		            <table style="text-align: center;  margin: 10px;"  width="100%" height="110%" >
 						<tr  >
@@ -145,14 +145,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                </tr>
 		            </table>
 		        </form>
-		        <div id="btnAlonelPrice">
-		            <a href="javascript:void;" class="easyui-linkbutton" onclick="SubmitAlonelPrice()">提交</a>
-		            <a href="javascript:void;" class="easyui-linkbutton" onclick="$('#dialgAlonelPrice').dialog('close'); return false;">取消</a>
+		        <div id="btnAlonePrice">
+		            <a href="javascript:void;" class="easyui-linkbutton" onclick="SubmitAlonePrice()">提交</a>
+		            <a href="javascript:void;" class="easyui-linkbutton" onclick="$('#dialgAlonePrice').dialog('close'); return false;">取消</a>
 		        </div>
 	    	</div>
 	    </div>
 	    <!--数据列表-->
-	    <table id="tbPrsonalRegion"></table>
+	    <table id="tbPersonalRegion"></table>
 	</div> 
     
    
@@ -170,7 +170,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 
             });
             //数据列表
-            PrsonalRegionDataInit();
+            PersonalRegionDataInit();
             DataQueryProvince();
             
            // loadDataQueryProvince();
@@ -226,10 +226,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		} 
 		
         //数据列表
-        function PrsonalRegionDataInit() {
-            $('#tbPrsonalRegion').datagrid({
+        function PersonalRegionDataInit() {
+            $('#tbPersonalRegion').datagrid({
                 title: '地点信息',//文本标题
-                url: 'selectAllPrsonalRegion.do',//访问路径
+                url: 'selectAllPersonalRegion.do',//访问路径
                 width: '100%',//显示宽度
                 height: $(parent.document).find("#mainPanel").height() - 100 > 0 ? $(parent.document).find("#mainPanel").height() - 150 : 500, //高度
                 nowrap: true,//在一行显示
@@ -290,7 +290,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         		operation =  '<a class="a_edit" href="javascript:;" onclick="EditDatas(' + value + ');$(this).parent().click();return false;">选择价格模板</a>';
                         		
                         	}else{
-                        		operation =  '<a class="a_edit" href="javascript:;" onclick="selectAlonelPricePage(' + value + ');$(this).parent().click();return false;">填写价格</a>';
+                        		operation =  '<a class="a_edit" href="javascript:;" onclick="selectAlonePricePage(' + value + ');$(this).parent().click();return false;">填写价格</a>';
                         	}
                         	operation +=  '<a class="a_edit" href="javascript:;" onclick="EditData(' + value + ');$(this).parent().click();return false;">修改</a>';
                             return operation;
@@ -325,7 +325,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
         //查询数据
         function Search() {
-            $("#tbPrsonalRegion").datagrid("options").queryParams.personalname = $("#cz_personalname").val();
+            $("#tbPersonalRegion").datagrid("options").queryParams.personalname = $("#cz_personalname").val();
             ReloadClearData();
         }
 
@@ -338,7 +338,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         //删除数据
         function DelData() {
             var selected = "";
-            $($('#tbPrsonalRegion').datagrid('getSelections')).each(function () {
+            $($('#tbPersonalRegion').datagrid('getSelections')).each(function () {
                 selected += this.addressid + ",";
             });
             selected = selected.substr(0, selected.length - 1);
@@ -372,12 +372,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             $('#price').val('');
             $('#phone').val('');
             $('#describes').val('');
-            $("#dialgPrsonalAddress").dialog("open");
+            $("#dialgPersonalAddress").dialog("open");
         }
 
         //提交数据
         function Submit() {
-            if (!$("#formPrsonalAddress").form("validate")) {
+            if (!$("#formPersonalAddress").form("validate")) {
                 return;
             }
             else {
@@ -392,17 +392,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 json.phone = $('#phone').val();
                 json.describes = $('#describes').val();
                 console.log(json.describes)
-                $.post("addPrsonalAddress.do",json, function(data){
+                $.post("addPersonalAddress.do",json, function(data){
                     ReloadClearData();
                     if (data == "1") {
                         $.messager.alert('提示', '操作成功', 'info');
-                        $("#dialgPrsonalAddress").dialog("close");
+                        $("#dialgPersonalAddress").dialog("close");
                     }else if(data == "2"){
                     	$.messager.alert('提示', '大王小编说不能添加太多！个人是有限的', 'info');
-                        $("#dialgPrsonalAddress").dialog("close");
+                        $("#dialgPersonalAddress").dialog("close");
                     }else {
                         $.messager.alert('提示', '操作失败', 'error');
-                        $("#dialgPrsonalAddress").dialog("open");
+                        $("#dialgPersonalAddress").dialog("open");
                     }
                 });
             }
@@ -430,7 +430,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     $('#price').val(dataObj.price);
                     $('#phone').val(dataObj.phone);
                     $('#describes').val(dataObj.describes);
-                    $("#dialgPrsonalAddress").dialog("open");
+                    $("#dialgPersonalAddress").dialog("open");
                 }
                 else {
                     $.messager.alert('提示', '操作失败', 'error');
@@ -438,7 +438,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             });
         }
         function TemplateOperationData(istemplate,addressid){
-        	$.post("addPrsonalAddress.do","istemplate="+istemplate+"&addressid="+addressid, function(data){
+        	$.post("addPersonalAddress.do","istemplate="+istemplate+"&addressid="+addressid, function(data){
                 ReloadClearData();
                 if (data == "1") {
                     $.messager.alert('提示', '操作成功', 'info');
@@ -449,23 +449,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             });
         }
         function ReloadClearData() {
-            $("#tbPrsonalRegion").datagrid("uncheckAll");
-            $("#tbPrsonalRegion").datagrid("unselectAll");
-            $("#tbPrsonalRegion").datagrid("reload");
+            $("#tbPersonalRegion").datagrid("uncheckAll");
+            $("#tbPersonalRegion").datagrid("unselectAll");
+            $("#tbPersonalRegion").datagrid("reload");
         }
         /*****************价格******************/
-        function selectAlonelPricePage (id){
+        function selectAlonePricePage (id){
         	$('#addressid').val("");
         	$('#addressid').val(id);
-        	$("#dialgAlonelPricePage").dialog("open");
-        	selectAlonelPriceData();
+        	$("#dialgAlonePricePage").dialog("open");
+        	selectAlonePriceData();
         }
       //数据列表
-        function selectAlonelPriceData() {
+        function selectAlonePriceData() {
         	var addressid = $('#addressid').val();
-            $('#tbAlonelPrice').datagrid({
+            $('#tbAlonePrice').datagrid({
                 //title: '价格区域信息',//文本标题
-                url: 'selectAllAlonelPrice.do',//访问路径
+                url: 'selectAllAlonePrice.do',//访问路径
                 width: '100%',//显示宽度
                 height: $(parent.document).find("#mainPanel").height() - 100 > 0 ? $(parent.document).find("#mainPanel").height() - 350 : 400, //高度
                 //height:400,
@@ -537,7 +537,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         title: '操作', field: 'aloneprice', width: 70, align: 'center', formatter: function (value, rec) {
                         	var  operation = '';
                         	
-                        	operation +=  '<a class="a_edit" href="javascript:;" onclick="EditDataAlonelPricePage(' + value + ');$(this).parent().click();return false;">修改</a>';
+                        	operation +=  '<a class="a_edit" href="javascript:;" onclick="EditDataAlonePricePage(' + value + ');$(this).parent().click();return false;">修改</a>';
                             return operation;
                         }
                     }
@@ -548,7 +548,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        text: '新增',
                        iconCls: 'icon-add',
                        handler: function () {
-                           AddAlonelPriceData();
+                           AddAlonePriceData();
                        }
                    },
                    {
@@ -556,7 +556,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        text: '删除',
                        iconCls: 'icon-cancel',
                        handler: function () {
-                           DelAlonelPriceData();
+                           DelAlonePriceData();
                        }
                    }
                 ],
@@ -567,15 +567,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 rownumbers: true
             });
         }
-      	//dialgAlonelPrice
-		function AddAlonelPriceData(){
+      	//dialgAlonePrice
+		function AddAlonePriceData(){
 			$('#aloneprice').val('');
         	$('#alonegoodsykgprice').numberbox('setValue','');
         	$('#alonegoodsykg').numberbox('setValue','');
             $('#aloneoverload').numberbox('setValue','');
             $('#alonepacking').val('');
             TemplateOperationProvinceData();
-            $("#dialgAlonelPrice").dialog("open");
+            $("#dialgAlonePrice").dialog("open");
 		}
 		function TemplateOperationProvinceData(){
 			$("#middleArea").html("")
@@ -625,8 +625,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   // return check_val;
 		}
 		//提交数据
-        function SubmitAlonelPrice() {
-            if (!$("#formAlonelPrice").form("validate")) {
+        function SubmitAlonePrice() {
+            if (!$("#formAlonePrice").form("validate")) {
                 return;
             }
             else {
@@ -639,22 +639,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 json.provincial = show("provinces");
                 json.addressid =  $('#addressid').val();
                 console.log(json.provincial);
-                 $.post("addIsUpdataAlonelPrice.do",json, function(data){
-                	 AlonelPriceData();
+                 $.post("addIsUpdataAlonePrice.do",json, function(data){
+                	 AlonePriceData();
                     if (data == "1") {
                         $.messager.alert('提示', '操作成功', 'info');
-                        $("#dialgAlonelPrice").dialog("close");
+                        $("#dialgAlonePrice").dialog("close");
                     }
                     else {
                         $.messager.alert('提示', '操作失败', 'error');
-                        $("#dialgAlonelPrice").dialog("open");
+                        $("#dialgAlonePrice").dialog("open");
                     }
                 }); 
             }
         }
 		//修改
-		 function EditDataAlonelPricePage(aloneprice){
-			 $.post("upDateAlonelPricePage.do","aloneprice="+aloneprice, function(data){
+		 function EditDataAlonePricePage(aloneprice){
+			 $.post("upDateAlonePricePage.do","aloneprice="+aloneprice, function(data){
 				 if (data != "0") {
 	                    var dataObj = eval("(" + data + ")");
 						$('#aloneprice').val(dataObj.aloneprice);
@@ -692,15 +692,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        		operation = operations+operation.substring(5)
 			        		$("#middleArea").append(operation);
 				 		});
-			            $("#dialgAlonelPrice").dialog("open");
+			            $("#dialgAlonePrice").dialog("open");
 				 }else{
 					 
 				 }
             }); 
 		} 
-		function DelAlonelPriceData(){
+		function DelAlonePriceData(){
 			var selected = "";
-            $($('#tbAlonelPrice').datagrid('getSelections')).each(function () {
+            $($('#tbAlonePrice').datagrid('getSelections')).each(function () {
                 selected += this.aloneprice + ",";
             });
             selected = selected.substr(0, selected.length - 1);
@@ -710,8 +710,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             }
             $.messager.confirm('提示', '确认删除？', function (r) {
                 if (r) {
-                    $.post("deleteByAlonelPrice.do", "aloneprice="+selected, function (msg) {
-                    	AlonelPriceData();
+                    $.post("deleteByAlonePrice.do", "aloneprice="+selected, function (msg) {
+                    	AlonePriceData();
                         if (msg != "0") {
                             $.messager.alert('提示', '删除成功', 'info');
                         }
@@ -723,10 +723,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             });
 		}
 		//刷新价钱
-        function AlonelPriceData() {
-            $("#tbAlonelPrice").datagrid("uncheckAll");
-            $("#tbAlonelPrice").datagrid("unselectAll");
-            $("#tbAlonelPrice").datagrid("reload");
+        function AlonePriceData() {
+            $("#tbAlonePrice").datagrid("uncheckAll");
+            $("#tbAlonePrice").datagrid("unselectAll");
+            $("#tbAlonePrice").datagrid("reload");
         }
     </script>
 </body>

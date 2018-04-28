@@ -26,8 +26,8 @@ public class PersonalPlaceController {
 	 * 个人站点操作页面
 	 * @return
 	 */
-	@RequestMapping("prsonalRegionPage")
-	public String prsonalRegionPage() {
+	@RequestMapping("personalRegionPage")
+	public String personalRegionPage() {
 		return "/personaloperation/personal";
 		
 	}
@@ -36,13 +36,13 @@ public class PersonalPlaceController {
 	 * @param ba
 	 * @return
 	 */
-	@RequestMapping("addPrsonalAddress")
+	@RequestMapping("addPersonalAddress")
 	@ResponseBody
-	public String addPrsonalAddress(BwtConnectorAddress ba,HttpSession session) {
+	public String addPersonalAddress(BwtConnectorAddress ba,HttpSession session) {
 		BwtPersonal bp = (BwtPersonal) session.getAttribute("user");
 		ba.setPersonalid(bp.getPersonalid());
 		try {
-			return personalPlaceService.addPrsonalAddress(ba);
+			return personalPlaceService.addPersonalAddress(ba);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "0";
@@ -54,11 +54,11 @@ public class PersonalPlaceController {
 	 * @param rows
 	 * @return
 	 */
-	@RequestMapping("selectAllPrsonalRegion")
+	@RequestMapping("selectAllPersonalRegion")
 	@ResponseBody
-	public EasyUIDataPage selectAllPrsonalRegion(Integer page,Integer rows,HttpSession session) {
+	public EasyUIDataPage selectAllPersonalRegion(Integer page,Integer rows,HttpSession session) {
 			BwtPersonal bp = (BwtPersonal) session.getAttribute("user");
-		return personalPlaceService.selectAllPrsonalRegion(page, rows, bp.getPersonalid());
+		return personalPlaceService.selectAllPersonalRegion(page, rows, bp.getPersonalid());
 	
 		
 	}

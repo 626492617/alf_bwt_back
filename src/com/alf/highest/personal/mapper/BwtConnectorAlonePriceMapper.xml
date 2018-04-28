@@ -115,7 +115,7 @@
            (#{each.id} , #{each.aloneprice}) 
     </foreach>  
   </insert>
-  <select id="selectAllAlonelPrice" parameterType="java.lang.Integer" resultType="com.alf.highest.personal.pojo.BwtConnectorAlonePrice">
+  <select id="selectAllAlonePrice" parameterType="java.lang.Integer" resultType="com.alf.highest.personal.pojo.BwtConnectorAlonePrice">
   	select * from bwt_connector_alone_price p where p.addressid = ${addressid}
   </select>
   <select id="selectByAlonepriceAreaname" parameterType="java.lang.Integer" resultType="java.lang.String">
