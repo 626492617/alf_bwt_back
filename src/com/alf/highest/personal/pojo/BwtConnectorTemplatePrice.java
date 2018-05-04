@@ -1,17 +1,19 @@
 package com.alf.highest.personal.pojo;
 
-public class BwtConnectorTemplatePrice {
-    private Integer templateprice;
+import com.alf.highest.personal.vo.BwtConnectorTemplatePriceVo;
 
-    private String templateprovincelist;
+public class BwtConnectorTemplatePrice extends BwtConnectorTemplatePriceVo{
+    private Integer templateprice;
 
     private Double templategoodsykgprice;
 
-    private Integer templategoodsykg;
+    private Double templategoodsykg;
 
     private Double templateoverload;
 
     private String templatepacking;
+
+    private String templatetitle;
 
     public Integer getTemplateprice() {
         return templateprice;
@@ -19,14 +21,6 @@ public class BwtConnectorTemplatePrice {
 
     public void setTemplateprice(Integer templateprice) {
         this.templateprice = templateprice;
-    }
-
-    public String getTemplateprovincelist() {
-        return templateprovincelist;
-    }
-
-    public void setTemplateprovincelist(String templateprovincelist) {
-        this.templateprovincelist = templateprovincelist == null ? null : templateprovincelist.trim();
     }
 
     public Double getTemplategoodsykgprice() {
@@ -37,11 +31,11 @@ public class BwtConnectorTemplatePrice {
         this.templategoodsykgprice = templategoodsykgprice;
     }
 
-    public Integer getTemplategoodsykg() {
+    public Double getTemplategoodsykg() {
         return templategoodsykg;
     }
 
-    public void setTemplategoodsykg(Integer templategoodsykg) {
+    public void setTemplategoodsykg(Double templategoodsykg) {
         this.templategoodsykg = templategoodsykg;
     }
 
@@ -59,5 +53,13 @@ public class BwtConnectorTemplatePrice {
 
     public void setTemplatepacking(String templatepacking) {
         this.templatepacking = templatepacking == null ? null : templatepacking.trim();
+    }
+
+    public String getTemplatetitle() {
+        return templatetitle;
+    }
+
+    public void setTemplatetitle(String templatetitle) {
+        this.templatetitle = templatetitle == null ? null : templatetitle.trim();
     }
 }

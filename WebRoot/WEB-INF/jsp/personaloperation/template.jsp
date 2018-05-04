@@ -50,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            </table>
 	        </form>
 	    </div>
-		<!--员工添加-->
+		<!--价格模板添加-->
 	    <div id="dialgTemplateAddress" class="easyui-dialog" title="添加价格区域" style="width: 670px; height: 470px; padding: 10px; " data-options="modal:true,closed:true,vcenter:true,buttons:'#btnTemplatePrice'">
 		        <form id="formTemplatePrice">
 		        <input type="hidden" id="templateprice" name="templateprice" >
@@ -96,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            </table>
 		        </form>
 		        <div id="btnTemplatePrice">
-		            <a href="javascript:void;" class="easyui-linkbutton" onclick="SubmitTemplatePrice()">提交</a>
+		            <a href="javascript:void;" class="easyui-linkbutton" onclick="Submit()">提交</a>
 		            <a href="javascript:void;" class="easyui-linkbutton" onclick="$('#dialgTemplatePrice').dialog('close'); return false;">取消</a>
 		        </div>
 	    	</div>
@@ -131,7 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         function PersonalRegionDataInit() {
             $('#tbPersonalRegion').datagrid({
                 title: '地点信息',//文本标题
-                url: '',//访问路径
+                url: 'selectAllTemplatePrice.do',//访问路径
                 width: '100%',//显示宽度
                 height: $(parent.document).find("#mainPanel").height() - 100 > 0 ? $(parent.document).find("#mainPanel").height() - 150 : 500, //高度
                 nowrap: true,//在一行显示
@@ -141,60 +141,68 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 fitColumns: true,//自动展开/收缩列的大小
                 columns: [[
                     { field: 'cbx', checkbox: true },
-                    { title: '省份', field: 'provincename', width: 100, align: 'center' },
-					{ title: '市区', field: 'cityname', width: 100, align: 'center' },
-					{ title: '区域', field: 'areaname', width: 100, align: 'center' },
-					{ title: '街道', field: 'streetname', width: 100, align: 'center' },
+                    { title: '首重', field: 'templategoodsykgprice', width: 70, align: 'center' ,formatter: function (value) {
+                        if(value > 0){
+                        	return value+"kg";
+                        }else{
+                        	return "0kg";
+                        }
+                    }},
+					{ title: '价格', field: 'templategoodsykg', width: 70, align: 'center', formatter:function (value) {
+                        if(value > 0){
+                        	return value+"元";
+                        }else{
+                        	return "0元";
+                        }
+                        
+                    }},
+					{ title: '超出首重', field: 'templateoverload', width: 70, align: 'center' ,formatter:function (value) {
+                        if(value > 0){
+                        	return value+"元/kg";
+                        }else{
+                        	return "0元/kg";
+                        }
+                        
+                    }},
 					{
-                        title: '接管地区', field: 'accurate', width: 220, align: 'center', formatter: function (value) {
+                        title: '说明', field: 'templatepacking', width: 300, align: 'center', formatter: function (value) {
                             value = decodeURIComponent(value);
-                            if (value.length > 15) {
+                            /* if (value.length % 22 == 0) {
                                 value = value.substr(0, 15) + "...";
+                            } */
+                            if (value.length > 60) {
+                                value = value.substr(0, 60) + "...";
                             }
                             if(value == 'null'){
-                            	 return "";
-                            }
-                            return value;
-                        }
-                    },
-                    {
-                        title: '联系电话', field: 'phone', width: 100, align: 'center', formatter: function (value) {
-                            return value;
-                        }
-                    },
-                    {
-                        title: '活动描述', field: 'describes', width: 250, align: 'center', formatter: function (value) {
-                            value = decodeURIComponent(value);
-                            if (value.length > 15) {
-                                value = value.substr(0, 15) + "...";
-                            }
-                            if(value == 'null'){
-                            	 return "";
-                            }
-                            return value;
-                        }
-                    },
-                    {
-                        title: '价格模板操作', field: 'istemplate', width: 150, align: 'center', formatter: function (value, rec) {
-                        	var  operation = '';
-                        	if(value == 1){
-                        		operation = '<a class="a_edit" href="javascript:;" onclick="TemplateOperationData(2,'+rec.addressid+');$(this).parent().click();return false;">取消模板</a>';
-                        	}else{
-                        		operation = '<a class="a_edit" href="javascript:;" onclick="TemplateOperationData(1,'+rec.addressid+');$(this).parent().click();return false;">启用</a>';
-                        	}
+                           	 return "";
+                           }
+                            var operation = '<div style="width:98%;white-space:normal;"   >'+value+'<div>';
                             return operation;
                         }
                     },
                     {
-                        title: '操作', field: 'addressid', width: 150, align: 'center', formatter: function (value, rec) {
+                        title: '接管地区', field: 'province', width: 670, align: 'center', height:200, formatter: function (value,rec) {
+                        	/* console.log(value)
+                        	console.log(value.length) */
                         	var  operation = '';
-                        	if(rec.istemplate == 1){
-                        		operation =  '<a class="a_edit" href="javascript:;" onclick="EditDatas(' + value + ');$(this).parent().click();return false;">选择价格模板</a>';
-                        		
-                        	}else{
-                        		operation =  '<a class="a_edit" href="javascript:;" onclick="selectTemplatePricePage(' + value + ');$(this).parent().click();return false;">填写价格</a>';
-                        	}
-                        	operation +=  '<a class="a_edit" href="javascript:;" onclick="EditData(' + value + ');$(this).parent().click();return false;">修改</a>';
+                        	var operationTable = '<table style="  margin: 10px;"  width="100%" height="100%"  >';
+                        	
+                        	$(value).each(function(index,list){     //第一个是系统的次数   第二个是对象middleArea
+                    			if(index % 6 == 0 ){
+                    				operation += '</tr><tr>';
+                    			}
+                    			operation += '<td>'+list+'</td>';
+                    					
+                        	});
+                        	operation = operationTable + operation.substring(5) +"</table>";
+                            return operation;
+                        }
+                    },
+                    {
+                        title: '操作', field: 'aloneprice', width: 70, align: 'center', formatter: function (value, rec) {
+                        	var  operation = '';
+                        	
+                        	operation +=  '<a class="a_edit" href="javascript:;" onclick="EditDataAlonePricePage(' + value + ');$(this).parent().click();return false;">修改</a>';
                             return operation;
                         }
                     }
@@ -288,14 +296,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 json.templateoverload = $('#templateoverload').numberbox('getValue');
                 json.templatepacking = $('#templatepacking').val();
                 json.templatetitle = $('#templatetitle').val();
-                json.provinces = show("provinces");
-                console.log(json.describes)
-                $.post("addTemplateAddress.do",json, function(data){
+                json.provincial = show("provinces");
+                $.post("addIsUpTemplateAddress.do",json, function(data){
                     ReloadClearData();
                     if (data == "1") {
                         $.messager.alert('提示', '操作成功', 'info');
-                        $("#dialgTemplateAddress").dialog("close");
-                    }else if(data == "2"){
                         $("#dialgTemplateAddress").dialog("close");
                     }else {
                         $.messager.alert('提示', '操作失败', 'error');

@@ -3,15 +3,15 @@
 <mapper namespace="com.alf.highest.personal.mapper.BwtConnectorTemplatePriceMapper" >
   <resultMap id="BaseResultMap" type="com.alf.highest.personal.pojo.BwtConnectorTemplatePrice" >
     <id column="templateprice" property="templateprice" jdbcType="INTEGER" />
-    <result column="templateprovincelist" property="templateprovincelist" jdbcType="VARCHAR" />
     <result column="templategoodsykgprice" property="templategoodsykgprice" jdbcType="DOUBLE" />
-    <result column="templategoodsykg" property="templategoodsykg" jdbcType="INTEGER" />
+    <result column="templategoodsykg" property="templategoodsykg" jdbcType="DOUBLE" />
     <result column="templateoverload" property="templateoverload" jdbcType="DOUBLE" />
     <result column="templatepacking" property="templatepacking" jdbcType="VARCHAR" />
+    <result column="templatetitle" property="templatetitle" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    templateprice, templateprovincelist, templategoodsykgprice, templategoodsykg, templateoverload, 
-    templatepacking
+    templateprice, templategoodsykgprice, templategoodsykg, templateoverload, templatepacking, 
+    templatetitle
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,21 +24,21 @@
     where templateprice = #{templateprice,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.alf.highest.personal.pojo.BwtConnectorTemplatePrice" >
-    insert into bwt_connector_template_price (templateprice, templateprovincelist, 
-      templategoodsykgprice, templategoodsykg, 
-      templateoverload, templatepacking)
-    values (#{templateprice,jdbcType=INTEGER}, #{templateprovincelist,jdbcType=VARCHAR}, 
-      #{templategoodsykgprice,jdbcType=DOUBLE}, #{templategoodsykg,jdbcType=INTEGER}, 
-      #{templateoverload,jdbcType=DOUBLE}, #{templatepacking,jdbcType=VARCHAR})
+    insert into bwt_connector_template_price (templateprice, templategoodsykgprice, 
+      templategoodsykg, templateoverload, templatepacking, 
+      templatetitle)
+    values (#{templateprice,jdbcType=INTEGER}, #{templategoodsykgprice,jdbcType=DOUBLE}, 
+      #{templategoodsykg,jdbcType=DOUBLE}, #{templateoverload,jdbcType=DOUBLE}, #{templatepacking,jdbcType=VARCHAR}, 
+      #{templatetitle,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.alf.highest.personal.pojo.BwtConnectorTemplatePrice" >
+  	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="templateprice">
+          SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into bwt_connector_template_price
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="templateprice != null" >
         templateprice,
-      </if>
-      <if test="templateprovincelist != null" >
-        templateprovincelist,
       </if>
       <if test="templategoodsykgprice != null" >
         templategoodsykgprice,
@@ -52,19 +52,19 @@
       <if test="templatepacking != null" >
         templatepacking,
       </if>
+      <if test="templatetitle != null" >
+        templatetitle,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="templateprice != null" >
         #{templateprice,jdbcType=INTEGER},
       </if>
-      <if test="templateprovincelist != null" >
-        #{templateprovincelist,jdbcType=VARCHAR},
-      </if>
       <if test="templategoodsykgprice != null" >
         #{templategoodsykgprice,jdbcType=DOUBLE},
       </if>
       <if test="templategoodsykg != null" >
-        #{templategoodsykg,jdbcType=INTEGER},
+        #{templategoodsykg,jdbcType=DOUBLE},
       </if>
       <if test="templateoverload != null" >
         #{templateoverload,jdbcType=DOUBLE},
@@ -72,19 +72,19 @@
       <if test="templatepacking != null" >
         #{templatepacking,jdbcType=VARCHAR},
       </if>
+      <if test="templatetitle != null" >
+        #{templatetitle,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.alf.highest.personal.pojo.BwtConnectorTemplatePrice" >
     update bwt_connector_template_price
     <set >
-      <if test="templateprovincelist != null" >
-        templateprovincelist = #{templateprovincelist,jdbcType=VARCHAR},
-      </if>
       <if test="templategoodsykgprice != null" >
         templategoodsykgprice = #{templategoodsykgprice,jdbcType=DOUBLE},
       </if>
       <if test="templategoodsykg != null" >
-        templategoodsykg = #{templategoodsykg,jdbcType=INTEGER},
+        templategoodsykg = #{templategoodsykg,jdbcType=DOUBLE},
       </if>
       <if test="templateoverload != null" >
         templateoverload = #{templateoverload,jdbcType=DOUBLE},
@@ -92,16 +92,36 @@
       <if test="templatepacking != null" >
         templatepacking = #{templatepacking,jdbcType=VARCHAR},
       </if>
+      <if test="templatetitle != null" >
+        templatetitle = #{templatetitle,jdbcType=VARCHAR},
+      </if>
     </set>
     where templateprice = #{templateprice,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.alf.highest.personal.pojo.BwtConnectorTemplatePrice" >
     update bwt_connector_template_price
-    set templateprovincelist = #{templateprovincelist,jdbcType=VARCHAR},
-      templategoodsykgprice = #{templategoodsykgprice,jdbcType=DOUBLE},
-      templategoodsykg = #{templategoodsykg,jdbcType=INTEGER},
+    set templategoodsykgprice = #{templategoodsykgprice,jdbcType=DOUBLE},
+      templategoodsykg = #{templategoodsykg,jdbcType=DOUBLE},
       templateoverload = #{templateoverload,jdbcType=DOUBLE},
-      templatepacking = #{templatepacking,jdbcType=VARCHAR}
+      templatepacking = #{templatepacking,jdbcType=VARCHAR},
+      templatetitle = #{templatetitle,jdbcType=VARCHAR}
     where templateprice = #{templateprice,jdbcType=INTEGER}
   </update>
+  <delete id="deleteMiddleByTemplate" parameterType="java.lang.Integer" >
+  	delete  from bwt_template_middle_area where templateprice = ${templateprice};
+  </delete>
+  <insert id="addTemplateMiddle" parameterType="java.lang.Integer">
+  	insert into bwt_template_middle_area (id,templateprice) VALUES (${id},${templateprice})
+  </insert>
+  <select id="selectAllTemplatePrice" resultType="com.alf.highest.personal.pojo.BwtConnectorTemplatePrice" parameterType="java.lang.String">
+  	SELECT * FROM bwt_connector_template_price  
+  	<where>
+  		<if test="templatetitle != null">
+  			 templatetitle LIKE ${templatetitle}
+  		</if>
+  	</where>
+  </select>
+  <select id="selectAllByTemplatepriceAreaname" parameterType="java.lang.Integer" resultType="java.lang.String">
+  	SELECT p.areaname FROM bwt_template_middle_area t LEFT JOIN `pb_area` p ON(t.`id` = p.`id`) WHERE t.`templateprice` = ${templateprice}
+  </select>
 </mapper>
