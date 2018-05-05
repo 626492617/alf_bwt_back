@@ -66,7 +66,28 @@ public class PersonalTemplateServiceImpl implements PersonalTemplateService {
 		EasyUIDataPage easy = new EasyUIDataPage();
 		easy.setRows(list);
 		easy.setTotal(info.getTotal());
-		return null;
+		return easy;
 		
+	}
+	/**
+	 * 修改前先查看 价格模板
+	 * @param templateprice
+	 * @return
+	 */
+	public BwtConnectorTemplatePrice selectByTemplateprice(Integer templateprice){
+		BwtConnectorTemplatePrice  bwtConnectorTemplatePrice = bwtConnectorTemplatePriceMapper.selectByPrimaryKey(templateprice);
+		bwtConnectorTemplatePrice.setListId(bwtConnectorTemplatePriceMapper.selectAllByTemplatepriceId(templateprice));
+		return bwtConnectorTemplatePrice;
+		
+	}
+	/**
+	 * 删除模板
+	 * @param templateprice
+	 * @return
+	 */
+	public void deleteByTemplateprice(Integer[] templateprice){
+		for (Integer integer : templateprice) {
+			bwtConnectorTemplatePriceMapper.deleteByPrimaryKey(integer);
+		}
 	}
 }
