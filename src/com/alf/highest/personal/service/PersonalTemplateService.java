@@ -20,4 +20,16 @@ public interface PersonalTemplateService {
 	 * @return
 	 */
 	public EasyUIDataPage selectAllTemplatePrice(String templatetitle,Integer page,Integer rows);
+	/**
+	 * 修改前先查看 价格模板
+	 * @param templateprice
+	 * @return
+	 */
+	public BwtConnectorTemplatePrice selectByTemplateprice(Integer templateprice);
+	/**
+	 * 删除模板
+	 * @param templateprice
+	 * @return
+	 */
+	public void deleteByTemplateprice(Integer[] templateprice);
 }

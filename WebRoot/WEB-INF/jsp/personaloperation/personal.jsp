@@ -104,7 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            <a href="javascript:void;" class="easyui-linkbutton" onclick="$('#dialgPersonalAddress').dialog('close'); return false;">取消</a>
 	        </div>
 	    </div>
-		<div id="dialgAlonePricePage" class="easyui-dialog" title="价格区域信息" style="width: 1250px; height: 620px; padding: 10px; " data-options="modal:true,closed:true,vcenter:true">
+		<div id="dialgAlonePricePage" class="easyui-dialog" title="价格区域信息" style="width: 950px; height: 520px; padding: 10px; " data-options="modal:true,closed:true,vcenter:true">
 	    	<table id="tbAlonePrice"></table>
 	    	<div id="dialgAlonePrice" class="easyui-dialog" title="添加价格区域" style="width: 670px; height: 470px; padding: 10px; " data-options="modal:true,closed:true,vcenter:true,buttons:'#btnAlonePrice'">
 		        <form id="formAlonePrice">
@@ -230,7 +230,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             $('#tbPersonalRegion').datagrid({
                 title: '地点信息',//文本标题
                 url: 'selectAllPersonalRegion.do',//访问路径
-                width: '100%',//显示宽度
+                width: '93%',//显示宽度
                 height: $(parent.document).find("#mainPanel").height() - 100 > 0 ? $(parent.document).find("#mainPanel").height() - 150 : 500, //高度
                 nowrap: true,//在一行显示
                 striped: true,//显示虚线在外框
@@ -239,12 +239,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 fitColumns: true,//自动展开/收缩列的大小
                 columns: [[
                     { field: 'cbx', checkbox: true },
-                    { title: '省份', field: 'provincename', width: 100, align: 'center' },
-					{ title: '市区', field: 'cityname', width: 100, align: 'center' },
-					{ title: '区域', field: 'areaname', width: 100, align: 'center' },
-					{ title: '街道', field: 'streetname', width: 100, align: 'center' },
+                    { title: '省份', field: 'provincename', width: 90, align: 'center' },
+					{ title: '市区', field: 'cityname', width: 90, align: 'center' },
+					{ title: '区域', field: 'areaname', width: 90, align: 'center' },
+					{ title: '街道', field: 'streetname', width: 90, align: 'center' },
 					{
-                        title: '接管地区', field: 'accurate', width: 220, align: 'center', formatter: function (value) {
+                        title: '接管地区', field: 'accurate', width: 200, align: 'center', formatter: function (value) {
                             value = decodeURIComponent(value);
                             if (value.length > 15) {
                                 value = value.substr(0, 15) + "...";
@@ -261,7 +261,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         }
                     },
                     {
-                        title: '活动描述', field: 'describes', width: 250, align: 'center', formatter: function (value) {
+                        title: '活动描述', field: 'describes', width: 220, align: 'center', formatter: function (value) {
                             value = decodeURIComponent(value);
                             if (value.length > 15) {
                                 value = value.substr(0, 15) + "...";
@@ -273,7 +273,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         }
                     },
                     {
-                        title: '价格模板操作', field: 'istemplate', width: 150, align: 'center', formatter: function (value, rec) {
+                        title: '价格模板操作', field: 'istemplate', width: 130, align: 'center', formatter: function (value, rec) {
                         	var  operation = '';
                         	if(value == 1){
                         		operation = '<a class="a_edit" href="javascript:;" onclick="TemplateOperationData(2,'+rec.addressid+');$(this).parent().click();return false;">取消模板</a>';
@@ -284,7 +284,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         }
                     },
                     {
-                        title: '操作', field: 'addressid', width: 150, align: 'center', formatter: function (value, rec) {
+                        title: '操作', field: 'addressid', width: 180, align: 'center', formatter: function (value, rec) {
                         	var  operation = '';
                         	if(rec.istemplate == 1){
                         		operation =  '<a class="a_edit" href="javascript:;" onclick="EditDatas(' + value + ');$(this).parent().click();return false;">选择价格模板</a>';
@@ -437,6 +437,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 }
             });
         }
+        //模板选择
         function TemplateOperationData(istemplate,addressid){
         	$.post("addPersonalAddress.do","istemplate="+istemplate+"&addressid="+addressid, function(data){
                 ReloadClearData();
@@ -467,7 +468,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 //title: '价格区域信息',//文本标题
                 url: 'selectAllAlonePrice.do',//访问路径
                 width: '100%',//显示宽度
-                height: $(parent.document).find("#mainPanel").height() - 100 > 0 ? $(parent.document).find("#mainPanel").height() - 350 : 400, //高度
+                height: $(parent.document).find("#mainPanel").height() - 100 > 0 ? $(parent.document).find("#mainPanel").height() - 150 : 400, //高度
                 //height:400,
                 nowrap: true,//在一行显示
                 striped: true,//显示虚线在外框
@@ -476,14 +477,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 fitColumns: true,//自动展开/收缩列的大小
                 columns: [[
                     { field: 'cbx', checkbox: true },
-                    { title: '首重', field: 'alonegoodsykg', width: 70, align: 'center' ,formatter: function (value) {
+                    { title: '首重', field: 'alonegoodsykg', width: 80, align: 'center' ,formatter: function (value) {
                         if(value > 0){
                         	return value+"kg";
                         }else{
                         	return "0kg";
                         }
                     }},
-					{ title: '价格', field: 'alonegoodsykgprice', width: 70, align: 'center', formatter:function (value) {
+					{ title: '价格', field: 'alonegoodsykgprice', width: 80, align: 'center', formatter:function (value) {
                         if(value > 0){
                         	return value+"元";
                         }else{
@@ -491,7 +492,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         }
                         
                     }},
-					{ title: '超出首重', field: 'aloneoverload', width: 70, align: 'center' ,formatter:function (value) {
+					{ title: '超出首重', field: 'aloneoverload', width: 100, align: 'center' ,formatter:function (value) {
                         if(value > 0){
                         	return value+"元/kg";
                         }else{
@@ -534,7 +535,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         }
                     },
                     {
-                        title: '操作', field: 'aloneprice', width: 70, align: 'center', formatter: function (value, rec) {
+                        title: '操作', field: 'aloneprice', width: 100, align: 'center', formatter: function (value, rec) {
                         	var  operation = '';
                         	
                         	operation +=  '<a class="a_edit" href="javascript:;" onclick="EditDataAlonePricePage(' + value + ');$(this).parent().click();return false;">修改</a>';

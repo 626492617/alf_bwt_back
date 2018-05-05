@@ -41,4 +41,10 @@ public interface BwtConnectorTemplatePriceMapper {
      * @return
      */
     public List<String> selectAllByTemplatepriceAreaname(@Param("templateprice")Integer templateprice);
+    /**
+     * 根据模板id查询该下的城市id
+     * @param templateprice
+     * @return
+     */
+    public List<Integer> selectAllByTemplatepriceId(@Param("templateprice")Integer templateprice);
 }
