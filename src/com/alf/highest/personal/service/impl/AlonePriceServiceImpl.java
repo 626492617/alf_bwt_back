@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alf.highest.operation.vo.LinkageDown;
 import com.alf.highest.personal.mapper.BwtConnectorAlonePriceMapper;
-import com.alf.highest.personal.pojo.BwtConnectorAddress;
 import com.alf.highest.personal.pojo.BwtConnectorAlonePrice;
 import com.alf.highest.personal.pojo.bwtAloneMiddleArea;
 import com.alf.highest.personal.service.AlonePriceService;
@@ -29,7 +29,7 @@ public class AlonePriceServiceImpl implements AlonePriceService{
 	 * @param bcap
 	 * @return
 	 */
-	public void addIsUpdataAlonelPrice(BwtConnectorAlonePrice bcap) {
+	public void addIsUpdataAlonePrice(BwtConnectorAlonePrice bcap) {
 		if(bcap.getAloneprice() != null && bcap.getAloneprice() > 0) {
 			BwtConnectorAlonePriceMapper.updateByPrimaryKeySelective(bcap);
 			BwtConnectorAlonePriceMapper.deleteMiddleByAloneprice(bcap.getAloneprice());
@@ -64,9 +64,9 @@ public class AlonePriceServiceImpl implements AlonePriceService{
 	 * @param addressid
 	 * @return
 	 */
-	public EasyUIDataPage selectAllAlonelPrice(Integer page,Integer rows,Integer addressid) {
+	public EasyUIDataPage selectAllAlonePrice(Integer page,Integer rows,Integer addressid) {
 		PageHelper.startPage(page, rows);
-		List<BwtConnectorAlonePrice>  list = BwtConnectorAlonePriceMapper.selectAllAlonelPrice(addressid);
+		List<BwtConnectorAlonePrice>  list = BwtConnectorAlonePriceMapper.selectAllAlonePrice(addressid);
 		for (BwtConnectorAlonePrice bwtConnectorAlonePrice : list) {
 			List<String> areanameList = BwtConnectorAlonePriceMapper.selectByAlonepriceAreaname(bwtConnectorAlonePrice.getAloneprice());
 			bwtConnectorAlonePrice.setProvince(areanameList);
@@ -77,5 +77,27 @@ public class AlonePriceServiceImpl implements AlonePriceService{
 		easy.setTotal(info.getTotal());
 		return easy;
 		
+	}
+	/**
+	 * 修改个人地址价格
+	 * @param aloneprice
+	 * @return
+	 */
+	public BwtConnectorAlonePrice upDateAlonePricePage(Integer aloneprice) {
+		BwtConnectorAlonePrice bap = BwtConnectorAlonePriceMapper.selectByPrimaryKey(aloneprice);
+		bap.setListDown(BwtConnectorAlonePriceMapper.selectAlonepriceByIdAreaName(aloneprice));
+		return bap;
+		
+	}
+	/**
+	 * 删除个人价格
+	 * @param aloneprice
+	 * @return
+	 */
+	public void deleteByAlonePrice(Integer[] aloneprice) {
+		for (Integer integer : aloneprice) {
+			BwtConnectorAlonePriceMapper.deleteByPrimaryKey(integer);
+			BwtConnectorAlonePriceMapper.deleteMiddleByAloneprice(integer);
+		}
 	}
 }

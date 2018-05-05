@@ -11,6 +11,7 @@ import com.alf.highest.personal.pojo.BwtConnectorAddress;
 import com.alf.highest.personal.service.PersonalPlaceService;
 import com.alf.highest.site.pojo.BwtPersonal;
 import com.alf.util.EasyUIDataPage;
+import com.alf.util.JsonUtils;
 
 /**
  * 个人地点操作  
@@ -25,8 +26,8 @@ public class PersonalPlaceController {
 	 * 个人站点操作页面
 	 * @return
 	 */
-	@RequestMapping("prsonalRegionPage")
-	public String prsonalRegionPage() {
+	@RequestMapping("personalRegionPage")
+	public String personalRegionPage() {
 		return "/personaloperation/personal";
 		
 	}
@@ -35,18 +36,17 @@ public class PersonalPlaceController {
 	 * @param ba
 	 * @return
 	 */
-	@RequestMapping("addPrsonalAddress")
+	@RequestMapping("addPersonalAddress")
 	@ResponseBody
-	public String addPrsonalAddress(BwtConnectorAddress ba,HttpSession session) {
+	public String addPersonalAddress(BwtConnectorAddress ba,HttpSession session) {
 		BwtPersonal bp = (BwtPersonal) session.getAttribute("user");
 		ba.setPersonalid(bp.getPersonalid());
 		try {
-			personalPlaceService.addPrsonalAddress(ba);
+			return personalPlaceService.addPersonalAddress(ba);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "0";
 		}
-		return "1";
 	}
 	/**
 	 * 查询所有人的地址 管理区域
@@ -54,12 +54,38 @@ public class PersonalPlaceController {
 	 * @param rows
 	 * @return
 	 */
-	@RequestMapping("selectAllPrsonalRegion")
+	@RequestMapping("selectAllPersonalRegion")
 	@ResponseBody
-	public EasyUIDataPage selectAllPrsonalRegion(Integer page,Integer rows,HttpSession session) {
+	public EasyUIDataPage selectAllPersonalRegion(Integer page,Integer rows,HttpSession session) {
 			BwtPersonal bp = (BwtPersonal) session.getAttribute("user");
-		return personalPlaceService.selectAllPrsonalRegion(page, rows, bp.getPersonalid());
+		return personalPlaceService.selectAllPersonalRegion(page, rows, bp.getPersonalid());
 	
 		
+	}
+	/**
+	 * 查询一条 接件人地址
+	 * @param addressid
+	 * @return
+	 */
+	@RequestMapping(value="selectByAddressid",produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String selectByAddressid(Integer addressid) {
+		return JsonUtils.objectToJson(personalPlaceService.selectByAddressid(addressid));
+		
+	}
+	/**
+	 * 删除个人地址
+	 * @param addressid
+	 * @return
+	 */
+	@RequestMapping("deleteByAddressid")
+	@ResponseBody
+	public String deleteByAddressid(Integer[] addressid) {
+		try {
+			personalPlaceService.deleteByAddressid(addressid);
+		} catch (Exception e) {
+			return "0";
+		}
+		return "1";
 	}
 }

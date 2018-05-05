@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.alf.highest.operation.vo.LinkageDown;
 import com.alf.highest.personal.pojo.BwtConnectorAlonePrice;
 import com.alf.highest.personal.pojo.bwtAloneMiddleArea;
 
@@ -34,11 +35,17 @@ public interface BwtConnectorAlonePriceMapper {
      * @param addressid
      * @return
      */
-    public List<BwtConnectorAlonePrice> selectAllAlonelPrice(@Param("addressid")Integer addressid);
+    public List<BwtConnectorAlonePrice> selectAllAlonePrice(@Param("addressid")Integer addressid);
     /**
      * 查询所有地点价格的 省份
      * @param aloneprice
      * @return
      */
     public List<String> selectByAlonepriceAreaname(@Param("aloneprice")Integer aloneprice);
+    /**
+     * 查询个人地址的所属区域
+     * @param aloneprice
+     * @return
+     */
+    public List<LinkageDown> selectAlonepriceByIdAreaName(@Param("aloneprice")Integer aloneprice);
 }

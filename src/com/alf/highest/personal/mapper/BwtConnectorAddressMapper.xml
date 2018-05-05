@@ -185,12 +185,15 @@
       accurate = #{accurate,jdbcType=VARCHAR}
     where addressid = #{addressid,jdbcType=INTEGER}
   </update>
-  <select id="selectAllPrsonalRegion" parameterType="java.lang.Integer" resultType="com.alf.highest.personal.pojo.BwtConnectorAddress">
+  <select id="selectAllPersonalRegion" parameterType="java.lang.Integer" resultType="com.alf.highest.personal.pojo.BwtConnectorAddress">
   	SELECT 
 		(SELECT p.areaname FROM `pb_area` p WHERE p.`id` = b.province) provincename,
 		(SELECT p.areaname FROM `pb_area` p WHERE p.`id` = b.city) cityname,
 		(SELECT p.areaname FROM `pb_area` p WHERE p.`id` = b.area) areaname,
 		(SELECT p.areaname FROM `pb_area` p WHERE p.`id` = b.street) streetname,
 	b.* FROM `bwt_connector_address` b WHERE b.`personalid` = ${personalid}
+  </select>
+  <select id="selectAllAddressSum" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+  	SELECT COUNT(*) FROM `bwt_connector_address` WHERE personalid = ${personalid}
   </select>
 </mapper>

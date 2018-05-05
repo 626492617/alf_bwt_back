@@ -107,7 +107,7 @@
     where aloneprice = #{aloneprice,jdbcType=INTEGER}
   </update>
   <delete id="deleteMiddleByAloneprice" parameterType="java.lang.Integer" >
-  	delete * from bwt_alone_middle_area where aloneprice = ${aloneprice};
+  	delete  from bwt_alone_middle_area where aloneprice = ${aloneprice};
   </delete>
   <insert id="addUpMiddle" >
   	INSERT INTO bwt_alone_middle_area VALUES
@@ -115,10 +115,13 @@
            (#{each.id} , #{each.aloneprice}) 
     </foreach>  
   </insert>
-  <select id="selectAllAlonelPrice" parameterType="java.lang.Integer" resultType="com.alf.highest.personal.pojo.BwtConnectorAlonePrice">
+  <select id="selectAllAlonePrice" parameterType="java.lang.Integer" resultType="com.alf.highest.personal.pojo.BwtConnectorAlonePrice">
   	select * from bwt_connector_alone_price p where p.addressid = ${addressid}
   </select>
   <select id="selectByAlonepriceAreaname" parameterType="java.lang.Integer" resultType="java.lang.String">
   	SELECT areaname FROM `bwt_alone_middle_area` m LEFT JOIN `pb_area` a ON (m.`id` = a.`id`) WHERE m.aloneprice = ${aloneprice}
+  </select>
+  <select id="selectAlonepriceByIdAreaName" parameterType="java.lang.Integer" resultType="com.alf.highest.operation.vo.LinkageDown">
+  	SELECT a.id,a.areaname FROM `bwt_alone_middle_area` m LEFT JOIN `pb_area` a ON (m.`id` = a.`id`)  WHERE m.aloneprice = ${aloneprice}
   </select>
 </mapper>
