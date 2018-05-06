@@ -31,4 +31,26 @@ public interface PersonalPlaceService {
 	 * @return
 	 */
 	public void deleteByAddressid(Integer[] addressid);
+	/**
+	 * 个人接件地址 下的所有模板
+	 * @param page
+	 * @param rows
+	 * @param addressid 地址id
+	 * @return
+	 */
+	public EasyUIDataPage selectTemplateAllData(Integer page,Integer rows,Integer addressid);
+	/**
+	 * 地点添加模板
+	 * @param addressid 地点id
+	 * @param templateprice 模板id
+	 * @return
+	 */
+	public void addTemplateChoiceData(Integer addressid,Integer[] templateprice);
+	/**
+	 * 取消模板
+	 * @param addressid 地点id
+	 * @param templateprice 模板id
+	 * @return
+	 */
+	public void delTemplateData(Integer addressid,Integer templateprice);
 }

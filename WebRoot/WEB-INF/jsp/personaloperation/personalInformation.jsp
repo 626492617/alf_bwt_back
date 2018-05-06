@@ -47,92 +47,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </head>
 <body onload="" >
     
-         <!-- 封装视频的url -->
-         <input type="hidden" id="logourl1" >
-    
+         
         <div style="width: 820px; margin: 0 auto">
 		<div id="headerPanel" class="easyui-panel">
         <form id="form_edit1" name="form_edit" enctype="multipart/form-data">
-             <input type="hidden" id="siteid" name="siteid">
+             <input type="hidden" id="personalid" name="personalid">
             <table style="text-align: content;margin: 10px;" >
                 <tr style="height: 55px"  >
-               		<td class="tr1" >站点名称:</td>
+               		<td class="tr1" >个人姓名:</td>
                     <td>
-						<input id="sitename" name="sitename" class="easyui-validatebox"  style="width: 250px;height: 25px"  />	
+						<input id="personalname" name="personalname" class="easyui-validatebox"  style="width: 250px;height: 25px"  />	
                     </td> 
                     <td rowspan="4" colspan="2" style="text-align: center;" align="center" >
                         <span id="inputStr" style="display: none;"></span>
                         <div style="width: 100%; position: relative; text-align: center; margin-top: 10px;">
                             <img id="imgShow" style="width: 150px; height: 120px; cursor: pointer;" src="" />
-                            <input type="hidden" id="sitelogo" name="sitelogo"  />
-                            <p class="pwenzi"  > 封面图(150*194)</p>
+                            <input type="hidden" id="personallogo" name="personallogo"  />
+                            <p class="pwenzi"  > 个人的图像(150*194)</p>
                         </div>
                        	
                     </td>
                 </tr>
                 <tr style="height: 55px" >
                     <td class="tr1" >
-                    	站点简称
+                    	个人固定电话
                     </td>
                     <td>
-                       <input id="siteabbreviation" name="siteabbreviation" class="easyui-validatebox"   style="width: 250px;height: 25px"  />
+                       <input id="personalphone" name="personalphone" class="easyui-validatebox"   style="width: 250px;height: 25px"  />
                     </td>
                   
                 </tr>
                 <tr style="height: 55px"  >
-                    <td class="tr1" >负责人姓名</td>
+                    <td class="tr1" >个人账号</td>
                     <td>
-						<input id="dutypeople" name="dutypeople" class="easyui-validatebox"  style="width: 250px;height: 25px"  />
+						<input id="personalaccount" name="personalaccount" disabled="disabled" class="easyui-validatebox"  style="width: 250px;height: 25px"  />
                            
                     </td>
                 </tr>
                 <tr style="height: 55px"  >
-                    <td class="tr1" >负责人电话</td> 
+                    <td class="tr1" >个人密码</td> 
                     <td>
-						<input id="dutyphone" name="dutyphone" class="easyui-validatebox"  style="width: 250px;height: 25px"  />
+						<input id="personalpwd" name="personalpwd"  disabled="disabled"  disabled="disabled" class="easyui-validatebox"  style="width: 250px;height: 25px"  />
                            
                     </td>
-                </tr>                                                           
-                <tr style="height: 55px"  >
-                     <td class="tr1" >站点账号</td> 
-                    <td>
-						<input id="count" class="easyui-validatebox" style="width: 250px;height: 25px"  disabled="disabled"  />
-                           
-                    </td>
-                     <td class="tr1" >站点密码</td> 
-                    <td>
-						<input id="pwd" class="easyui-validatebox" style="width: 250px;height: 25px"  disabled="disabled"  />
-                           
-                    </td>
-                </tr>
-                
-                <tr style="height: 55px" >
-                     <td class="tr1" >所在省份</td> 
-                    <td>
-						<input id="province" name="province" class="easyui-combobox" style="width: 250px;height:27px;"  panelheight="100px" editable="editable"  />
-                    </td>
-                     <td class="tr1" >所在市级</td> 
-                    <td>
-						<input id="city" name="city" class="easyui-combobox" style="width: 250px;height:27px;" panelheight="100px" editable="editable" />
-                    </td>
-                </tr>
-                <tr style="height: 55px" >
-                     <td class="tr1" >所在地区</td> 
-                    <td>
-						<input id="area" name="area" class="easyui-combobox" style="width: 250px;height:27px;" panelheight="100px" editable="editable" />
-                    </td>
-                     <td class="tr1" >所在街道</td> 
-                    <td>
-						<input id="street" name="street" class="easyui-combobox" style="width: 250px;height:27px;" panelheight="100px" editable="editable" />
-                    </td>
-                </tr>
-                <tr style="height: 110px"  >
-                    
-                     <td class="tr1" >详细地址</td> 
-                    <td colspan="3" >
-						<textarea id="address" name="address" class="easyui-validatebox" style="width: 660px;height: 85px"  >  </textarea> 
-                    </td>
-                </tr>
+                </tr>           
                 <tr style="height: 55px">
 					
 					    <td colspan="4">
@@ -174,64 +132,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      </div>
      </div>
     <script type="text/javascript">
-	  //修改站点省
-	    function upDataQueryProvince(){
-			$('#province').combobox({
-	       	 	valueField: 'id',
-	            textField: 'name',
-	            url: 'selectAllLinkage.do?parentid=0',
-	            onSelect: function (record) {
-	            	upDataQueryCity(record.id);
-	            }
-	       });
-		}
-	    //修改站点市
-	    function upDataQueryCity(id){
-			$('#city').combobox({
-	       	 	valueField: 'id',
-	            textField: 'name',
-	            url: 'selectAllLinkage.do?parentid='+id,
-	            onSelect: function (record) {
-	            	upDataArea(record.id);
-	            }
-	       });
-		}
-	    //修改站点区县
-	    function upDataArea(id){
-			$('#area').combobox({
-	       	 	valueField: 'id',
-	            textField: 'name',
-	            url: 'selectAllLinkage.do?parentid='+id,
-	            onSelect: function (record) {
-	            	upDataStreet(record.id);
-	            }
-	       });
-		}
-	    //修改街道
-	    function upDataStreet(id){
-	    	$('#street').combobox({
-	       	 	valueField: 'id',
-	            textField: 'name',
-	            url: 'selectAllLinkage.do?parentid='+id,
-	            
-	       });
-	    }
+	  
 	function Submit(){
         
         var json = {}; 
-        json.siteid=$("#siteid").val();
-        json.province=$("#province").combobox("getValue");
-        json.city=$("#city").combobox("getValue");
-        json.area=$("#area").combobox("getValue");
-        json.street=$("#street").combobox("getValue");
-        json.sitename=$("#sitename").val();
-        json.siteabbreviation=$("#siteabbreviation").val();
-        json.dutypeople=$("#dutypeople").val();
-        json.dutyphone=$("#dutyphone").val();
-        json.address=$("#address").val();
-        json.sitelogo=$("#sitelogo").val();
-           
-         $.post("updataBySiteId.do", json, function (msg) {
+        json.personalid = $("#personalid").val();
+        json.personalname = $("#personalname").val();
+        json.personalphone = $("#personalphone").val();
+        json.personalaccount = $("#personalaccount").val();
+        json.personalpwd = $("#personalpwd").val();
+        json.personallogo = $("#personallogo").val();
+         $.post("updataByPersonalId.do", json, function (msg) {
          	if (msg == "1") {
          	   $.messager.alert('提示', '操作成功', 'info');
          	  dataLoad();
@@ -244,54 +155,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     }
 	//清空数据
 	function wipeData(){
-		$("#siteid").val("");
-		$("#province").combobox("getValue","");
-        $("#city").combobox("getValue","");
-        $("#area").combobox("getValue","");
-        $("#street").combobox("getValue","");
-        $("#sitename").val("");
-        $("#siteabbreviation").val("");
-        $("#dutypeople").val("");
-        $("#dutyphone").val("");
-        $("#address").val("");
+		$("#personalid").val("");
+        $("#personalname").val("");
+        $("#personalphone").val("");
+        $("#personalaccount").val("");
+        $("#personalpwd").val("");
         document.getElementById("imgShow").src = "";
-        $("#sitelogo").val("");
-        
-        $('#count').val("");
-        $('#pwd').val("");
+        $("#personallogo").val("");
 	}
 	function dataLoad(){
 		wipeData();
-		var id = ${user.siteid}
-		$("#siteid").val(id);
-		 $.post("selectBySiteidUpdatap.do", "siteid="+id, function (data) {
+		var id = ${user.personalid}
+		$("#personalid").val(id);
+		 $.post("selectByPersonalidUpdatap.do", "personalid="+id, function (data) {
 			 if (data != "0") {
-                 var dataObj = eval("(" + data + ")");
-                 //修改站点省
-                 upDataQueryProvince();
-                 //修改站点市
-                 if(dataObj.province != null)
-                 upDataQueryCity(dataObj.province);
-                 //修改站点区县
-                 if(dataObj.city != null)
-                 upDataArea(dataObj.city);
-                 //修改街道
-                 if(dataObj.area != null)
-                 upDataStreet(dataObj.area);
-                 $("#province").combobox("setValue",dataObj.province);
-                 $("#city").combobox("setValue",dataObj.city);
-                 $("#area").combobox("setValue",dataObj.area);
-                 $("#street").combobox("setValue",dataObj.street);
-                 $("#sitename").val(dataObj.sitename);
-                 $("#siteabbreviation").val(dataObj.siteabbreviation);
-                 $("#dutypeople").val(dataObj.dutypeople);
-                 $("#dutyphone").val(dataObj.dutyphone);
-                 $("#address").val(dataObj.address);
-                 document.getElementById("imgShow").src = dataObj.sitelogo;
-                 $("#sitelogo").val(dataObj.sitelogo);
-                 
-                 $('#count').val(dataObj.siteaccount);
-                 $('#pwd').val(dataObj.sitepwd);
+				  var dataObj = eval("(" + data + ")");
+                 $("#personalname").val(dataObj.personalname);
+                 $("#personalphone").val(dataObj.personalphone);
+                 $("#personalaccount").val(dataObj.personalaccount);
+                 $("#personalpwd").val(dataObj.personalpwd);
+                 document.getElementById("imgShow").src = dataObj.personallogo;
+                 $("#personallogo").val(dataObj.personallogo);
              }
              else {
                  $.messager.alert('提示', '操作失败', 'error');
@@ -313,9 +197,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         }else{
         	if(newpwd == newtopwd){
         		var json = {};
-        		json.siteid = $("#siteid").val();
-        		json.sitepwd =  newtopwd;
-        		$.post("updataBySiteId.do", json, function (msg) {
+        		json.pwd =  newtopwd;
+        		$.post("updataByPersonalPwd.do", json, function (msg) {
 	                if (msg == "1") {
 	                	$.messager.alert('提示', '操作成功 。。三秒后自动跳转', 'info');
 	                 	setTimeout(function(){window.parent.location.href = "index.jsp"; }, 3000);
@@ -356,7 +239,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         var smallUrl = data.smallUrl;
                         if (error == "1") {
                             document.getElementById("imgShow").src = largerUrl;
-                            $("#sitelogo").val(largerUrl);
+                            $("#personallogo").val(largerUrl);
                         }
                         if (error == "0") {
                             alert(largerUrl);

@@ -316,9 +316,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
                 <div style="width: auto; height: 35px; float: right; color: #fff;">
                     <img src="./image/fristimage/gongsi.png" style="width: 22px; height: 22px; margin-right: 8px;font-size: 14px;" />${name } &nbsp;&nbsp; &nbsp;&nbsp;
-                    <a href="#" id="UpdateLogin" style="text-decoration: none; color: #fff;">
+                    <!-- <a href="#" id="UpdateLogin" style="text-decoration: none; color: #fff;">
                         <img src="./image/fristimage/pass.png" style="width: 22px; height: 22px; margin-right: 8px;font-size: 14px;" />修改密码&nbsp;&nbsp;
-                    </a>&nbsp; &nbsp;
+                    </a>&nbsp; &nbsp; -->
                     <a href="#" id="loginOut" style="text-decoration: none; color: #fff;">
                         <img src="./image/fristimage/tuichu.png" style="width: 22px; height: 22px; margin-right: 8px;font-size: 14px;" />安全退出&nbsp;&nbsp;
                     </a>&nbsp; &nbsp;
@@ -348,33 +348,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
         </div>
         
-        <div id="passworddialog" class="easyui-dialog" title="修改密码" style="width: 200px; height: 200px;"
-            modal="true" closed="true" buttons="#editbuttons" closable="false">
-            <table>
-                
-                <tr>
-                    <td>旧密码
-                    </td>
-                    <td>
-                        <input type="password" id="oldpassword" class="easyui-validatebox" required="true"
-                            style="width: 120px;" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>新密码
-                    </td>
-                    <td>
-                        <input type="password" id="newpassword" class="easyui-validatebox" required="true"
-                            style="width: 120px;" />
-                    </td>
-                </tr>
-            </table>
-            <div id="editbuttons">
-                <a href="javascript:;" class="easyui-linkbutton"
-                    onclick="UpdateLogin()">提交</a> <a href="javascript:;" class="easyui-linkbutton"
-                        onclick="$('#passworddialog').dialog('close');return false;">关闭</a>
-            </div>
-        </div>
+        
         <div id="mm" class="easyui-menu" style="width: 150px;">
             <div id="mm-tabclose">
                 关闭
@@ -462,13 +436,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 }
             });
         });
-        //修改密码
-        $("#UpdateLogin").click(function () {
-            $('#reusername').val("");
-            $('#oldpassword').val("");
-            $('#newpassword').val("");
-            $("#passworddialog").dialog("open");
-        });
+        
     });
     //初始化左侧
     function InitLeftMenus() {
@@ -637,36 +605,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             $('#mm').menu('hide');
         })
     }
-    //更新密码
-    function UpdateLogin() {
-        var $oldpassword = $('#oldpassword').val().trim();
-        var $newpassword = $('#newpassword').val().trim();
-        if ($oldpassword == '') {
-            $.messager.alert("提示", "旧密码不能为空", "warning");
-            return;
-        }
-        if ($newpassword == '') {
-            $.messager.alert("提示", "新密码不能为空", "warning");
-            return;
-        }
-        $.post('uppassword.do',
-                {
-                    "newpwd": $newpassword,
-                    "oldpwd": $oldpassword
-                },
-                function (a) {
-                    if (a == 'ok') {
-                        $.messager.alert("提示", "密码修改成功", "info");
-
-                        $("#passworddialog").dialog("close");
-                    }
-                    else {
-                        $.messager.alert("提示", "密码修改失败", "warning");
-
-                    }
-                }
-            );
-    }
+   
     //跳转页面
     function SelectPage() {
        /*  location.href = "http://115.159.121.164:8090/" */

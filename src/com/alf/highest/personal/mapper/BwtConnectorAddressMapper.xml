@@ -196,4 +196,32 @@
   <select id="selectAllAddressSum" resultType="java.lang.Integer" parameterType="java.lang.Integer">
   	SELECT COUNT(*) FROM `bwt_connector_address` WHERE personalid = ${personalid}
   </select>
+  <select id="selectTemplateAllData"  parameterType="java.lang.Integer" resultType="com.alf.highest.personal.pojo.BwtConnectorTemplatePrice">
+  	SELECT
+		t.*
+	FROM
+		template_address ta
+	LEFT JOIN bwt_connector_template_price t ON (
+		ta.templateprice = t.templateprice
+	)
+	WHERE
+		ta.addressid = ${addressid}
+  </select>
+  <!-- 添加价格模板 建立联系 -->
+  <insert id="addTemplateChoiceData" parameterType="java.lang.Integer">
+  	INSERT INTO `template_address` (
+		`addressid`,
+		`templateprice`
+	)
+	VALUES
+		(${addressid}, ${templateprice})
+  </insert>
+  <delete id="delTemplateData" parameterType="java.lang.Integer">
+  	DELETE
+	FROM
+		`template_address`
+	WHERE
+		(`addressid` = ${addressid})
+	AND (`templateprice` = ${templateprice})
+  </delete>
 </mapper>

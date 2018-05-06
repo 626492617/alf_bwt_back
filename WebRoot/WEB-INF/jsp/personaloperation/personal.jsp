@@ -151,6 +151,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        </div>
 	    	</div>
 	    </div>
+	    <div id="dialgTemplatePage" class="easyui-dialog" title="已选模板" style="width: 950px; height: 520px; padding: 10px; " data-options="modal:true,closed:true,vcenter:true">
+	    	<table id="tbAllTemplate"></table>
+	    </div>
+	    <div id="dialgTemplateChoicePage" class="easyui-dialog" title="所有模板" style="width: 900px; height: 480px; padding: 10px; " data-options="modal:true,closed:true,vcenter:true">
+	    	<table id="tbTemplateChoice"></table>
+	    </div>
 	    <!--数据列表-->
 	    <table id="tbPersonalRegion"></table>
 	</div> 
@@ -287,7 +293,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         title: '操作', field: 'addressid', width: 180, align: 'center', formatter: function (value, rec) {
                         	var  operation = '';
                         	if(rec.istemplate == 1){
-                        		operation =  '<a class="a_edit" href="javascript:;" onclick="EditDatas(' + value + ');$(this).parent().click();return false;">选择价格模板</a>';
+                        		operation =  '<a class="a_edit" href="javascript:;" onclick="templateAllDataInit(' + value + ');$(this).parent().click();return false;">选择价格模板</a>';
                         		
                         	}else{
                         		operation =  '<a class="a_edit" href="javascript:;" onclick="selectAlonePricePage(' + value + ');$(this).parent().click();return false;">填写价格</a>';
@@ -729,6 +735,253 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             $("#tbAlonePrice").datagrid("unselectAll");
             $("#tbAlonePrice").datagrid("reload");
         }
+		/***********模板操作**************/
+		
+        /**************所有关联的模板模板*******************/
+        
+         function templateAllDataInit(id) {
+        	$("#dialgTemplatePage").dialog("open");
+            $('#tbAllTemplate').datagrid({
+                //title: '地点信息',//文本标题
+                url: 'selectTemplateAllData.do',//访问路径
+                width: '100%',//显示宽度
+                height: $(parent.document).find("#mainPanel").height() - 100 > 0 ? $(parent.document).find("#mainPanel").height() - 150 : 500, //高度
+                nowrap: true,//在一行显示
+                striped: true,//显示虚线在外框
+                collapsible: false,//可折叠的
+                remoteSort: true,//从服务器对数据进行排序
+                fitColumns: true,//自动展开/收缩列的大小
+                columns: [[
+                    { field: 'cbx', checkbox: true },
+                    { title: '模板标题', field: 'templatetitle', width: 180, align: 'center' },
+                    { title: '首重', field: 'templategoodsykgprice', width: 100, align: 'center' ,formatter: function (value) {
+                        if(value > 0){
+                        	return value+"kg";
+                        }else{
+                        	return "0kg";
+                        }
+                    }},
+					{ title: '价格', field: 'templategoodsykg', width: 100, align: 'center', formatter:function (value) {
+                        if(value > 0){
+                        	return value+"元";
+                        }else{
+                        	return "0元";
+                        }
+                        
+                    }},
+					{ title: '超出首重', field: 'templateoverload', width: 100, align: 'center' ,formatter:function (value) {
+                        if(value > 0){
+                        	return value+"元/kg";
+                        }else{
+                        	return "0元/kg";
+                        }
+                        
+                    }},
+					{
+                        title: '说明', field: 'templatepacking', width: 300, align: 'center', formatter: function (value) {
+                            value = decodeURIComponent(value);
+                            /* if (value.length % 22 == 0) {
+                                value = value.substr(0, 15) + "...";
+                            } */
+                            if (value.length > 60) {
+                                value = value.substr(0, 60) + "...";
+                            }
+                            if(value == 'null'){
+                           	 return "";
+                           }
+                            var operation = '<div style="width:98%;white-space:normal;"   >'+value+'<div>';
+                            return operation;
+                        }
+                    },
+                    {
+                        title: '接管地区', field: 'province', width: 670, align: 'center', height:200, formatter: function (value,rec) {
+                        	/* console.log(value)
+                        	console.log(value.length) */
+                        	var  operation = '';
+                        	var operationTable = '<table style="  margin: 10px;"  width="100%" height="100%"  >';
+                        	
+                        	$(value).each(function(index,list){     //第一个是系统的次数   第二个是对象middleArea
+                    			if(index % 6 == 0 ){
+                    				operation += '</tr><tr>';
+                    			}
+                    			operation += '<td>'+list+'</td>';
+                    					
+                        	});
+                        	operation = operationTable + operation.substring(5) +"</table>";
+                            return operation;
+                        }
+                    },
+                    {
+                        title: '操作', field: 'templateprice', width: 250, align: 'center', formatter: function (value, rec) {
+                        	var  operation = '';
+                        	
+                        	operation +=  '<a class="a_edit" href="javascript:;" onclick="delTemplateData('+id+',' + value + ');$(this).parent().click();return false;">取消模板</a>';
+                            return operation;
+                        }
+                    }
+                ]],
+                toolbar: [
+                   {
+                       id: 'btnadd',
+                       text: '选择模板',
+                       iconCls: 'icon-add',
+                       handler: function () {
+                    	   templateChoiceDataInit(id);
+                       }
+                   }
+                ],
+                queryParams : {"addressid" : id},
+                pagination: true,
+                pageNumber: 1,
+                pageSize: 30,
+                rownumbers: true
+            });
+        }
+        function templateAllData() {
+            $("#tbAllTemplate").datagrid("uncheckAll");
+            $("#tbAllTemplate").datagrid("unselectAll");
+            $("#tbAllTemplate").datagrid("reload");
+        }
+		function delTemplateData(addressid,templateprice){
+			$.messager.confirm('提示', '确认取消？', function (r) {
+                if (r) {
+                	$.post("delTemplateData.do", "addressid="+addressid+"&templateprice="+templateprice, function (msg) {
+                    	if (msg != "0") {
+                            $.messager.alert('提示', '取消成功', 'info');
+                            templateAllData();
+                        }
+                        else {
+                            $.messager.alert('提示', '取消失败', 'error');
+                        }
+                    });
+                }
+            });
+			
+		}
+        /**************选择模板*******************/
+        
+        function templateChoiceDataInit(id) {
+        	$("#dialgTemplateChoicePage").dialog("open");
+            $('#tbTemplateChoice').datagrid({
+                //title: '地点信息',//文本标题
+                url: 'selectAllTemplatePrice.do',//访问路径
+                width: '100%',//显示宽度
+                height: $(parent.document).find("#mainPanel").height() - 100 > 0 ? $(parent.document).find("#mainPanel").height() - 150 : 500, //高度
+                nowrap: true,//在一行显示
+                striped: true,//显示虚线在外框
+                collapsible: false,//可折叠的
+                remoteSort: true,//从服务器对数据进行排序
+                fitColumns: true,//自动展开/收缩列的大小
+                columns: [[
+                    { field: 'cbx', checkbox: true },
+                    { title: '模板标题', field: 'templatetitle', width: 180, align: 'center' },
+                    { title: '首重', field: 'templategoodsykgprice', width: 100, align: 'center' ,formatter: function (value) {
+                        if(value > 0){
+                        	return value+"kg";
+                        }else{
+                        	return "0kg";
+                        }
+                    }},
+					{ title: '价格', field: 'templategoodsykg', width: 100, align: 'center', formatter:function (value) {
+                        if(value > 0){
+                        	return value+"元";
+                        }else{
+                        	return "0元";
+                        }
+                        
+                    }},
+					{ title: '超出首重', field: 'templateoverload', width: 100, align: 'center' ,formatter:function (value) {
+                        if(value > 0){
+                        	return value+"元/kg";
+                        }else{
+                        	return "0元/kg";
+                        }
+                        
+                    }},
+					{
+                        title: '说明', field: 'templatepacking', width: 300, align: 'center', formatter: function (value) {
+                            value = decodeURIComponent(value);
+                            /* if (value.length % 22 == 0) {
+                                value = value.substr(0, 15) + "...";
+                            } */
+                            if (value.length > 60) {
+                                value = value.substr(0, 60) + "...";
+                            }
+                            if(value == 'null'){
+                           	 return "";
+                           }
+                            var operation = '<div style="width:98%;white-space:normal;"   >'+value+'<div>';
+                            return operation;
+                        }
+                    },
+                    {
+                        title: '接管地区', field: 'province', width: 670, align: 'center', height:200, formatter: function (value,rec) {
+                        	/* console.log(value)
+                        	console.log(value.length) */
+                        	var  operation = '';
+                        	var operationTable = '<table style="  margin: 10px;"  width="100%" height="100%"  >';
+                        	
+                        	$(value).each(function(index,list){     //第一个是系统的次数   第二个是对象middleArea
+                    			if(index % 6 == 0 ){
+                    				operation += '</tr><tr>';
+                    			}
+                    			operation += '<td>'+list+'</td>';
+                    					
+                        	});
+                        	operation = operationTable + operation.substring(5) +"</table>";
+                            return operation;
+                        }
+                    }
+                ]],
+                toolbar: [
+                   {
+                       id: 'btnadd',
+                       text: '确定模板',
+                       iconCls: 'icon-add',
+                       handler: function () {
+                    	   addTemplateChoiceData(id);
+                       }
+                   }
+                ],
+                queryParams : {"siteid" : $("#siteid").val()},
+                pagination: true,
+                pageNumber: 1,
+                pageSize: 30,
+                rownumbers: true
+            });
+        }
+        function addTemplateChoiceData(id){
+			var selected = "";
+            $($('#tbTemplateChoice').datagrid('getSelections')).each(function () {
+                selected += this.templateprice + ",";
+            });
+            selected = selected.substr(0, selected.length - 1);
+            if (selected == "") {
+                $.messager.alert('提示', '请选择价格模板！', 'info');
+                return;
+            }
+            $.messager.confirm('提示', '确认添加？', function (r) {
+                if (r) {
+                    $.post("addTemplateChoiceData.do", "addressid="+id+"&templateprice="+selected, function (msg) {
+                    	
+                        if (msg != "0") {
+                            $.messager.alert('提示', '添加成功', 'info');
+                            templateAllData();
+                            $("#dialgTemplateChoicePage").dialog("close");
+                        }
+                        else {
+                            $.messager.alert('提示', '添加失败', 'error');
+                        }
+                    });
+                }
+            });
+		}
+        function templateChoiceData() {
+            $("#tbTemplateChoice").datagrid("uncheckAll");
+            $("#tbTemplateChoice").datagrid("unselectAll");
+            $("#tbTemplateChoice").datagrid("reload");
+        }
+        
     </script>
 </body>
 </html>
