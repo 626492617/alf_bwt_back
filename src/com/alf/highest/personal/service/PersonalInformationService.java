@@ -1,5 +1,7 @@
 package com.alf.highest.personal.service;
 
+import javax.servlet.http.HttpSession;
+
 import com.alf.highest.site.pojo.BwtPersonal;
 
 public interface PersonalInformationService {
@@ -15,4 +17,10 @@ public interface PersonalInformationService {
 	 * @return
 	 */
 	public void updataByPersonalId(BwtPersonal  bwtPersonal );
+	/**
+	 * 修改个人密码
+	 * @param Personalid
+	 * @return
+	 */
+	public void updataByPersonalPwd(String pwd,HttpSession session);
 }

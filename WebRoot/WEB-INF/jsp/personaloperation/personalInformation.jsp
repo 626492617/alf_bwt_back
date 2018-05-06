@@ -80,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <tr style="height: 55px"  >
                     <td class="tr1" >个人账号</td>
                     <td>
-						<input id="personalaccount" name="personalaccount" class="easyui-validatebox"  style="width: 250px;height: 25px"  />
+						<input id="personalaccount" name="personalaccount" disabled="disabled" class="easyui-validatebox"  style="width: 250px;height: 25px"  />
                            
                     </td>
                 </tr>
@@ -197,13 +197,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         }else{
         	if(newpwd == newtopwd){
         		var json = {};
-        		json.siteid = $("#siteid").val();
-        		json.sitepwd =  newtopwd;
-        		$.post("updataBySiteId.do", json, function (msg) {
+        		json.pwd =  newtopwd;
+        		$.post("updataByPersonalPwd.do", json, function (msg) {
 	                if (msg == "1") {
-	                 	$.messager.alert('提示', '操作成功', 'info');
-	                 	$("#dialogInfopwd").dialog("close");
-	                 	dataLoad();
+	                	$.messager.alert('提示', '操作成功 。。三秒后自动跳转', 'info');
+	                 	setTimeout(function(){window.parent.location.href = "index.jsp"; }, 3000);
 	                }else {
 	                	$.messager.alert('提示', '操作失败', 'error');
 	                }

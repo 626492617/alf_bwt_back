@@ -1,5 +1,7 @@
 package com.alf.highest.personal.service.impl;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +32,19 @@ public class PersonalInformationServiceImpl implements PersonalInformationServic
 	 * @param bwtPersonal
 	 * @return
 	 */
-	public void updataByPersonalId(BwtPersonal  bwtPersonal ){
+	public void updataByPersonalId(BwtPersonal  bwtPersonal){
 		bwtPersonalMapper.updateByPrimaryKeySelective(bwtPersonal);
+		
+	}
+	/**
+	 * 修改个人密码
+	 * @param Personalid
+	 * @return
+	 */
+	public void updataByPersonalPwd(String pwd,HttpSession session){
+		BwtPersonal bp = (BwtPersonal) session.getAttribute("user");
+		bp.setPersonalpwd(pwd);
+		bwtPersonalMapper.updateByPrimaryKey(bp);
+		session.setAttribute("user", "");
 	}
 }

@@ -1,5 +1,7 @@
 package com.alf.highest.personal.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,11 +40,28 @@ public class PersonalInformationController {
 	@RequestMapping("updataByPersonalId")
 	@ResponseBody
 	public String updataByPersonalId(BwtPersonal  bwtPersonal ){
-		System.out.println(12);
 		try {
 			personalInformationService.updataByPersonalId(bwtPersonal);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "0";
+		}
+		return "1";
+		
+	}
+	/**
+	 * 修改个人密码
+	 * @param Personalid
+	 * @return
+	 */
+	@RequestMapping("updataByPersonalPwd")
+	@ResponseBody
+	public String updataByPersonalPwd(String pwd,HttpSession session){
+		try {
+			personalInformationService.updataByPersonalPwd(pwd, session);
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
 			return "0";
 		}
 		return "1";
