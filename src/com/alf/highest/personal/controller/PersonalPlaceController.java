@@ -14,7 +14,7 @@ import com.alf.util.EasyUIDataPage;
 import com.alf.util.JsonUtils;
 
 /**
- * 个人地点操作  
+ * 个人地点操作         
  * @author Ping
  *
  */
@@ -87,5 +87,56 @@ public class PersonalPlaceController {
 			return "0";
 		}
 		return "1";
+	}
+	/**
+	 * 个人接件地址 下的所有模板
+	 * @param page
+	 * @param rows
+	 * @param addressid 地址id
+	 * @return
+	 */
+	@RequestMapping("selectTemplateAllData")
+	@ResponseBody
+	public EasyUIDataPage selectTemplateAllData(Integer page,Integer rows,Integer addressid){
+		return personalPlaceService.selectTemplateAllData(page, rows, addressid);
+		
+	}
+	/**
+	 * 地点添加模板
+	 * @param addressid 地点id
+	 * @param templateprice 模板id
+	 * @return
+	 */
+	@RequestMapping("addTemplateChoiceData")
+	@ResponseBody
+	public String addTemplateChoiceData(Integer addressid,Integer[] templateprice){
+		try {
+			personalPlaceService.addTemplateChoiceData(addressid, templateprice);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return "0";
+		}
+		return "1";
+		
+	}
+	/**
+	 * 取消模板
+	 * @param addressid 地点id
+	 * @param templateprice 模板id
+	 * @return
+	 */
+	@RequestMapping("delTemplateData")
+	@ResponseBody
+	public String delTemplateData(Integer addressid,Integer templateprice){
+		try {
+			personalPlaceService.delTemplateData(addressid, templateprice);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return "0";
+		}
+		return "1";
+		
 	}
 }

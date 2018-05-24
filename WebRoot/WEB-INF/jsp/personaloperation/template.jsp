@@ -39,16 +39,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </head>
 <body class="easyui-layout" >
 	<div data-options="region:'center'" style="padding:5px;">
-		<input type="hidden" id="addressid" name ="addressid" value="${addressid}" >
 	    <!--查询条件-->
 	    <div id="headerSearchPanel" class="easyui-panel">
 	        <form id="fromSearch">
-	            <table style="text-align: center;  margin: 10px;"  width="100%" height="100%"  >
-	                <tr>
-	                    <td ><h4>更好的填写信息 会让用户更好找到你！因为他们需要你</h4></td>
-	                </tr>
-	            </table>
-	        </form>
+            <table>
+                <tr>
+                    <td>模板名称:</td>
+                    <td>
+                     	<input id="templatetitleName" name="templatetitleName" class="easyui-validatebox" style="width: 200px;" data-options="" />
+                    </td>
+                    <td>
+                        <a href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="Search()">查询</a>
+                        <a href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-clear'" onclick="Clear()">清空</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
 	    </div>
 		<!--价格模板添加-->
 	    <div id="dialgTemplateAddress" class="easyui-dialog" title="添加价格区域" style="width: 670px; height: 470px; padding: 10px; " data-options="modal:true,closed:true,vcenter:true,buttons:'#btnTemplatePrice'">
@@ -141,14 +147,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 fitColumns: true,//自动展开/收缩列的大小
                 columns: [[
                     { field: 'cbx', checkbox: true },
-                    { title: '首重', field: 'templategoodsykgprice', width: 70, align: 'center' ,formatter: function (value) {
+                    { title: '模板标题', field: 'templatetitle', width: 180, align: 'center' },
+                    { title: '首重', field: 'templategoodsykgprice', width: 100, align: 'center' ,formatter: function (value) {
                         if(value > 0){
                         	return value+"kg";
                         }else{
                         	return "0kg";
                         }
                     }},
-					{ title: '价格', field: 'templategoodsykg', width: 70, align: 'center', formatter:function (value) {
+					{ title: '价格', field: 'templategoodsykg', width: 100, align: 'center', formatter:function (value) {
                         if(value > 0){
                         	return value+"元";
                         }else{
@@ -156,7 +163,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         }
                         
                     }},
-					{ title: '超出首重', field: 'templateoverload', width: 70, align: 'center' ,formatter:function (value) {
+					{ title: '超出首重', field: 'templateoverload', width: 100, align: 'center' ,formatter:function (value) {
                         if(value > 0){
                         	return value+"元/kg";
                         }else{
@@ -199,10 +206,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         }
                     },
                     {
-                        title: '操作', field: 'aloneprice', width: 70, align: 'center', formatter: function (value, rec) {
+                        title: '操作', field: 'templateprice', width: 100, align: 'center', formatter: function (value, rec) {
                         	var  operation = '';
                         	
-                        	operation +=  '<a class="a_edit" href="javascript:;" onclick="EditDataAlonePricePage(' + value + ');$(this).parent().click();return false;">修改</a>';
+                        	operation +=  '<a class="a_edit" href="javascript:;" onclick="EditDataTemplatePage(' + value + ');$(this).parent().click();return false;">修改</a>';
                             return operation;
                         }
                     }
@@ -235,13 +242,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
         //查询数据
         function Search() {
-            $("#tbPersonalRegion").datagrid("options").queryParams.personalname = $("#cz_personalname").val();
+            $("#tbPersonalRegion").datagrid("options").queryParams.templatetitle = $("#templatetitleName").val();
             ReloadClearData();
         }
 
         //清空
         function Clear() {
-        	$("#cz_personalname").val('');
+        	$("#templatetitleName").val('');
             Search();
         }
 
@@ -249,7 +256,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         function DelData() {
             var selected = "";
             $($('#tbPersonalRegion').datagrid('getSelections')).each(function () {
-                selected += this.addressid + ",";
+                selected += this.templateprice + ",";
             });
             selected = selected.substr(0, selected.length - 1);
             if (selected == "") {
@@ -258,10 +265,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             }
             $.messager.confirm('提示', '确认删除？', function (r) {
                 if (r) {
-                    $.post("deleteByAddressid.do", "addressid="+selected, function (msg) {
-                        ReloadClearData();
+                    $.post("deleteByTemplateprice.do", "templateprice="+selected, function (msg) {
+                       
                         if (msg != "0") {
                             $.messager.alert('提示', '删除成功', 'info');
+                            ReloadClearData();
                         }
                         else {
                             $.messager.alert('提示', '删除失败', 'error');
@@ -297,6 +305,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 json.templatepacking = $('#templatepacking').val();
                 json.templatetitle = $('#templatetitle').val();
                 json.provincial = show("provinces");
+                
                 $.post("addIsUpTemplateAddress.do",json, function(data){
                     ReloadClearData();
                     if (data == "1") {
@@ -310,28 +319,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             }
         }
         //修改数据,先读取数据
-        function EditData(id) {
-            $.post("selectByAddressid.do","addressid="+id, function (data) {
+        function EditDataTemplatePage(id) {
+            $.post("selectByTemplateprice.do","templateprice="+id, function (data) {
                 if (data != "0") {
                     var dataObj = eval("(" + data + ")");
-                    $('#addressid').val(dataObj.addressid);
-                    //省
-                    DataQueryProvince();
-                    $('#province').combobox('setValue', dataObj.province);
-                     //市
-                    DataQueryCity(dataObj.province)
-                    $('#city').combobox('setValue', dataObj.city);
-                    //区县
-                    DataArea(dataObj.city) 
-                    $('#area').combobox('setValue', dataObj.area);
-                    //街道
-                    DataStreet(dataObj.area) 
-                	$('#street').combobox('setValue', dataObj.street);
-                	 
-                    $('#accurate').val(dataObj.accurate);
-                    $('#price').val(dataObj.price);
-                    $('#phone').val(dataObj.phone);
-                    $('#describes').val(dataObj.describes);
+                    $('#templateprice').val(dataObj.templateprice);
+                	$('#templategoodsykgprice').numberbox('setValue', dataObj.templategoodsykgprice);
+                	$('#templategoodsykg').numberbox('setValue', dataObj.templategoodsykg);
+                	$('#templateoverload').numberbox('setValue', dataObj.templateoverload);
+                    $('#templatepacking').val(dataObj.templatepacking);
+                    $('#templatetitle').val(dataObj.templatetitle);
+                    $("#middleArea").html("")
+                    console.log(dataObj.listId)
+                    $.post("selectAllLinkage.do","parentid=0", function(data){
+		        		operation = '';
+		        		operations = '';
+		        		$(data).each(function(index,list){     //第一个是系统的次数   第二个是对象middleArea
+		        			if(index == 0){
+		        				operations += '<tr><td colspan="2" style="text-align: center; "  ><input type="button" style="width: 88px;" value="全选"   onclick="AreaSelect()" id="select" /></td>';
+		        				operations += '<td colspan="2" style="text-align: center; "  ><input type="button" style="width: 88px;"  value="反选" onclick="reverseSelect()" id="reverse"  /></td></tr>';
+		        			}
+		        			
+		        			if(index % 4 == 0 ){
+		        				operation += '</tr><tr>';
+		        			}
+		        			 var judge = false;
+		        			$(dataObj.listId).each(function(index,lists){
+		        				if(lists == list.id){
+		        					judge = true;
+		        				}
+		        			});
+		        			if(judge){
+	        					operation += '<td><input type="checkbox" name="provinces" checked="checked"  value="'+list.id+'" />'+list.name+'</td>';
+	        				}else{
+	        					operation += '<td><input type="checkbox" name="provinces" value="'+list.id+'" />'+list.name+'</td>';
+	        				}
+		            	});
+		        		operation = operations+operation.substring(5)
+		        		$("#middleArea").append(operation);
+			 		});
                     $("#dialgTemplateAddress").dialog("open");
                 }
                 else {
@@ -339,17 +365,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 }
             });
         }
-        function TemplateOperationData(istemplate,addressid){
-        	$.post("addPersonalAddress.do","istemplate="+istemplate+"&addressid="+addressid, function(data){
-                ReloadClearData();
-                if (data == "1") {
-                    $.messager.alert('提示', '操作成功', 'info');
-                }
-                else {
-                    $.messager.alert('提示', '操作失败', 'error');
-                }
-            });
-        }
+        
         //全选反选
         function AreaSelect(){ 
 			$("input[name='provinces']").attr("checked","true"); 

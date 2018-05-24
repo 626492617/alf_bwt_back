@@ -117,11 +117,14 @@
   	SELECT * FROM bwt_connector_template_price  
   	<where>
   		<if test="templatetitle != null">
-  			 templatetitle LIKE ${templatetitle}
+  			 templatetitle LIKE '${templatetitle}'
   		</if>
   	</where>
   </select>
   <select id="selectAllByTemplatepriceAreaname" parameterType="java.lang.Integer" resultType="java.lang.String">
   	SELECT p.areaname FROM bwt_template_middle_area t LEFT JOIN `pb_area` p ON(t.`id` = p.`id`) WHERE t.`templateprice` = ${templateprice}
+  </select>
+  <select id="selectAllByTemplatepriceId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	SELECT t.id FROM bwt_template_middle_area t WHERE t.`templateprice` = ${templateprice}
   </select>
 </mapper>
