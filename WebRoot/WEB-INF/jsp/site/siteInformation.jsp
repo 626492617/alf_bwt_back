@@ -121,7 +121,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <td>
 						<input id="area" name="area" class="easyui-combobox" style="width: 250px;height:27px;" panelheight="100px" editable="editable" />
                     </td>
-                     <td class="tr1" >所在街道</td> 
+                     <td class="tr1" >必须操作项*</td> 
                     <td>
 						<input id="street" name="street" class="easyui-combobox" style="width: 250px;height:27px;" panelheight="100px" editable="editable" />
                     </td>
