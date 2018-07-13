@@ -37,11 +37,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         }
     </style>
     </head>
-<body>
+<body  class="easyui-layout">
     <input type="hidden" id="siteid" name ="siteid" value="${site}" >
     <!--查询条件-->
     <div id="headerSearchPanel" class="easyui-panel">
-        <form id="fromSearch">
+        <form id="fromSearch" onsubmit="return false;">
             <table>
                 <tr>
                     <td>姓名</td>
@@ -62,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <table id="tbCompetition"></table>
     <!--员工添加-->
     <div id="dialgCompetition" class="easyui-dialog" title="员工添加" style="width: 400px; height: 270px; padding: 10px; " data-options="modal:true,closed:true,buttons:'#btnCompetition'">
-        <form id="formCompetition">
+        <form id="formCompetition"  onsubmit="return false;">
             <table style="text-align: center; margin: 10px;">
 				<tr style="height: 30px" >
                     <td>生成几位员工</td>
@@ -81,12 +81,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </table>
         </form>
         <div id="btnCompetition">
-            <a href="javascript:void;" class="easyui-linkbutton" onclick="Submit()">提交</a>
+            <a href="javascript:void;" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="Submit()">提交</a>
             <a href="javascript:void;" class="easyui-linkbutton" onclick="$('#dialgCompetition').dialog('close'); return false;">取消</a>
         </div>
     </div>
     <div id="dialgCompetitionSite" class="easyui-dialog" title="赛事信息" style="width: 680px; height: 470px; padding: 10px; " data-options="modal:true,closed:true,buttons:'#btnCompetitionSite'">
-        <form id="formCompetitionSite">
+        <form id="formCompetitionSite"  onsubmit="return false;">
         	<input type="hidden" id= "siteid" name="siteid"  >
             <table style="text-align: center; margin: 10px;">
             	<tr style="height: 30px" >
@@ -128,6 +128,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <a href="javascript:void;" class="easyui-linkbutton" onclick="$('#dialgCompetitionSite').dialog('close'); return false;">取消</a>
         </div>
     </div>
+    
+    
     <!--类型选择框-->
     <div id="tbFightTypeDialog" class="easyui-dialog" title="类型选择" style="width: 600px; height: 600px;" data-options="modal:true,closed:true">
         <table id="tbFightType"></table>
@@ -150,38 +152,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             
            // loadDataQueryProvince();
         });
-        
-      /* //省
-        function DataQueryProvince(){
-			$('#province').combobox({
-           	 	valueField: 'id',
-                textField: 'name',
-                url: 'selectAllLinkage.do?parentid=0',
-                onSelect: function (record) {
-                	DataQueryCity(record.id);
-                }
-           });
-		}
-        //市
-        function DataQueryCity(id){
-			$('#city').combobox({
-           	 	valueField: 'id',
-                textField: 'name',
-                url: 'selectAllLinkage.do?parentid='+id,
-                onSelect: function (record) {
-                	DataArea(record.id);
-                }
-           });
-		}
-        //区县
-        function DataArea(id){
-			$('#area').combobox({
-           	 	valueField: 'id',
-                textField: 'name',
-                url: 'selectAllLinkage.do?parentid='+id,
-               
-           });
-		} */
+      
       
 		
         //数据列表
@@ -287,8 +258,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
         //添加数据,先清空数据 
         function AddData() {
-        	
-            $("#amount").val("");//生成几个站点
+            $("#amount").val("");//生成几个人
             $("#dialgCompetition").dialog("open");
         }
 
@@ -344,7 +314,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 }
             });
         }
-      
+        //清空重新加载数据
+        function ReloadClearData() {
+            $("#tbCompetition").datagrid("uncheckAll");
+            $("#tbCompetition").datagrid("unselectAll");
+            $("#tbCompetition").datagrid("reload");
+        }
+
     </script>
 
 </body>

@@ -33,6 +33,12 @@ public class BwtSite {
 
     private Integer logoid;
 
+    private Integer siteConfirm;
+
+    private String lng;
+
+    private String lat;
+
     public Integer getSiteid() {
         return siteid;
     }
@@ -159,5 +165,29 @@ public class BwtSite {
 
     public void setLogoid(Integer logoid) {
         this.logoid = logoid;
+    }
+
+    public Integer getSiteConfirm() {
+        return siteConfirm;
+    }
+
+    public void setSiteConfirm(Integer siteConfirm) {
+        this.siteConfirm = siteConfirm;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng == null ? null : lng.trim();
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat == null ? null : lat.trim();
     }
 }

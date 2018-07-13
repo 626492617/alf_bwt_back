@@ -36,15 +36,15 @@ public class PersonalTemplateController {
 		return "1";
 	}
 	/**
-	 * 查看所有模板
+	 * 查看所有模板 个人选择模板 用的一个请求
 	 * @param templatetitle
 	 * @return
 	 */
 	@RequestMapping("selectAllTemplatePrice")
 	@ResponseBody
-	public EasyUIDataPage selectAllTemplatePrice(String templatetitle,Integer page,Integer rows){
+	public EasyUIDataPage selectAllTemplatePrice(String templatetitle,Integer personalid,Integer addressid,Integer page,Integer rows){
 		
-		return personalTemplateService.selectAllTemplatePrice(templatetitle, page, rows);
+		return personalTemplateService.selectAllTemplatePrice(templatetitle, personalid,addressid,page, rows);
 	}
 	/**
 	 * 修改前先查看 价格模板

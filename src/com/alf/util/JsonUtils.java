@@ -77,6 +77,6 @@ public class JsonUtils {
 	 */
     public static String jsonToData(String json,String data){
     	JSONObject jsons = JSONObject.parseObject(json);
-		return jsons.getString("data");
+		return jsons.getString(data);
     }
 }

@@ -39,9 +39,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </head>
 <body class="easyui-layout" >
 	<div data-options="region:'center'" style="padding:5px;">
+		<input type="hidden" id="personalid" value="${user.personalid }">
 	    <!--查询条件-->
 	    <div id="headerSearchPanel" class="easyui-panel">
-	        <form id="fromSearch">
+	        <form id="fromSearch" onsubmit="return false;">
             <table>
                 <tr>
                     <td>模板名称:</td>
@@ -58,7 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </div>
 		<!--价格模板添加-->
 	    <div id="dialgTemplateAddress" class="easyui-dialog" title="添加价格区域" style="width: 670px; height: 470px; padding: 10px; " data-options="modal:true,closed:true,vcenter:true,buttons:'#btnTemplatePrice'">
-		        <form id="formTemplatePrice">
+		        <form id="formTemplatePrice" onsubmit="return false;">
 		        <input type="hidden" id="templateprice" name="templateprice" >
 		            <table style="text-align: center;  margin: 10px;"  width="100%" height="110%" >
 						<tr  >
@@ -232,7 +233,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        }
                    }
                 ],
-                queryParams : {"siteid" : $("#siteid").val()},
+                queryParams : {"personalid" : $("#personalid").val()},
                 pagination: true,
                 pageNumber: 1,
                 pageSize: 30,
@@ -305,7 +306,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 json.templatepacking = $('#templatepacking').val();
                 json.templatetitle = $('#templatetitle').val();
                 json.provincial = show("provinces");
-                
+                json.personalid = $("#personalid").val();
                 $.post("addIsUpTemplateAddress.do",json, function(data){
                     ReloadClearData();
                     if (data == "1") {

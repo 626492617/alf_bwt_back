@@ -65,7 +65,11 @@ public class PersonalPlaceServiceImpl implements PersonalPlaceService{
 	 * @return
 	 */
 	public BwtConnectorAddress selectByAddressid(Integer addressid) {
-		return bwtConnectorAddressMapper.selectByPrimaryKey(addressid);
+		BwtConnectorAddress bca = bwtConnectorAddressMapper.selectByPrimaryKey(addressid);
+		if(bca.getLng() != null && bca.getLng().length() > 0 && bca.getLat() != null && bca.getLat().length() > 0) {
+			bca.setLocation(bca.getLng()+","+bca.getLat());
+		}
+		return bca;
 	}
 	/**
 	 * 删除个人地址

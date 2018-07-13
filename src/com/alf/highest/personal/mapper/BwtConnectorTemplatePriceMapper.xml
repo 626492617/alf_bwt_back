@@ -8,10 +8,11 @@
     <result column="templateoverload" property="templateoverload" jdbcType="DOUBLE" />
     <result column="templatepacking" property="templatepacking" jdbcType="VARCHAR" />
     <result column="templatetitle" property="templatetitle" jdbcType="VARCHAR" />
+    <result column="personalid" property="personalid" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     templateprice, templategoodsykgprice, templategoodsykg, templateoverload, templatepacking, 
-    templatetitle
+    templatetitle, personalid
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -26,10 +27,10 @@
   <insert id="insert" parameterType="com.alf.highest.personal.pojo.BwtConnectorTemplatePrice" >
     insert into bwt_connector_template_price (templateprice, templategoodsykgprice, 
       templategoodsykg, templateoverload, templatepacking, 
-      templatetitle)
+      templatetitle, personalid)
     values (#{templateprice,jdbcType=INTEGER}, #{templategoodsykgprice,jdbcType=DOUBLE}, 
       #{templategoodsykg,jdbcType=DOUBLE}, #{templateoverload,jdbcType=DOUBLE}, #{templatepacking,jdbcType=VARCHAR}, 
-      #{templatetitle,jdbcType=VARCHAR})
+      #{templatetitle,jdbcType=VARCHAR}, #{personalid,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.alf.highest.personal.pojo.BwtConnectorTemplatePrice" >
   	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="templateprice">
@@ -55,6 +56,9 @@
       <if test="templatetitle != null" >
         templatetitle,
       </if>
+      <if test="personalid != null" >
+        personalid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="templateprice != null" >
@@ -74,6 +78,9 @@
       </if>
       <if test="templatetitle != null" >
         #{templatetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="personalid != null" >
+        #{personalid,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -95,6 +102,9 @@
       <if test="templatetitle != null" >
         templatetitle = #{templatetitle,jdbcType=VARCHAR},
       </if>
+      <if test="personalid != null" >
+        personalid = #{personalid,jdbcType=INTEGER},
+      </if>
     </set>
     where templateprice = #{templateprice,jdbcType=INTEGER}
   </update>
@@ -104,22 +114,25 @@
       templategoodsykg = #{templategoodsykg,jdbcType=DOUBLE},
       templateoverload = #{templateoverload,jdbcType=DOUBLE},
       templatepacking = #{templatepacking,jdbcType=VARCHAR},
-      templatetitle = #{templatetitle,jdbcType=VARCHAR}
+      templatetitle = #{templatetitle,jdbcType=VARCHAR},
+      personalid = #{personalid,jdbcType=INTEGER}
     where templateprice = #{templateprice,jdbcType=INTEGER}
   </update>
-  <delete id="deleteMiddleByTemplate" parameterType="java.lang.Integer" >
+    <delete id="deleteMiddleByTemplate" parameterType="java.lang.Integer" >
   	delete  from bwt_template_middle_area where templateprice = ${templateprice};
   </delete>
   <insert id="addTemplateMiddle" parameterType="java.lang.Integer">
   	insert into bwt_template_middle_area (id,templateprice) VALUES (${id},${templateprice})
   </insert>
   <select id="selectAllTemplatePrice" resultType="com.alf.highest.personal.pojo.BwtConnectorTemplatePrice" parameterType="java.lang.String">
-  	SELECT * FROM bwt_connector_template_price  
-  	<where>
+  	SELECT * FROM bwt_connector_template_price
+  	where  personalid = #{personalid}
   		<if test="templatetitle != null">
-  			 templatetitle LIKE '${templatetitle}'
+  			and templatetitle LIKE '${templatetitle}'
   		</if>
-  	</where>
+  		<if test="addressid != null">
+  			and templateprice NOT IN (SELECT templateprice FROM `template_address` WHERE addressid = #{addressid})
+  		</if>
   </select>
   <select id="selectAllByTemplatepriceAreaname" parameterType="java.lang.Integer" resultType="java.lang.String">
   	SELECT p.areaname FROM bwt_template_middle_area t LEFT JOIN `pb_area` p ON(t.`id` = p.`id`) WHERE t.`templateprice` = ${templateprice}
@@ -127,4 +140,10 @@
   <select id="selectAllByTemplatepriceId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
   	SELECT t.id FROM bwt_template_middle_area t WHERE t.`templateprice` = ${templateprice}
   </select>
+  <delete id="delTemplateDataTemplate" parameterType="java.lang.Integer">
+  	DELETE
+	FROM
+		`template_address`
+	WHERE  (`templateprice` = ${templateprice})
+  </delete>
 </mapper>
