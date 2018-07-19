@@ -107,7 +107,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                <tr  >
 	                    <td class="tr1" ><span style="color: red;">*</span>搜索地址<span style="color: red;">*</span></td> 
 	                    <td colspan="3" >
-							<input id="address" name="address" class="easyui-validatebox" style="width: 25rem;height:27px;" disabled="disabled"  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<input id="address" name="address" class="easyui-validatebox" style="width: 25rem;height:27px;" disabled="disabled"
+								  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<a class="easyui-linkbutton"  onclick="searchAddressPage()"  data-options="iconCls:'icon-search'"> 搜索地址 </a>
 	                    </td>
 	                </tr>
@@ -120,8 +121,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                <tr  >
 	                    <td>价格区域</td>
 	                    <td>
-	                     	<input id="price" name="price" class="easyui-validatebox" style="width: 200px" placeholder="示例：10-100"
-	                     		 data-options="required:true,missingMessage:'示例：10-100',validateOnBlur:true"  />
+	                     	<input id="price1" name="price1" class="easyui-numberbox" style="width: 80px" 
+	                     		 data-options="required:true,missingMessage:'示例：10',validateOnBlur:true"  />-
+	                     	<input id="price2" name="price2" class="easyui-numberbox" style="width: 80px" 
+	                     		 data-options="required:true,missingMessage:'示例：100',validateOnBlur:true"  />
 	                    </td>
 	                    <td>电话号码</td>
 	                    <td>
@@ -445,7 +448,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	$('#area').combobox('setValue', '');
         	//$('#street').combobox('setValue', '');
             $('#accurate').val('');
-            $('#price').val('');
+           // $('#price').val('');
+            $('#price1').numberbox('setValue','');
+            $('#price2').numberbox('setValue','');
             $('#phone').val('');
             $('#describes').val('');
             $('#address').val('');
@@ -457,8 +462,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         function Submit() {
             if (!$("#formPersonalAddress").form("validate")) {
                 return;
-            }
-            else {
+            }else if(!($('#address').val().length > 0 )){
+            	$.messager.alert('提示', '请先选择省区市，在点击搜索地址', 'error');
+            	return;
+            }else {
                 var json = {};
                 json.addressid = $('#addressid').val();
                 json.province = $('#province').combobox('getValue',"");
@@ -466,7 +473,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 json.area = $('#area').combobox('getValue',"");
                // json.street = $('#street').combobox('getValue',"");
                 json.accurate = $('#accurate').val();
-                json.price = $('#price').val();
+                json.price = $('#price1').numberbox('getValue')+"-"+$('#price2').numberbox('getValue');
                 json.phone = $('#phone').val();
                 json.describes = $('#describes').val();
                 json.address = $('#address').val();
@@ -474,7 +481,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 var locations = location.split(",");
                 json.lng = locations[0];
                 json.lat = locations[1];
-                console.log(json.describes)
+                console.log(json.price)
                 $.post("addPersonalAddress.do",json, function(data){
                     ReloadClearData();
                     if (data == "1") {
@@ -521,7 +528,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 	//$('#street').combobox('setValue', dataObj.street);
                 	 
                     $('#accurate').val(dataObj.accurate);
-                    $('#price').val(dataObj.price);
+                    var price = dataObj.price;
+                   /* console.log(price.substring(0,price.indexOf("-")))
+                    console.log(price.substring(price.indexOf("-")+1)) */
+                    //$('#price').val(dataObj.price);
+                   if(price != null && price.length > 0){
+                	   $('#price1').numberbox('setValue',price.substring(0,price.indexOf("-")))
+                       $('#price2').numberbox('setValue',price.substring(price.indexOf("-")+1))
+                   }
                     $('#phone').val(dataObj.phone);
                     $('#describes').val(dataObj.describes);
                     $('#address').val(dataObj.address);

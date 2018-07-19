@@ -104,7 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        </form>
 		        <div id="btnTemplatePrice">
 		            <a href="javascript:void;" class="easyui-linkbutton" onclick="Submit()">提交</a>
-		            <a href="javascript:void;" class="easyui-linkbutton" onclick="$('#dialgTemplatePrice').dialog('close'); return false;">取消</a>
+		            <a href="javascript:void;" class="easyui-linkbutton" onclick="$('#dialgTemplateAddress').dialog('close'); return false;">取消</a>
 		        </div>
 	    	</div>
 		
