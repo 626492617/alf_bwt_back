@@ -34,7 +34,7 @@ public interface BwtConnectorTemplatePriceMapper {
      * @param templatetitle
      * @return
      */
-    public List<BwtConnectorTemplatePrice> selectAllTemplatePrice(@Param("templatetitle")String templatetitle);
+    public List<BwtConnectorTemplatePrice> selectAllTemplatePrice(@Param("templatetitle")String templatetitle,@Param("personalid")Integer personalid,@Param("addressid")Integer addressid);
     /**
      * 根据模板id 查询城市名称
      * @param templateprice
@@ -47,4 +47,9 @@ public interface BwtConnectorTemplatePriceMapper {
      * @return
      */
     public List<Integer> selectAllByTemplatepriceId(@Param("templateprice")Integer templateprice);
+    /**
+     * 删除模板对应的个人地址  一但删除模板  则就会删除个人下对应的模板
+     * @param templateprice
+     */
+    public void delTemplateDataTemplate(@Param("templateprice")Integer templateprice);
 }

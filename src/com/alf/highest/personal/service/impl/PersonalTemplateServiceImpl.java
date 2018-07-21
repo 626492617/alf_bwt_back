@@ -45,7 +45,7 @@ public class PersonalTemplateServiceImpl implements PersonalTemplateService {
 	 * @param templatetitle
 	 * @return
 	 */
-	public EasyUIDataPage selectAllTemplatePrice(String templatetitle,Integer page,Integer rows) {
+	public EasyUIDataPage selectAllTemplatePrice(String templatetitle,Integer personalid,Integer addressid,Integer page,Integer rows) {
 		PageHelper.startPage(page, rows);
 		/*List<BwtConnectorAlonePrice>  list = BwtConnectorAlonePriceMapper.selectAllAlonePrice(addressid);
 		for (BwtConnectorAlonePrice bwtConnectorAlonePrice : list) {
@@ -57,7 +57,7 @@ public class PersonalTemplateServiceImpl implements PersonalTemplateService {
 		}else {
 			templatetitle = null;
 		}
-		List<BwtConnectorTemplatePrice> list = bwtConnectorTemplatePriceMapper.selectAllTemplatePrice(templatetitle);
+		List<BwtConnectorTemplatePrice> list = bwtConnectorTemplatePriceMapper.selectAllTemplatePrice(templatetitle,personalid,addressid);
 		for (BwtConnectorTemplatePrice bwtConnectorTemplatePrice : list) {
 			List<String> listName = bwtConnectorTemplatePriceMapper.selectAllByTemplatepriceAreaname(bwtConnectorTemplatePrice.getTemplateprice());
 			bwtConnectorTemplatePrice.setProvince(listName);
@@ -88,6 +88,8 @@ public class PersonalTemplateServiceImpl implements PersonalTemplateService {
 	public void deleteByTemplateprice(Integer[] templateprice){
 		for (Integer integer : templateprice) {
 			bwtConnectorTemplatePriceMapper.deleteByPrimaryKey(integer);
+			bwtConnectorTemplatePriceMapper.deleteMiddleByTemplate(integer);
+			bwtConnectorTemplatePriceMapper.delTemplateDataTemplate(integer);
 		}
 	}
 }

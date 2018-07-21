@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.alf.highest.operation.mapper.BwtSiteMapper;
 import com.alf.highest.operation.mapper.PbAreaMapper;
 import com.alf.highest.operation.mapper.SequenceMapper;
+import com.alf.highest.operation.pojo.BwtSite;
 import com.alf.highest.operation.pojo.Sequence;
 import com.alf.highest.operation.service.OperationSiteService;
 import com.alf.highest.operation.vo.BwtSiteVo;
@@ -40,7 +41,7 @@ public class OperationSiteServiceImpl implements OperationSiteService{
 	 * @param vo
 	 * @return
 	 */
-	public void addProportionSite(BwtSiteVo vo){
+	public synchronized void  addProportionSite(BwtSiteVo vo){
 		//查询站点 序列
 		Sequence sequence = sequenceMapper.selectByPrimaryKey(1);
 		Random ran = new Random();
@@ -52,6 +53,7 @@ public class OperationSiteServiceImpl implements OperationSiteService{
 			BwtSiteVo vos = new BwtSiteVo();
 			BeanUtils.copyProperties(vo, vos);
 			vos.setSiterole(2);
+			vos.setSiteConfirm(1);
 			vos.setSiteaccount(siteaccount);
 			vos.setSitepwd("123456");
 			seq++;
@@ -83,7 +85,12 @@ public class OperationSiteServiceImpl implements OperationSiteService{
 	 * @return
 	 */
 	public BwtSiteVo selectBySiteidUpdatap(BwtSiteVo vo){
-		BeanUtils.copyProperties(bwtSiteMapper.selectByPrimaryKey(vo.getSiteid()), vo);
+		BwtSite bs = bwtSiteMapper.selectByPrimaryKey(vo.getSiteid());
+		BeanUtils.copyProperties(bs, vo);
+		
+		if(bs.getLng() != null && bs.getLng().length() > 0 && bs.getLat() != null && bs.getLat().length() > 0) {
+			vo.setLocation(bs.getLng()+","+bs.getLat());
+		}
 		return vo;
 		
 	}

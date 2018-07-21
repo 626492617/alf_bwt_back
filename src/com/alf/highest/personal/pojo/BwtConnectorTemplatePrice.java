@@ -15,6 +15,8 @@ public class BwtConnectorTemplatePrice extends BwtConnectorTemplatePriceVo{
 
     private String templatetitle;
 
+    private Integer personalid;
+
     public Integer getTemplateprice() {
         return templateprice;
     }
@@ -61,5 +63,13 @@ public class BwtConnectorTemplatePrice extends BwtConnectorTemplatePriceVo{
 
     public void setTemplatetitle(String templatetitle) {
         this.templatetitle = templatetitle == null ? null : templatetitle.trim();
+    }
+
+    public Integer getPersonalid() {
+        return personalid;
+    }
+
+    public void setPersonalid(Integer personalid) {
+        this.personalid = personalid;
     }
 }

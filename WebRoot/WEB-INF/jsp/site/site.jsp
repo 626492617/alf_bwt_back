@@ -37,11 +37,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         }
     </style>
     </head>
-<body>
+<body  class="easyui-layout" >
     <input type="hidden" id="companyid" name ="companyid" value="${companyid}" >
     <!--查询条件-->
     <div id="headerSearchPanel" class="easyui-panel">
-        <form id="fromSearch">
+        <form id="fromSearch" onsubmit="return false;">
             <table>
                 <tr>
                     <td>省份</td>
@@ -70,7 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <table id="tbCompetition"></table>
     <!--赛事信息-->
     <div id="dialgCompetition" class="easyui-dialog" title="赛事信息" style="width: 400px; height: 470px; padding: 10px; " data-options="modal:true,closed:true,buttons:'#btnCompetition'">
-        <form id="formCompetition">
+        <form id="formCompetition" onsubmit="return false;">
             <table style="text-align: center; margin: 10px;">
             	
             	<tr style="height: 30px" >
@@ -128,7 +128,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
     </div>
     <div id="dialgCompetitionSite" class="easyui-dialog" title="赛事信息" style="width: 680px; height: 470px; padding: 10px; " data-options="modal:true,closed:true,buttons:'#btnCompetitionSite'">
-        <form id="formCompetitionSite">
+        <form id="formCompetitionSite" onsubmit="return false;">
         	<input type="hidden" id= "siteid" name="siteid"  >
             <table style="text-align: center; margin: 10px;">
             	<tr style="height: 30px" >
@@ -165,10 +165,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <td>区级(县)</td>
                     <td>
                      	<input id="up_area" name="up_area" class="easyui-combobox" style="width: 200px"  panelheight="100px" editable="editable" />
-                    </td>
-                    <td>站点所在街道</td>
-                    <td>
-                     	<input id="up_street" name="up_street" class="easyui-combobox" style="width: 200px"  panelheight="100px" editable="editable" />
                     </td>
                 </tr>
 				<tr style="height: 30px" >
@@ -314,15 +310,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 }
            });
 		}
-        //修改街道
-        function upDataStreet(id){
-        	$('#up_street').combobox({
-           	 	valueField: 'id',
-                textField: 'name',
-                url: 'selectAllLinkage.do?parentid='+id,
-                
-           });
-        }
+       
         //上传图片初始化
         function UploadFileInit() {
         	var i = 0;
@@ -439,15 +427,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        handler: function () {
                            DelData();
                        }
-                   }/* ,
-                   {
-                       id: 'btndel',
-                       text: '导入赛事',
-                       iconCls: 'icon-add',
-                       handler: function () {
-                           DelImportData();
-                       }
-                   } */
+                   }
                 ],
                 queryParams : {"companyid" : $("#companyid").val()},
                 pagination: true,
@@ -545,7 +525,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$("#up_province").combobox("getValue","")
             $("#up_city").combobox("getValue","")
             $("#up_area").combobox("getValue","")
-            $("#up_street").combobox("getValue","")
             $("#up_sitename").val("");
             $("#up_siteabbreviation").val("");
             $("#up_dutypeople").val("");
@@ -569,13 +548,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     //修改站点区县
                     if(dataObj.city != null)
                     upDataArea(dataObj.city);
-                    //修改街道
-                    if(dataObj.area != null)
-                    upDataStreet(dataObj.area);
                     $("#up_province").combobox("setValue",dataObj.province);
                     $("#up_city").combobox("setValue",dataObj.city);
                     $("#up_area").combobox("setValue",dataObj.area);
-                    $("#up_street").combobox("setValue",dataObj.street);
                     $("#up_sitename").val(dataObj.sitename);
                     $("#up_siteabbreviation").val(dataObj.siteabbreviation);
                     $("#up_dutypeople").val(dataObj.dutypeople);
@@ -607,7 +582,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 json.province=$("#up_province").combobox("getValue");
                 json.city=$("#up_city").combobox("getValue");
                 json.area=$("#up_area").combobox("getValue");
-                json.street=$("#up_street").combobox("getValue");
                 $.post("updataBySiteId.do",json, function(data){
                     if (data == "1") {
                     	ReloadClearData();

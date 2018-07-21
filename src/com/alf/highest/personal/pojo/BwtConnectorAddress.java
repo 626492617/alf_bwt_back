@@ -31,6 +31,14 @@ public class BwtConnectorAddress extends BwtConnectorAddressVo{
 
     private String accurate;
 
+    private String lng;
+
+    private String lat;
+
+    private Integer siteId;
+
+    private String address;
+
     public Integer getAddressid() {
         return addressid;
     }
@@ -133,5 +141,37 @@ public class BwtConnectorAddress extends BwtConnectorAddressVo{
 
     public void setAccurate(String accurate) {
         this.accurate = accurate == null ? null : accurate.trim();
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng == null ? null : lng.trim();
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat == null ? null : lat.trim();
+    }
+
+    public Integer getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(Integer siteId) {
+        this.siteId = siteId;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
     }
 }

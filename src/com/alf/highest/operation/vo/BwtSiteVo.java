@@ -7,6 +7,16 @@ public class BwtSiteVo extends BwtSite {
 	private String provincevo;
 	private String cityvo;
 	private String areavo;
+	private String location;
+	
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
 	public Integer getAmount() {
 		return amount;
 	}
