@@ -50,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          
         <div style="width: 820px; margin: 0 auto">
 		<div id="headerPanel" class="easyui-panel">
-        <form id="form_edit1" name="form_edit" enctype="multipart/form-data">
+        <form id="form_edit1" name="form_edit" enctype="multipart/form-data" >
              <input type="hidden" id="companyid" name="companyid">
             <table style="text-align: content;margin: 10px;" >
                 <tr style="height: 55px"  >

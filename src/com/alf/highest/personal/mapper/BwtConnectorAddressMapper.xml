@@ -15,10 +15,14 @@
     <result column="istemplate" property="istemplate" jdbcType="INTEGER" />
     <result column="updataset" property="updataset" jdbcType="TIMESTAMP" />
     <result column="accurate" property="accurate" jdbcType="VARCHAR" />
+    <result column="lng" property="lng" jdbcType="VARCHAR" />
+    <result column="lat" property="lat" jdbcType="VARCHAR" />
+    <result column="siteId" property="siteId" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     addressid, province, city, area, street, price, describes, phone, dateset, personalid, 
-    istemplate, updataset, accurate
+    istemplate, updataset, accurate, lng, lat, siteId, address
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -35,12 +39,14 @@
       area, street, price, 
       describes, phone, dateset, 
       personalid, istemplate, updataset, 
-      accurate)
+      accurate, lng, lat, 
+      siteId, address)
     values (#{addressid,jdbcType=INTEGER}, #{province,jdbcType=INTEGER}, #{city,jdbcType=INTEGER}, 
       #{area,jdbcType=INTEGER}, #{street,jdbcType=INTEGER}, #{price,jdbcType=VARCHAR}, 
       #{describes,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{dateset,jdbcType=TIMESTAMP}, 
       #{personalid,jdbcType=INTEGER}, #{istemplate,jdbcType=INTEGER}, #{updataset,jdbcType=TIMESTAMP}, 
-      #{accurate,jdbcType=VARCHAR})
+      #{accurate,jdbcType=VARCHAR}, #{lng,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, 
+      #{siteId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.alf.highest.personal.pojo.BwtConnectorAddress" >
     insert into bwt_connector_address
@@ -84,6 +90,18 @@
       <if test="accurate != null" >
         accurate,
       </if>
+      <if test="lng != null" >
+        lng,
+      </if>
+      <if test="lat != null" >
+        lat,
+      </if>
+      <if test="siteId != null" >
+        siteId,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="addressid != null" >
@@ -124,6 +142,18 @@
       </if>
       <if test="accurate != null" >
         #{accurate,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null" >
+        #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null" >
+        #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -166,6 +196,18 @@
       <if test="accurate != null" >
         accurate = #{accurate,jdbcType=VARCHAR},
       </if>
+      <if test="lng != null" >
+        lng = #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null" >
+        siteId = #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
     </set>
     where addressid = #{addressid,jdbcType=INTEGER}
   </update>
@@ -182,7 +224,11 @@
       personalid = #{personalid,jdbcType=INTEGER},
       istemplate = #{istemplate,jdbcType=INTEGER},
       updataset = #{updataset,jdbcType=TIMESTAMP},
-      accurate = #{accurate,jdbcType=VARCHAR}
+      accurate = #{accurate,jdbcType=VARCHAR},
+      lng = #{lng,jdbcType=VARCHAR},
+      lat = #{lat,jdbcType=VARCHAR},
+      siteId = #{siteId,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR}
     where addressid = #{addressid,jdbcType=INTEGER}
   </update>
   <select id="selectAllPersonalRegion" parameterType="java.lang.Integer" resultType="com.alf.highest.personal.pojo.BwtConnectorAddress">

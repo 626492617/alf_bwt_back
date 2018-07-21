@@ -5,6 +5,14 @@ public class BwtConnectorAddressVo {
 	private String cityname;
 	private String areaname;
 	private String streetname;
+	private String location;
+	
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
 	public String getProvincename() {
 		return provincename;
 	}

@@ -19,7 +19,7 @@ public interface PersonalTemplateService {
 	 * @param templatetitle
 	 * @return
 	 */
-	public EasyUIDataPage selectAllTemplatePrice(String templatetitle,Integer page,Integer rows);
+	public EasyUIDataPage selectAllTemplatePrice(String templatetitle,Integer personalid,Integer addressid,Integer page,Integer rows);
 	/**
 	 * 修改前先查看 价格模板
 	 * @param templateprice

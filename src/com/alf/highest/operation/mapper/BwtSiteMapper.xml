@@ -18,83 +18,15 @@
     <result column="companyid" property="companyid" jdbcType="INTEGER" />
     <result column="siterole" property="siterole" jdbcType="INTEGER" />
     <result column="logoid" property="logoid" jdbcType="INTEGER" />
+    <result column="siteConfirm" property="siteConfirm" jdbcType="INTEGER" />
+    <result column="lng" property="lng" jdbcType="VARCHAR" />
+    <result column="lat" property="lat" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
   <sql id="Base_Column_List" >
     siteid, sitename, siteabbreviation, dutypeople, dutyphone, province, city, area, 
-    street, siteaccount, sitepwd, address, sitelogo, companyid, siterole, logoid
+    street, siteaccount, sitepwd, address, sitelogo, companyid, siterole, logoid, siteConfirm, 
+    lng, lat
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.alf.highest.operation.pojo.BwtSiteExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from bwt_site
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -105,25 +37,21 @@
     delete from bwt_site
     where siteid = #{siteid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.alf.highest.operation.pojo.BwtSiteExample" >
-    delete from bwt_site
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
   <insert id="insert" parameterType="com.alf.highest.operation.pojo.BwtSite" >
     insert into bwt_site (siteid, sitename, siteabbreviation, 
       dutypeople, dutyphone, province, 
       city, area, street, 
       siteaccount, sitepwd, address, 
       sitelogo, companyid, siterole, 
-      logoid)
+      logoid, siteConfirm, lng, 
+      lat)
     values (#{siteid,jdbcType=INTEGER}, #{sitename,jdbcType=VARCHAR}, #{siteabbreviation,jdbcType=VARCHAR}, 
       #{dutypeople,jdbcType=VARCHAR}, #{dutyphone,jdbcType=VARCHAR}, #{province,jdbcType=INTEGER}, 
       #{city,jdbcType=INTEGER}, #{area,jdbcType=INTEGER}, #{street,jdbcType=INTEGER}, 
       #{siteaccount,jdbcType=VARCHAR}, #{sitepwd,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{sitelogo,jdbcType=VARCHAR}, #{companyid,jdbcType=INTEGER}, #{siterole,jdbcType=INTEGER}, 
-      #{logoid,jdbcType=INTEGER})
+      #{logoid,jdbcType=INTEGER}, #{siteConfirm,jdbcType=INTEGER}, #{lng,jdbcType=VARCHAR}, 
+      #{lat,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.alf.highest.operation.pojo.BwtSite" >
     insert into bwt_site
@@ -176,6 +104,15 @@
       <if test="logoid != null" >
         logoid,
       </if>
+      <if test="siteConfirm != null" >
+        siteConfirm,
+      </if>
+      <if test="lng != null" >
+        lng,
+      </if>
+      <if test="lat != null" >
+        lat,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="siteid != null" >
@@ -226,92 +163,17 @@
       <if test="logoid != null" >
         #{logoid,jdbcType=INTEGER},
       </if>
+      <if test="siteConfirm != null" >
+        #{siteConfirm,jdbcType=INTEGER},
+      </if>
+      <if test="lng != null" >
+        #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.alf.highest.operation.pojo.BwtSiteExample" resultType="java.lang.Integer" >
-    select count(*) from bwt_site
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update bwt_site
-    <set >
-      <if test="record.siteid != null" >
-        siteid = #{record.siteid,jdbcType=INTEGER},
-      </if>
-      <if test="record.sitename != null" >
-        sitename = #{record.sitename,jdbcType=VARCHAR},
-      </if>
-      <if test="record.siteabbreviation != null" >
-        siteabbreviation = #{record.siteabbreviation,jdbcType=VARCHAR},
-      </if>
-      <if test="record.dutypeople != null" >
-        dutypeople = #{record.dutypeople,jdbcType=VARCHAR},
-      </if>
-      <if test="record.dutyphone != null" >
-        dutyphone = #{record.dutyphone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.province != null" >
-        province = #{record.province,jdbcType=INTEGER},
-      </if>
-      <if test="record.city != null" >
-        city = #{record.city,jdbcType=INTEGER},
-      </if>
-      <if test="record.area != null" >
-        area = #{record.area,jdbcType=INTEGER},
-      </if>
-      <if test="record.street != null" >
-        street = #{record.street,jdbcType=INTEGER},
-      </if>
-      <if test="record.siteaccount != null" >
-        siteaccount = #{record.siteaccount,jdbcType=VARCHAR},
-      </if>
-      <if test="record.sitepwd != null" >
-        sitepwd = #{record.sitepwd,jdbcType=VARCHAR},
-      </if>
-      <if test="record.address != null" >
-        address = #{record.address,jdbcType=VARCHAR},
-      </if>
-      <if test="record.sitelogo != null" >
-        sitelogo = #{record.sitelogo,jdbcType=VARCHAR},
-      </if>
-      <if test="record.companyid != null" >
-        companyid = #{record.companyid,jdbcType=INTEGER},
-      </if>
-      <if test="record.siterole != null" >
-        siterole = #{record.siterole,jdbcType=INTEGER},
-      </if>
-      <if test="record.logoid != null" >
-        logoid = #{record.logoid,jdbcType=INTEGER},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update bwt_site
-    set siteid = #{record.siteid,jdbcType=INTEGER},
-      sitename = #{record.sitename,jdbcType=VARCHAR},
-      siteabbreviation = #{record.siteabbreviation,jdbcType=VARCHAR},
-      dutypeople = #{record.dutypeople,jdbcType=VARCHAR},
-      dutyphone = #{record.dutyphone,jdbcType=VARCHAR},
-      province = #{record.province,jdbcType=INTEGER},
-      city = #{record.city,jdbcType=INTEGER},
-      area = #{record.area,jdbcType=INTEGER},
-      street = #{record.street,jdbcType=INTEGER},
-      siteaccount = #{record.siteaccount,jdbcType=VARCHAR},
-      sitepwd = #{record.sitepwd,jdbcType=VARCHAR},
-      address = #{record.address,jdbcType=VARCHAR},
-      sitelogo = #{record.sitelogo,jdbcType=VARCHAR},
-      companyid = #{record.companyid,jdbcType=INTEGER},
-      siterole = #{record.siterole,jdbcType=INTEGER},
-      logoid = #{record.logoid,jdbcType=INTEGER}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.alf.highest.operation.pojo.BwtSite" >
     update bwt_site
     <set >
@@ -360,6 +222,15 @@
       <if test="logoid != null" >
         logoid = #{logoid,jdbcType=INTEGER},
       </if>
+      <if test="siteConfirm != null" >
+        siteConfirm = #{siteConfirm,jdbcType=INTEGER},
+      </if>
+      <if test="lng != null" >
+        lng = #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
     </set>
     where siteid = #{siteid,jdbcType=INTEGER}
   </update>
@@ -379,10 +250,13 @@
       sitelogo = #{sitelogo,jdbcType=VARCHAR},
       companyid = #{companyid,jdbcType=INTEGER},
       siterole = #{siterole,jdbcType=INTEGER},
-      logoid = #{logoid,jdbcType=INTEGER}
+      logoid = #{logoid,jdbcType=INTEGER},
+      siteConfirm = #{siteConfirm,jdbcType=INTEGER},
+      lng = #{lng,jdbcType=VARCHAR},
+      lat = #{lat,jdbcType=VARCHAR}
     where siteid = #{siteid,jdbcType=INTEGER}
   </update>
-    <select id="selectAllSiteByCompanyid" resultType="com.alf.highest.operation.vo.BwtSiteVo" parameterType="com.alf.highest.operation.vo.BwtSiteVo">
+  <select id="selectAllSiteByCompanyid" resultType="com.alf.highest.operation.vo.BwtSiteVo" parameterType="com.alf.highest.operation.vo.BwtSiteVo">
   	SELECT *,(SELECT areaname FROM `pb_area` p WHERE p.id = s.`province`)  AS provincevo,
 		(SELECT areaname FROM `pb_area` c WHERE c.id = s.city)  AS cityvo,
 		(SELECT areaname FROM `pb_area` a WHERE a.id = s.area)  AS areavo

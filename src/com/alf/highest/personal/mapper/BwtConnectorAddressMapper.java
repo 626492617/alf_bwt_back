@@ -19,7 +19,7 @@ public interface BwtConnectorAddressMapper {
     int updateByPrimaryKeySelective(BwtConnectorAddress record);
 
     int updateByPrimaryKey(BwtConnectorAddress record);
-	/**
+    /**
 	 * 查询所有人的地址 管理区域
 	 * @return
 	 */

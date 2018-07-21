@@ -41,6 +41,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			font-size: 16px;
 			
 		}
+		.addressChoice{
+			width:100%;
+			height: 83%;
+			margin: 15px 0 0 0 ;
+			padding: 0;
+			border-top: 1px solid #ccc;
+			overflow:auto;
+		}
+		.addressShow{
+			border-bottom: 1px solid #ccc;
+		}
+		.addressShow:hover{
+			background-color: #e0e0e0;
+			cursor: pointer;
+		}
+		.addressChoiceName{
+			margin:6px 6px 3px 6px;
+			font-size: 15px;
+			color: #272727;
+			font-weight: 500;
+		}
+		.addressChoiceData{
+			margin:3px 6px 6px 8px;
+			font-size: 12px;
+			color: #5cadad;
+		}
+		.reminder{
+			font-size: 10px;
+			color: #ff7575;
+		}
 	</style>
          
       
@@ -48,19 +78,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body onload="" >
     
          <!-- 封装视频的url -->
-         <input type="hidden" id="logourl1" >
-    
-        <div style="width: 820px; margin: 0 auto">
+        <input type="hidden" id="logourl1" >
+    	<input type="hidden" id="location"    />	
+        <div style="width: 850px; margin: 0 auto">
 		<div id="headerPanel" class="easyui-panel">
         <form id="form_edit1" name="form_edit" enctype="multipart/form-data">
-             <input type="hidden" id="siteid" name="siteid">
+            <input type="hidden" id="siteid" name="siteid">
             <table style="text-align: content;margin: 10px;" >
                 <tr style="height: 55px"  >
-               		<td class="tr1" >站点名称:</td>
+               		<td class="tr1" >所在省份</td> 
                     <td>
-						<input id="sitename" name="sitename" class="easyui-validatebox"  style="width: 250px;height: 25px"  />	
-                    </td> 
-                    <td rowspan="4" colspan="2" style="text-align: center;" align="center" >
+						<input id="province" name="province" class="easyui-combobox" style="width: 250px;height:27px;"  panelheight="100px" editable="editable"  />
+                    </td>
+               		 
+                    <td rowspan="3" colspan="2" style="text-align: center;" align="center" >
                         <span id="inputStr" style="display: none;"></span>
                         <div style="width: 100%; position: relative; text-align: center; margin-top: 10px;">
                             <img id="imgShow" style="width: 150px; height: 120px; cursor: pointer;" src="" />
@@ -71,26 +102,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </td>
                 </tr>
                 <tr style="height: 55px" >
-                    <td class="tr1" >
-                    	站点简称
-                    </td>
+                	<td class="tr1" >所在市级</td> 
                     <td>
-                       <input id="siteabbreviation" name="siteabbreviation" class="easyui-validatebox"   style="width: 250px;height: 25px"  />
+						<input id="city" name="city" class="easyui-combobox" style="width: 250px;height:27px;" panelheight="100px" editable="editable" />
                     </td>
+                    
                   
                 </tr>
                 <tr style="height: 55px"  >
-                    <td class="tr1" >负责人姓名</td>
-                    <td>
-						<input id="dutypeople" name="dutypeople" class="easyui-validatebox"  style="width: 250px;height: 25px"  />
-                           
+                 	<td class="tr1" >所在地区</td> 
+                    <td colspan="3" >
+						<input id="area" name="area" class="easyui-combobox" style="width: 250px;height:27px;" panelheight="100px" editable="editable" />
                     </td>
+                    
                 </tr>
                 <tr style="height: 55px"  >
-                    <td class="tr1" >负责人电话</td> 
-                    <td>
-						<input id="dutyphone" name="dutyphone" class="easyui-validatebox"  style="width: 250px;height: 25px"  />
-                           
+                    
+                    <td class="tr1" ><span style="color: red;">*</span>搜索地址<span style="color: red;">*</span></td> 
+                    <td colspan="3" >
+						<input id="address" name="address" class="easyui-validatebox" style="width: 40rem;height:27px;" disabled="disabled"  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a class="easyui-linkbutton" onclick="searchAddressPage()"  data-options="iconCls:'icon-search'"> 搜索地址 </a>
                     </td>
                 </tr>                                                           
                 <tr style="height: 55px"  >
@@ -107,30 +138,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </tr>
                 
                 <tr style="height: 55px" >
-                     <td class="tr1" >所在省份</td> 
+                    <td class="tr1" >站点名称:</td>
                     <td>
-						<input id="province" name="province" class="easyui-combobox" style="width: 250px;height:27px;"  panelheight="100px" editable="editable"  />
+						<input id="sitename" name="sitename" class="easyui-validatebox"  style="width: 250px;height: 25px"  />	
                     </td>
-                     <td class="tr1" >所在市级</td> 
+                    <td class="tr1" >
+                    	站点简称
+                    </td>
                     <td>
-						<input id="city" name="city" class="easyui-combobox" style="width: 250px;height:27px;" panelheight="100px" editable="editable" />
+                       <input id="siteabbreviation" name="siteabbreviation" class="easyui-validatebox"   style="width: 250px;height: 25px"  />
                     </td>
                 </tr>
                 <tr style="height: 55px" >
-                     <td class="tr1" >所在地区</td> 
+                     <td class="tr1" >负责人姓名</td>
                     <td>
-						<input id="area" name="area" class="easyui-combobox" style="width: 250px;height:27px;" panelheight="100px" editable="editable" />
+						<input id="dutypeople" name="dutypeople" class="easyui-validatebox"  style="width: 250px;height: 25px"  />
+                           
                     </td>
-                     <td class="tr1" >必须操作项*</td> 
+                    <td class="tr1" >负责人电话</td> 
                     <td>
-						<input id="street" name="street" class="easyui-combobox" style="width: 250px;height:27px;" panelheight="100px" editable="editable" />
-                    </td>
-                </tr>
-                <tr style="height: 110px"  >
-                    
-                     <td class="tr1" >详细地址</td> 
-                    <td colspan="3" >
-						<textarea id="address" name="address" class="easyui-validatebox" style="width: 660px;height: 85px"  >  </textarea> 
+						<input id="dutyphone" name="dutyphone" class="easyui-validatebox"  style="width: 250px;height: 25px"  />
+                           
                     </td>
                 </tr>
                 <tr style="height: 55px">
@@ -173,6 +201,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 </div>
      </div>
      </div>
+    <div id="searchAddressPage" class="easyui-dialog" title="查询位置" style="width: 400px; height: 470px; padding: 10px; " data-options="modal:true,closed:true">
+    	<!--查询条件--><span class="reminder" >温馨提示：选好省分、城市、地区 会更好的搜寻</span>
+	    <div class="easyui-panel">
+	        <form id="fromSearch">
+	            <table>
+	                <tr>
+	                    <td>
+	                     	<input id="addressPage" name="addressPage" placeholder="输入站点全名称即可！"  class="easyui-validatebox" style="width: 200px;height: 20px;"  editable="editable" />
+	                    </td>
+	                    <td>
+	                        <a href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="Search()">查询</a>
+	                        <a href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-clear'" onclick="Clear()">清空</a>
+	                    </td>
+	                </tr>
+	            </table>
+	        </form>
+	    </div>
+	    <div class="addressChoice" >
+	    	<table id="tbAddressChoice"></table>
+	    </div>
+    </div>
+    
     <script type="text/javascript">
 	  //修改站点省
 	    function upDataQueryProvince(){
@@ -201,21 +251,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#area').combobox({
 	       	 	valueField: 'id',
 	            textField: 'name',
-	            url: 'selectAllLinkage.do?parentid='+id,
-	            onSelect: function (record) {
-	            	upDataStreet(record.id);
-	            }
+	            url: 'selectAllLinkage.do?parentid='+id
+	            /* onSelect: function (record) {
+	            	//upDataStreet(record.id);
+	            } */
 	       });
 		}
 	    //修改街道
-	    function upDataStreet(id){
+	    /* function upDataStreet(id){
 	    	$('#street').combobox({
 	       	 	valueField: 'id',
 	            textField: 'name',
 	            url: 'selectAllLinkage.do?parentid='+id,
 	            
 	       });
-	    }
+	    } */
 	function Submit(){
         
         var json = {}; 
@@ -223,14 +273,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         json.province=$("#province").combobox("getValue");
         json.city=$("#city").combobox("getValue");
         json.area=$("#area").combobox("getValue");
-        json.street=$("#street").combobox("getValue");
+        //json.street=$("#street").combobox("getValue");
         json.sitename=$("#sitename").val();
         json.siteabbreviation=$("#siteabbreviation").val();
         json.dutypeople=$("#dutypeople").val();
         json.dutyphone=$("#dutyphone").val();
         json.address=$("#address").val();
         json.sitelogo=$("#sitelogo").val();
-           
+        var location = $("#location").val();
+        var locations = location.split(",");
+        json.lng = locations[0];
+        json.lat = locations[1];
          $.post("updataBySiteId.do", json, function (msg) {
          	if (msg == "1") {
          	   $.messager.alert('提示', '操作成功', 'info');
@@ -245,10 +298,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	//清空数据
 	function wipeData(){
 		$("#siteid").val("");
-		$("#province").combobox("getValue","");
-        $("#city").combobox("getValue","");
-        $("#area").combobox("getValue","");
-        $("#street").combobox("getValue","");
+		$("#province").combobox("setValue","");
+        $("#city").combobox("setValue","");
+        $("#area").combobox("setValue","");
+        //$("#street").combobox("getValue","");
         $("#sitename").val("");
         $("#siteabbreviation").val("");
         $("#dutypeople").val("");
@@ -256,9 +309,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         $("#address").val("");
         document.getElementById("imgShow").src = "";
         $("#sitelogo").val("");
-        
         $('#count').val("");
         $('#pwd').val("");
+        $("#location").val("");
 	}
 	function dataLoad(){
 		wipeData();
@@ -276,12 +329,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                  if(dataObj.city != null)
                  upDataArea(dataObj.city);
                  //修改街道
-                 if(dataObj.area != null)
-                 upDataStreet(dataObj.area);
+                /*  if(dataObj.area != null)
+                 upDataStreet(dataObj.area); */
                  $("#province").combobox("setValue",dataObj.province);
                  $("#city").combobox("setValue",dataObj.city);
                  $("#area").combobox("setValue",dataObj.area);
-                 $("#street").combobox("setValue",dataObj.street);
+                 //$("#street").combobox("setValue",dataObj.street);
                  $("#sitename").val(dataObj.sitename);
                  $("#siteabbreviation").val(dataObj.siteabbreviation);
                  $("#dutypeople").val(dataObj.dutypeople);
@@ -289,9 +342,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                  $("#address").val(dataObj.address);
                  document.getElementById("imgShow").src = dataObj.sitelogo;
                  $("#sitelogo").val(dataObj.sitelogo);
-                 
                  $('#count').val(dataObj.siteaccount);
                  $('#pwd').val(dataObj.sitepwd);
+                 $("#location").val(dataObj.location);
              }
              else {
                  $.messager.alert('提示', '操作失败', 'error');
@@ -330,6 +383,62 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		
 	}
+	//搜索区域里的站点位置
+	//站点内容清空
+	function Clear(){
+		$("addressPage").val("");
+	}
+	var addressSearch = 0;
+	function searchAddressPage(){
+		$("#searchAddressPage").dialog("open");
+        var area = $("#area").combobox("getValue");
+        var city = $("#city").combobox("getValue");
+        var province = $("#province").combobox("getValue");
+        if(!(area == null || area === undefined || area == '')){
+        	addressSearch = area 
+        }else  if(!(city == null || city === undefined || city == '')){
+        	addressSearch = city
+        }else  if(!(province == null || province === undefined || province == '')){
+        	addressSearch = province
+        }
+	}
+	function Search(){
+		var addressPage = $("#addressPage").val();
+		$(".addressChoice").html("");
+		if(!(addressPage == null || addressPage === undefined || addressPage == '')){
+			if(addressSearch != 0){
+				$.post("addressSiteSearch.do", "addressPage="+addressPage+"&addressSearch="+addressSearch ,function (data) {
+					var obj2=eval("("+data+")"); 
+					$(obj2).each(function(index,list){   
+						console.log(list.name)
+						var operation = '<div class="addressShow" onclick="addressChoice(&#34;'+list.id+'&#34;)"  >';
+							operation += '<input type="hidden" id="'+list.id+'Name" value="'+list.name+'" >';
+							operation += '<input type="hidden" id="'+list.id+'Address" value="'+list.address+'" >';
+							operation += '<input type="hidden" id="'+list.id+'Location" value="'+list.location+'" >';
+							operation += '<div class="addressChoiceName" >'+list.name+'</div>';
+							operation += '<div class="addressChoiceData" ><div class="dataRegion">'+list.cityname+'-'+list.adname+'-'+list.address+'</div>';
+							operation += '</div></div>';
+						$(".addressChoice").append(operation);
+					});	
+				});
+			}else{
+				$.messager.alert('提示', '请选择一个省分或者城市', 'error');
+			}
+		}else{
+			$.messager.alert('提示', '请输入站点名称', 'error');
+		}
+	}
+	function addressChoice(id){
+		var name = $("#"+id+"Name").val();
+		var address = $("#"+id+"Address").val();
+		var location = $("#"+id+"Location").val();
+		$("#sitename").val(name);
+		$("#location").val(location);
+		$("#address").val(address);
+		$("#searchAddressPage").dialog("close");
+	}
+	
+	
 	$(function(){
 		UploadFileInit();
 		dataLoad();
